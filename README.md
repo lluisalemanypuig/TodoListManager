@@ -14,4 +14,4 @@ Copy the _.jar_ file and _lib_ directory wherever you like. You will also need t
 
 ## Sample
 
-![How the software looks like when the user opens the file [sample](https://github.com/lluisalemanypuig/TodoListManager/blob/master/sample)](imgs/sample.png)
+![How the software looks like when the user opens the file _sample_ file](https://github.com/lluisalemanypuig/TodoListManager/blob/master/screenshot.png)
