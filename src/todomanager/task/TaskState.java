@@ -34,17 +34,18 @@ import java.util.ArrayList;
 public class TaskState {
 	
 	/// Date of task's state change (comparable)
-	private String comp_date;
+	private final String comp_date;
 	/// Date of task's state change (pretty)
-	private String pretty_date;
+	private final String pretty_date;
 	/// Why did this task change state?
-	private String reason;
+	private final String reason;
 	/// The new task's state.
-	private TaskStateEnum state;
+	private final TaskStateEnum state;
 	
 	/**
 	 * Sets the date, reason and state of the task's state change.
-	 * @param date When did this happen
+	 * @param cdate Date of state in format YYYY.MM.DD.HH.MM.SS.
+	 * @param pdate Date of state in a prettier format.
 	 * @param why Why did this happen (optional for 'Opened', 'Done', 'Working'
 	 * @param s The new task's state.
 	 */
@@ -60,81 +61,5 @@ public class TaskState {
 	public String get_reason() { return reason; }
 	public TaskStateEnum get_state() { return state; }
 	
-	/// The states a task needs to be in for it to be changed to state 's'.
-	public static ArrayList<TaskStateEnum> precond_curtask(TaskStateEnum s) {
-		ArrayList<TaskStateEnum> arr = new ArrayList<>();
-		switch (s) {
-			case Done:
-				arr.add(TaskStateEnum.Working);
-				arr.add(TaskStateEnum.OnRevision);
-				break;
-			case Working:
-				arr.add(TaskStateEnum.Opened);
-				arr.add(TaskStateEnum.OnRevision);
-				arr.add(TaskStateEnum.PutOnHold);
-				break;
-			case PutOnHold:
-				arr.add(TaskStateEnum.Working);
-				break;
-			case Deleted:
-				arr.add(TaskStateEnum.Done);
-				break;
-			case Cancelled:
-				arr.add(TaskStateEnum.Opened);
-				arr.add(TaskStateEnum.Working);
-				arr.add(TaskStateEnum.OnRevision);
-				break;
-			case OnRevision:
-				arr.add(TaskStateEnum.PendingRevision);
-				arr.add(TaskStateEnum.Working);
-				break;
-			case PendingRevision:
-				arr.add(TaskStateEnum.Working);
-				break;
-		}
-		return arr;
-	}
-	
-	/// The states a task's subtasks need to be in for it to be changed to state 's'.
-	public static ArrayList<TaskStateEnum> precond_subtasks(TaskStateEnum s) {
-		ArrayList<TaskStateEnum> arr = new ArrayList<>();
-		switch (s) {
-			case Done:
-				arr.add(TaskStateEnum.Done);
-				arr.add(TaskStateEnum.Cancelled);
-				arr.add(TaskStateEnum.Deleted);
-				break;
-			case Working:
-				arr.add(TaskStateEnum.Opened);
-				arr.add(TaskStateEnum.Working);
-				arr.add(TaskStateEnum.OnRevision);
-				arr.add(TaskStateEnum.PutOnHold);
-				break;
-			case PutOnHold:
-				arr.add(TaskStateEnum.Working);
-				arr.add(TaskStateEnum.PutOnHold);
-				break;
-			case Deleted:
-				arr.add(TaskStateEnum.Done);
-				arr.add(TaskStateEnum.Deleted);
-				break;
-			case Cancelled:
-				arr.add(TaskStateEnum.Opened);
-				arr.add(TaskStateEnum.Cancelled);
-				arr.add(TaskStateEnum.Working);
-				arr.add(TaskStateEnum.OnRevision);
-				break;
-			case OnRevision:
-				arr.add(TaskStateEnum.OnRevision);
-				arr.add(TaskStateEnum.PendingRevision);
-				arr.add(TaskStateEnum.Working);
-				break;
-			case PendingRevision:
-				arr.add(TaskStateEnum.Working);
-				arr.add(TaskStateEnum.PendingRevision);
-				break;
-		}
-		return arr;
-	}
 	
 }

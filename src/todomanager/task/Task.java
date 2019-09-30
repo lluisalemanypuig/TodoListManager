@@ -92,7 +92,7 @@ public class Task {
 	public TaskState current_state() {
 		ArrayList<TaskStateEnum> null_states = new ArrayList<>();
 		null_states.add(TaskStateEnum.Edited);
-		null_states.add(TaskStateEnum.SubtaskAdded);
+		null_states.add(TaskStateEnum.AddedSubtask);
 		null_states.add(TaskStateEnum.PriorityChanged);
 		int i = changes.size() - 1;
 		while (i >= 0 && null_states.contains(changes.get(i).get_state())) { --i; }
@@ -127,13 +127,13 @@ public class Task {
 		switch (s) {
 			case Edited:
 			case PriorityChanged:
-			case SubtaskAdded:
+			case AddedSubtask:
 				return "";
 		}
 		
 		Logger log = Logger.get_instance();
-		ArrayList<TaskStateEnum> cur_level = TaskState.precond_curtask(s);
-		ArrayList<TaskStateEnum> sub_level = TaskState.precond_subtasks(s);
+		ArrayList<TaskStateEnum> cur_level = TaskStateEnum.precond_curtask(s);
+		ArrayList<TaskStateEnum> sub_level = TaskStateEnum.precond_subtasks(s);
 		
 		if (!is_one_of_state(cur_level)) {
 			String r = "The state of task " + get_id() + " is none of: " + cur_level;
@@ -162,11 +162,11 @@ public class Task {
 		switch (s) {
 			case Edited:
 			case PriorityChanged:
-			case SubtaskAdded:
+			case AddedSubtask:
 				return;
 		}
 		
-		ArrayList<TaskStateEnum> cur_level = TaskState.precond_curtask(s);
+		ArrayList<TaskStateEnum> cur_level = TaskStateEnum.precond_curtask(s);
 		for (Task t : subtasks) {
 			if (t.is_one_of_state(cur_level)) {
 				t.change_state(cdate, pdate, why, s);

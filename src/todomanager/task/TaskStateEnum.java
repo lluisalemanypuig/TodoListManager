@@ -25,6 +25,8 @@
 
 package todomanager.task;
 
+import java.util.ArrayList;
+
 /**
  * @brief The different states a task can be in.
  * @author Lluís Alemany Puig
@@ -41,7 +43,7 @@ public enum TaskStateEnum {
 	
 	Edited,				// The name and or the description were edited
 	PriorityChanged,	// The task priority changed
-	SubtaskAdded;		// A subtask was added
+	AddedSubtask;		// A subtask was added// A subtask was added
 	
 	public static TaskStateEnum fromString(String s) {
 		switch (s) {
@@ -55,9 +57,86 @@ public enum TaskStateEnum {
 			case "PendingRevision": return PendingRevision;
 			case "Edited": return Edited;
 			case "PriorityChanged": return PriorityChanged;
-			case "SubtaskAdded": return SubtaskAdded;
+			case "AddedSubtask": return AddedSubtask;
 			default:
 				return Opened;
 		}
+	}
+	
+	/** The states a task needs to be in for it to be changed to state 's'. */
+	public static ArrayList<TaskStateEnum> precond_curtask(TaskStateEnum s) {
+		ArrayList<TaskStateEnum> arr = new ArrayList<>();
+		switch (s) {
+			case Done:
+				arr.add(TaskStateEnum.Working);
+				arr.add(TaskStateEnum.OnRevision);
+				break;
+			case Working:
+				arr.add(TaskStateEnum.Opened);
+				arr.add(TaskStateEnum.OnRevision);
+				arr.add(TaskStateEnum.PutOnHold);
+				break;
+			case PutOnHold:
+				arr.add(TaskStateEnum.Working);
+				break;
+			case Deleted:
+				arr.add(TaskStateEnum.Done);
+				break;
+			case Cancelled:
+				arr.add(TaskStateEnum.Opened);
+				arr.add(TaskStateEnum.Working);
+				arr.add(TaskStateEnum.OnRevision);
+				break;
+			case OnRevision:
+				arr.add(TaskStateEnum.PendingRevision);
+				arr.add(TaskStateEnum.Working);
+				break;
+			case PendingRevision:
+				arr.add(TaskStateEnum.Working);
+				break;
+		}
+		return arr;
+	}
+	
+	/** The states a task's subtasks need to be in for it to be changed to state 's'. */
+	public static ArrayList<TaskStateEnum> precond_subtasks(TaskStateEnum s) {
+		ArrayList<TaskStateEnum> arr = new ArrayList<>();
+		switch (s) {
+			case Done:
+				arr.add(TaskStateEnum.Done);
+				arr.add(TaskStateEnum.Cancelled);
+				arr.add(TaskStateEnum.Deleted);
+				break;
+			case Working:
+				arr.add(TaskStateEnum.Opened);
+				arr.add(TaskStateEnum.Working);
+				arr.add(TaskStateEnum.OnRevision);
+				arr.add(TaskStateEnum.PutOnHold);
+				break;
+			case PutOnHold:
+				arr.add(TaskStateEnum.Working);
+				arr.add(TaskStateEnum.PutOnHold);
+				break;
+			case Deleted:
+				arr.add(TaskStateEnum.Done);
+				arr.add(TaskStateEnum.Deleted);
+				break;
+			case Cancelled:
+				arr.add(TaskStateEnum.Opened);
+				arr.add(TaskStateEnum.Cancelled);
+				arr.add(TaskStateEnum.Working);
+				arr.add(TaskStateEnum.OnRevision);
+				break;
+			case OnRevision:
+				arr.add(TaskStateEnum.OnRevision);
+				arr.add(TaskStateEnum.PendingRevision);
+				arr.add(TaskStateEnum.Working);
+				break;
+			case PendingRevision:
+				arr.add(TaskStateEnum.Working);
+				arr.add(TaskStateEnum.PendingRevision);
+				break;
+		}
+		return arr;
 	}
 }

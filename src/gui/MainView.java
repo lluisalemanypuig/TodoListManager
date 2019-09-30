@@ -513,7 +513,7 @@ public class MainView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 	private void clear_TextBox_Error(int millis) {
-		Timer t = new Timer(5000, new ActionListener() {
+		Timer t = new Timer(millis, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 TextBox_Error.setText(null);
@@ -663,7 +663,7 @@ public class MainView extends javax.swing.JFrame {
 			node_task.add_subtask(new_t);
 			// change state
 			String m = "A subtask was added (id: " + new_t.get_id() + ")";
-			node_task.change_state(m, TaskStateEnum.SubtaskAdded);
+			node_task.change_state(m, TaskStateEnum.AddedSubtask);
 			// fill in the text boxes
 			refresh_boxes_task(node_task);
 		}
