@@ -131,13 +131,15 @@ public class Task {
 				return "";
 		}
 		
+		SystemInfo sysinfo = SystemInfo.get_instance();
 		Logger log = Logger.get_instance();
+		
 		ArrayList<TaskStateEnum> cur_level = TaskStateEnum.precond_curtask(s);
 		ArrayList<TaskStateEnum> sub_level = TaskStateEnum.precond_subtasks(s);
 		
 		if (!is_one_of_state(cur_level)) {
 			String r = "The state of task " + get_id() + " is none of: " + cur_level;
-			r += ". Its state is: " + current_state().get_state() + ".";
+			r += ". Its state is: " + current_state().get_state() + "." + sysinfo.new_line;
 			log.warning(r);
 			return r;
 		}
@@ -147,7 +149,7 @@ public class Task {
 			if (!t.is_one_of_state(sub_level)) {
 				String r = 
 					"Task " + t.get_id() + " (subtask of " + get_id() + "), " +
-					"is not in any of the states: " + sub_level;
+					"is not in any of the states: " + sub_level + sysinfo.new_line;
 				reason += r;
 				log.warning(r);
 			}
@@ -216,8 +218,16 @@ public class Task {
 		String c = "";
 		for (TaskState ts : changes) {
 			c += ts.get_pretty_date() + sysinfo.new_line;
-			c += "    State of task set to: " + ts.get_state() + sysinfo.new_line;
-			c += "    Reason: " + ts.get_reason() + sysinfo.new_line;
+			switch (ts.get_state()) {
+				case Edited:
+				case PriorityChanged:
+				case AddedSubtask:
+					c += "    " + ts.get_reason() + sysinfo.new_line;
+					break;
+				default:
+					c += "    State of task set to: " + ts.get_state() + sysinfo.new_line;
+					c += "    Reason: " + ts.get_reason() + sysinfo.new_line;
+			}
 		}
 		return c;
 	}
