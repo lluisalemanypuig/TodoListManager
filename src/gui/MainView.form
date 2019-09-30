@@ -40,6 +40,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -55,17 +58,16 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="TextBox_Error" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jPanel3" max="32767" attributes="0"/>
+                      <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel7" max="32767" attributes="0"/>
                   </Group>
+                  <Component id="TextBox_Error" min="-2" pref="850" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -74,8 +76,8 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel7" max="32767" attributes="0"/>
                   <Component id="jPanel3" max="32767" attributes="0"/>
+                  <Component id="jPanel7" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="TextBox_Error" min="-2" max="-2" attributes="0"/>
@@ -90,14 +92,17 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                  <Component id="jScrollPane6" min="-2" pref="400" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                          <Component id="jScrollPane6" min="-2" pref="400" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
                   <EmptySpace max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -108,7 +113,7 @@
                   <Component id="jScrollPane6" min="-2" pref="617" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -141,37 +146,38 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="Button_ExpandAll" alignment="0" pref="90" max="32767" attributes="0"/>
+                          <Component id="Button_ExpandAll" alignment="0" max="32767" attributes="0"/>
                           <Component id="Button_NewTask" pref="90" max="32767" attributes="0"/>
-                          <Component id="Button_RemoveTask" pref="90" max="32767" attributes="0"/>
+                          <Component id="Button_RemoveTask" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="Button_TaskDown" min="-2" pref="90" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="Button_DecrPriority" min="-2" pref="90" max="-2" attributes="0"/>
-                                  </Group>
+                              <Component id="Button_ContractAll" min="-2" pref="90" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="Label_UnsavedChanges" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="Button_TaskUp" min="-2" pref="90" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="Button_IncrPriority" min="-2" pref="90" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="Button_OverwriteTasks" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="Button_TaskDown" min="-2" pref="90" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="Button_DecrPriority" min="-2" pref="90" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="Button_SaveTasksAs" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="Button_OverwriteTasks" pref="90" max="32767" attributes="0"/>
-                                  <Component id="Button_SaveTasksAs" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="Button_ContractAll" min="-2" pref="90" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="9" pref="9" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -196,6 +202,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="Button_ExpandAll" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="Button_ContractAll" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="Label_UnsavedChanges" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -284,18 +291,26 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_ContractAllMouseClicked"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JLabel" name="Label_UnsavedChanges">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="There are unsaved changes"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JTextField" name="TextBox_Error">
+    </Component>
     <Container class="javax.swing.JPanel" name="jPanel7">
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="jPanel1" max="32767" attributes="0"/>
                       <Component id="jPanel5" max="32767" attributes="0"/>
                   </Group>
@@ -332,7 +347,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="Button_TaskPendingRevision" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
                           <Component id="Button_TaskOnRevision" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
-                          <Component id="Button_SaveTaskChanges" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="Button_SaveTaskEdit" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -362,7 +377,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="Button_TaskHold" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Button_SaveTaskChanges" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="Button_SaveTaskEdit" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="Button_Clear" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -427,12 +442,12 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_TaskPendingRevisionMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Button_SaveTaskChanges">
+            <Component class="javax.swing.JButton" name="Button_SaveTaskEdit">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Save Changes"/>
+                <Property name="text" type="java.lang.String" value="Save Edit"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_SaveTaskChangesMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_SaveTaskEditMouseClicked"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="Button_Clear">
@@ -467,7 +482,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="Label_TaskID" min="-2" pref="64" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane1" alignment="0" pref="344" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="TextBox_TaskDate" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -596,7 +611,5 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JTextField" name="TextBox_Error">
-    </Component>
   </SubComponents>
 </Form>
