@@ -31,6 +31,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.Timer;
@@ -39,7 +40,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -107,17 +107,9 @@ public class MainView extends javax.swing.JFrame {
         Button_DecrPriority = new JButton();
         Button_OverwriteTasks = new JButton();
         Button_SaveTasksAs = new JButton();
+        Button_ExpandAll = new JButton();
+        Button_ContractAll = new JButton();
         jPanel7 = new JPanel();
-        jScrollPane1 = new JScrollPane();
-        TextArea_TaskChanges = new JTextArea();
-        jScrollPane7 = new JScrollPane();
-        TextArea_TaskDescription = new JTextArea();
-        jLabel4 = new JLabel();
-        jLabel1 = new JLabel();
-        jLabel2 = new JLabel();
-        TextBox_TaskName = new JTextField();
-        TextBox_TaskDate = new JTextField();
-        jLabel3 = new JLabel();
         jPanel5 = new JPanel();
         Button_TaskWorking = new JButton();
         Button_TaskCancel = new JButton();
@@ -128,9 +120,20 @@ public class MainView extends javax.swing.JFrame {
         Button_TaskPendingRevision = new JButton();
         Button_SaveTaskChanges = new JButton();
         Button_Clear = new JButton();
-        Label_TaskID = new JLabel();
+        jPanel1 = new JPanel();
         Label_TaskState = new JLabel();
+        TextBox_TaskDate = new JTextField();
+        Label_TaskID = new JLabel();
+        TextBox_TaskName = new JTextField();
+        jLabel1 = new JLabel();
+        jLabel2 = new JLabel();
+        jScrollPane1 = new JScrollPane();
+        TextArea_TaskChanges = new JTextArea();
+        jLabel3 = new JLabel();
         jLabel6 = new JLabel();
+        jScrollPane7 = new JScrollPane();
+        TextArea_TaskDescription = new JTextArea();
+        jLabel4 = new JLabel();
         TextBox_Error = new JTextField();
         jMenuBar1 = new JMenuBar();
         jMenu1 = new JMenu();
@@ -213,33 +216,53 @@ public class MainView extends javax.swing.JFrame {
             }
         });
 
+        Button_ExpandAll.setText("Show all");
+        Button_ExpandAll.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                Button_ExpandAllMouseClicked(evt);
+            }
+        });
+
+        Button_ContractAll.setText("Hide all");
+        Button_ContractAll.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                Button_ContractAllMouseClicked(evt);
+            }
+        });
+
         GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                    .addComponent(Button_NewTask, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_RemoveTask, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(Button_TaskDown, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Button_DecrPriority, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(Button_TaskUp, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Button_IncrPriority, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(Button_ExpandAll, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                    .addComponent(Button_NewTask, GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                    .addComponent(Button_RemoveTask, GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(Button_OverwriteTasks, GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                    .addComponent(Button_SaveTasksAs, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(Button_TaskDown, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Button_DecrPriority, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(Button_TaskUp, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Button_IncrPriority, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(Button_OverwriteTasks, GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                            .addComponent(Button_SaveTasksAs, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(Button_ContractAll, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(Button_NewTask)
                     .addComponent(Button_IncrPriority)
@@ -250,7 +273,12 @@ public class MainView extends javax.swing.JFrame {
                     .addComponent(Button_TaskDown)
                     .addComponent(Button_DecrPriority)
                     .addComponent(Button_RemoveTask)
-                    .addComponent(Button_SaveTasksAs)))
+                    .addComponent(Button_SaveTasksAs))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(Button_ExpandAll)
+                    .addComponent(Button_ContractAll))
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
@@ -258,40 +286,21 @@ public class MainView extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane6, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane6, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane6)
+                .addComponent(jScrollPane6, GroupLayout.PREFERRED_SIZE, 617, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-
-        TextArea_TaskChanges.setEditable(false);
-        TextArea_TaskChanges.setColumns(20);
-        TextArea_TaskChanges.setLineWrap(true);
-        TextArea_TaskChanges.setRows(5);
-        jScrollPane1.setViewportView(TextArea_TaskChanges);
-
-        TextArea_TaskDescription.setColumns(20);
-        TextArea_TaskDescription.setLineWrap(true);
-        TextArea_TaskDescription.setRows(5);
-        jScrollPane7.setViewportView(TextArea_TaskDescription);
-
-        jLabel4.setText("History");
-
-        jLabel1.setText("Name");
-
-        jLabel2.setText("Date");
-
-        TextBox_TaskDate.setEditable(false);
-
-        jLabel3.setText("Description");
 
         Button_TaskWorking.setText("Working");
         Button_TaskWorking.addMouseListener(new MouseAdapter() {
@@ -361,20 +370,21 @@ public class MainView extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(Button_TaskHold, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Button_TaskDone, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Button_TaskWorking, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(Button_TaskWorking, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_TaskDone, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_TaskHold, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Button_TaskPendingRevision, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Button_TaskOnRevision, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_SaveTaskChanges, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(Button_TaskPendingRevision, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_TaskOnRevision, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_SaveTaskChanges, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Button_Clear, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Button_TaskCancel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Button_TaskDelete, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)))
+                .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(Button_TaskCancel, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_TaskDelete, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Button_Clear, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -396,13 +406,86 @@ public class MainView extends javax.swing.JFrame {
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Label_TaskID.setHorizontalAlignment(SwingConstants.CENTER);
-        Label_TaskID.setText("000000");
-
         Label_TaskState.setHorizontalAlignment(SwingConstants.CENTER);
         Label_TaskState.setText("-");
 
+        TextBox_TaskDate.setEditable(false);
+
+        Label_TaskID.setHorizontalAlignment(SwingConstants.CENTER);
+        Label_TaskID.setText("000000");
+
+        jLabel1.setText("Name");
+
+        jLabel2.setText("Date");
+
+        TextArea_TaskChanges.setEditable(false);
+        TextArea_TaskChanges.setColumns(20);
+        TextArea_TaskChanges.setLineWrap(true);
+        TextArea_TaskChanges.setRows(5);
+        jScrollPane1.setViewportView(TextArea_TaskChanges);
+
+        jLabel3.setText("Description");
+
         jLabel6.setText("id:");
+
+        TextArea_TaskDescription.setColumns(20);
+        TextArea_TaskDescription.setLineWrap(true);
+        TextArea_TaskDescription.setRows(5);
+        jScrollPane7.setViewportView(TextArea_TaskDescription);
+
+        jLabel4.setText("History");
+
+        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(TextBox_TaskName)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Label_TaskID, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+                    .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(TextBox_TaskDate)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Label_TaskState, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane7))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(TextBox_TaskName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Label_TaskID)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel1))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(TextBox_TaskDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2))
+                    .addComponent(Label_TaskState, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane7))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 332, GroupLayout.PREFERRED_SIZE)))
+        );
 
         GroupLayout jPanel7Layout = new GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -410,58 +493,17 @@ public class MainView extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addGap(0, 39, Short.MAX_VALUE)
-                        .addComponent(jPanel5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addGroup(GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                                .addComponent(TextBox_TaskName)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Label_TaskID, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1)
-                            .addGroup(GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                                .addComponent(TextBox_TaskDate)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Label_TaskState, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane7))))
+                    .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(jPanel7Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, GroupLayout.Alignment.TRAILING)
-                    .addGroup(GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(TextBox_TaskName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Label_TaskID)
-                        .addComponent(jLabel6)))
+                .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(Label_TaskState, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(TextBox_TaskDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane7, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 320, GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jMenu1.setText("File");
@@ -503,8 +545,8 @@ public class MainView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TextBox_Error, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         );
@@ -512,6 +554,28 @@ public class MainView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+	private void setNodeExpandedState(DefaultMutableTreeNode node, boolean expanded) {
+		ArrayList<DefaultMutableTreeNode> list = Collections.list(node.children());
+		for (DefaultMutableTreeNode treeNode : list) {
+			setNodeExpandedState(treeNode, expanded);
+		}
+		if (!expanded && node.isRoot()) {
+			return;
+		}
+		TreePath path = new TreePath(node.getPath());
+		if (expanded) {
+			Tree_Task.expandPath(path);
+		}
+		else {
+			Tree_Task.collapsePath(path);
+		}
+	}
+	
+	private void set_tree_expanded_state(boolean expanded) {
+		DefaultMutableTreeNode node = (DefaultMutableTreeNode) Tree_Task.getModel().getRoot();
+		setNodeExpandedState(node, expanded);
+	}
+	
 	private void clear_TextBox_Error(int millis) {
 		Timer t = new Timer(millis, new ActionListener() {
             @Override
@@ -535,7 +599,7 @@ public class MainView extends javax.swing.JFrame {
 		clear_TextBox_Error(10000);
 	}
 	
-	private String get_node_priority(DefaultMutableTreeNode n) {
+	private String get_priority(DefaultMutableTreeNode n) {
 		if (high_prior_node.isNodeDescendant(n)) { return "high"; }
 		else if (med_prior_node.isNodeDescendant(n)) { return "med"; }
 		else if (low_prior_node.isNodeDescendant(n)) { return "low"; }
@@ -647,7 +711,7 @@ public class MainView extends javax.swing.JFrame {
 		// the task should only be added to the taks manager's
 		// containers if they are children of the "high/med/low" nodes.
 		if (sel.getLevel() == 1) {
-			String prior = get_node_priority(sel);
+			String prior = get_priority(sel);
 			if (prior.equals("high")) { tm.insert_high_task(0, new_t); }
 			else if (prior.equals("med")) { tm.insert_med_task(0, new_t); }
 			else if (prior.equals("low")) { tm.insert_low_task(0, new_t); }
@@ -671,6 +735,7 @@ public class MainView extends javax.swing.JFrame {
 		DefaultMutableTreeNode new_node = new DefaultMutableTreeNode(new_t);
 		sel.insert(new_node, 0);
 		tree_model.reload(sel);
+		Tree_Task.expandPath(new TreePath(sel.getPath()));
     }//GEN-LAST:event_Button_NewTaskMouseClicked
 
     private void Button_OverwriteTasksMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_OverwriteTasksMouseClicked
@@ -710,8 +775,8 @@ public class MainView extends javax.swing.JFrame {
 		
 		// move the task inside the task manager
 		if (sel.getLevel() == 2) {
-			String prior = get_node_priority(sel);
-			log.info("    Moving task of priority '" + prior + "' within the task manager");			
+			String prior = get_priority(sel);
+			log.info("    Moving task of priority '" + prior + "' within the task manager");
 			TaskManager tm = TaskManager.get_instance();
 			int i;
 			if (prior.equals("high")) {
@@ -741,9 +806,10 @@ public class MainView extends javax.swing.JFrame {
 		// move the task in the tree
 		tree_model.removeNodeFromParent(sel);
 		par_sel.insert(sel, idx + incr);
-		tree_model.reload(par_sel);
 		
 		sel = (DefaultMutableTreeNode) par_sel.getChildAt(idx + incr);
+		tree_model.reload(par_sel);
+		Tree_Task.expandPath(new TreePath(sel.getPath()));
 		Tree_Task.setSelectionPath(new TreePath(sel.getPath()));
 	}
 	
@@ -771,7 +837,7 @@ public class MainView extends javax.swing.JFrame {
 			return;
 		}
 		
-		String cur_prior = get_node_priority(sel);
+		String cur_prior = get_priority(sel);
 		if (dir.equals("incr") && cur_prior.equals("high")) {
 			log.warning("Can't increase priority of highest-priority task");
 			return;
@@ -783,53 +849,61 @@ public class MainView extends javax.swing.JFrame {
 		
 		Task t = (Task) sel.getUserObject();
 		TaskManager tm = TaskManager.get_instance();
+		
+		DefaultMutableTreeNode from_prior = null;
+		DefaultMutableTreeNode to_prior = null;
+		String verb = "";
 		String new_prior = "??";
 		
 		if (cur_prior.equals("high")) {
-			high_prior_node.remove(sel);
-			med_prior_node.insert(sel, 0);
-			tm.del_high_task(t.get_id());
-			tm.insert_med_task(0, t);
-			new_prior = "Medium";
+			from_prior = high_prior_node;
+			to_prior = med_prior_node;
+			new_prior = "med";
+			verb = "Decreased";
 		}
 		else if (cur_prior.equals("med")) {
-			med_prior_node.remove(sel);
-			tm.del_med_task(t.get_id());
-			
+			from_prior = med_prior_node;
 			if (dir.equals("incr")) {
-				high_prior_node.insert(sel, 0);
-				tm.insert_high_task(0, t);
-				new_prior = "High";
+				to_prior = high_prior_node;
+				new_prior = "high";
+				verb = "Increased";
 			}
 			else if (dir.equals("decr")) {
-				low_prior_node.insert(sel, 0);
-				tm.insert_low_task(0, t);
-				new_prior = "Low";
+				to_prior = low_prior_node;
+				new_prior = "low";
+				verb = "Decreased";
 			}
 		}
 		else if (cur_prior.equals("low")) {
-			low_prior_node.remove(sel);
-			med_prior_node.insert(sel, 0);
-			tm.del_low_task(t.get_id());
-			tm.insert_med_task(0, t);
-			new_prior = "Medium";
+			from_prior = low_prior_node;
+			to_prior = med_prior_node;
+			new_prior = "medium";
+			verb = "Increased";
 		}
 		else { return; }
 		
-		if (dir.equals("incr")) {
-			t.change_state(
-				"Increased priority to " + new_prior + ".",
-				TaskStateEnum.PriorityChanged
-			);
-		}
-		else if (dir.equals("decr")) {
-			t.change_state(
-				"Decreased priority to " + new_prior + ".",
-				TaskStateEnum.PriorityChanged
-			);
-		}
+		from_prior.remove(sel);
+		to_prior.insert(sel, 0);
+		
+		if (cur_prior.equals("high"))     { tm.del_high_task(t.get_id()); }
+		else if (cur_prior.equals("med")) { tm.del_med_task(t.get_id()); }
+		else if (cur_prior.equals("low")) { tm.del_low_task(t.get_id()); }
+		
+		if (new_prior.equals("high"))     { tm.insert_high_task(0, t); }
+		else if (new_prior.equals("med")) { tm.insert_med_task(0, t); }
+		else if (new_prior.equals("low")) { tm.insert_low_task(0, t); }
+		
+		t.change_state(
+			verb + " priority to " + new_prior + ".",
+			TaskStateEnum.PriorityChanged
+		);
+		
 		refresh_boxes_task(t);
-		tree_model.reload();
+		tree_model.reload(from_prior);
+		tree_model.reload(to_prior);
+		Tree_Task.expandPath(new TreePath(from_prior.getPath()));
+		Tree_Task.expandPath(new TreePath(to_prior.getPath()));
+		Tree_Task.expandPath(new TreePath(sel.getPath()));
 	}
 	
     private void Button_IncrPriorityMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_IncrPriorityMouseClicked
@@ -867,7 +941,6 @@ public class MainView extends javax.swing.JFrame {
 		
 		TaskManager tm = TaskManager.get_instance();
 		tm.set_task_file(filename);
-		
 		if (!tm.read_tasks()) {
 			issue_warning_msg("Could not open selected file '" + filename + "'");
 			return;
@@ -878,12 +951,14 @@ public class MainView extends javax.swing.JFrame {
 		high_prior_node.removeAllChildren();
 		med_prior_node.removeAllChildren();
 		low_prior_node.removeAllChildren();
+		tree_model.reload();
 		
 		// fill tree...
 		tm.get_high_prior_tasks().forEach((t) -> { task_to_node(high_prior_node, t); });
 		tm.get_med_prior_tasks().forEach((t) -> { task_to_node(med_prior_node, t); });
 		tm.get_low_prior_tasks().forEach((t) -> { task_to_node(low_prior_node, t); });
 		tree_model.reload();
+		set_tree_expanded_state(true);
     }//GEN-LAST:event_MenuItem_OpenFileMousePressed
 
     private void Button_SaveTasksAsMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_SaveTasksAsMouseClicked
@@ -985,6 +1060,14 @@ public class MainView extends javax.swing.JFrame {
 		);
     }//GEN-LAST:event_MenuItem_AboutMousePressed
 
+    private void Button_ExpandAllMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_ExpandAllMouseClicked
+        set_tree_expanded_state(true);
+    }//GEN-LAST:event_Button_ExpandAllMouseClicked
+
+    private void Button_ContractAllMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_ContractAllMouseClicked
+        set_tree_expanded_state(false);
+    }//GEN-LAST:event_Button_ContractAllMouseClicked
+
 	/**
 	 * @param args the command line arguments
 	 */
@@ -1022,7 +1105,9 @@ public class MainView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton Button_Clear;
+    private JButton Button_ContractAll;
     private JButton Button_DecrPriority;
+    private JButton Button_ExpandAll;
     private JButton Button_IncrPriority;
     private JButton Button_NewTask;
     private JButton Button_OverwriteTasks;
@@ -1055,6 +1140,7 @@ public class MainView extends javax.swing.JFrame {
     private JLabel jLabel6;
     private JMenu jMenu1;
     private JMenuBar jMenuBar1;
+    private JPanel jPanel1;
     private JPanel jPanel2;
     private JPanel jPanel3;
     private JPanel jPanel5;
