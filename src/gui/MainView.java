@@ -71,22 +71,22 @@ public class MainView extends javax.swing.JFrame {
 	 * Creates new form MainView
 	 */
 	public MainView() {
-		log = Logger.get_instance();
+		log = Logger.getInstance();
 		log.begin();
 		
 		initComponents();
 		
-		tree_model = (DefaultTreeModel) (Tree_Task.getModel());
-		DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree_model.getRoot();
-		high_prior_node = (DefaultMutableTreeNode) root.getChildAt(0);
-		med_prior_node = (DefaultMutableTreeNode) root.getChildAt(1);
-		low_prior_node = (DefaultMutableTreeNode) root.getChildAt(2);
+		treeModel = (DefaultTreeModel) (treeTasks.getModel());
+		DefaultMutableTreeNode root = (DefaultMutableTreeNode) treeModel.getRoot();
+		highPriorNode = (DefaultMutableTreeNode) root.getChildAt(0);
+		medPriorNode = (DefaultMutableTreeNode) root.getChildAt(1);
+		lowPriorNode = (DefaultMutableTreeNode) root.getChildAt(2);
 		
-		Tree_Task.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+		treeTasks.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		
 		CustomTreeCellRenderer renderer = new CustomTreeCellRenderer(14);
-		Tree_Task.setCellRenderer(renderer);
-		set_changes_saved();
+		treeTasks.setCellRenderer(renderer);
+		setChangesSaved();
 	}
 
 	/**
@@ -100,49 +100,49 @@ public class MainView extends javax.swing.JFrame {
 
         jPanel3 = new JPanel();
         jScrollPane6 = new JScrollPane();
-        Tree_Task = new JTree();
+        treeTasks = new JTree();
         jPanel2 = new JPanel();
-        Button_RemoveTask = new JButton();
-        Button_NewTask = new JButton();
-        Button_TaskDown = new JButton();
-        Button_TaskUp = new JButton();
-        Button_IncrPriority = new JButton();
-        Button_DecrPriority = new JButton();
-        Button_OverwriteTasks = new JButton();
-        Button_SaveTasksAs = new JButton();
-        Button_ExpandAll = new JButton();
-        Button_ContractAll = new JButton();
-        Label_UnsavedChanges = new JLabel();
-        TextBox_Error = new JTextField();
+        buttonRemoveTask = new JButton();
+        buttonNewTask = new JButton();
+        buttonTaskDown = new JButton();
+        buttonTaskUp = new JButton();
+        buttonIncrPriority = new JButton();
+        buttonDecrPriority = new JButton();
+        buttonOverwriteTasks = new JButton();
+        buttonSaveTasksAs = new JButton();
+        buttonExpandAll = new JButton();
+        buttonContractAll = new JButton();
+        labelUnsavedChanges = new JLabel();
+        textBoxError = new JTextField();
         jPanel7 = new JPanel();
         jPanel5 = new JPanel();
-        Button_TaskWorking = new JButton();
-        Button_TaskCancel = new JButton();
-        Button_TaskDone = new JButton();
-        Button_TaskDelete = new JButton();
-        Button_TaskOnRevision = new JButton();
-        Button_TaskHold = new JButton();
-        Button_TaskPendingRevision = new JButton();
-        Button_SaveTaskEdit = new JButton();
-        Button_Clear = new JButton();
+        buttonTaskWorking = new JButton();
+        buttonTaskCancel = new JButton();
+        buttonTaskDone = new JButton();
+        buttonTaskDelete = new JButton();
+        buttonTaskOnRevision = new JButton();
+        buttonTaskHold = new JButton();
+        buttonTaskPendingRevision = new JButton();
+        buttonSaveTaskEdit = new JButton();
+        buttonClear = new JButton();
         jPanel1 = new JPanel();
-        Label_TaskState = new JLabel();
-        TextBox_TaskDate = new JTextField();
-        Label_TaskID = new JLabel();
-        TextBox_TaskName = new JTextField();
+        labelTaskState = new JLabel();
+        textBoxTaskDate = new JTextField();
+        labelTaskID = new JLabel();
+        textBoxTaskName = new JTextField();
         jLabel1 = new JLabel();
         jLabel2 = new JLabel();
         jScrollPane1 = new JScrollPane();
-        TextArea_TaskChanges = new JTextArea();
+        textAreaTaskChanges = new JTextArea();
         jLabel3 = new JLabel();
         jLabel6 = new JLabel();
         jScrollPane7 = new JScrollPane();
-        TextArea_TaskDescription = new JTextArea();
+        textAreaTaskDescription = new JTextArea();
         jLabel4 = new JLabel();
         jMenuBar1 = new JMenuBar();
         jMenu1 = new JMenu();
-        MenuItem_OpenFile = new JMenuItem();
-        MenuItem_About = new JMenuItem();
+        menuItemOpenFile = new JMenuItem();
+        menuItemAbout = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Todo List Manager");
@@ -160,87 +160,87 @@ public class MainView extends javax.swing.JFrame {
         treeNode1.add(treeNode2);
         treeNode2 = new DefaultMutableTreeNode("Low Priority");
         treeNode1.add(treeNode2);
-        Tree_Task.setModel(new DefaultTreeModel(treeNode1));
-        Tree_Task.addTreeSelectionListener(new TreeSelectionListener() {
+        treeTasks.setModel(new DefaultTreeModel(treeNode1));
+        treeTasks.addTreeSelectionListener(new TreeSelectionListener() {
             public void valueChanged(TreeSelectionEvent evt) {
-                Tree_TaskValueChanged(evt);
+                treeTasksValueChanged(evt);
             }
         });
-        jScrollPane6.setViewportView(Tree_Task);
+        jScrollPane6.setViewportView(treeTasks);
 
-        Button_RemoveTask.setText("Remove");
-        Button_RemoveTask.addMouseListener(new MouseAdapter() {
+        buttonRemoveTask.setText("Remove");
+        buttonRemoveTask.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Button_RemoveTaskMouseClicked(evt);
+                buttonRemoveTaskMouseClicked(evt);
             }
         });
 
-        Button_NewTask.setText("New Task");
-        Button_NewTask.addMouseListener(new MouseAdapter() {
+        buttonNewTask.setText("New Task");
+        buttonNewTask.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Button_NewTaskMouseClicked(evt);
+                buttonNewTaskMouseClicked(evt);
             }
         });
 
-        Button_TaskDown.setText("Down");
-        Button_TaskDown.addMouseListener(new MouseAdapter() {
+        buttonTaskDown.setText("Down");
+        buttonTaskDown.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Button_TaskDownMouseClicked(evt);
+                buttonTaskDownMouseClicked(evt);
             }
         });
 
-        Button_TaskUp.setText("Up");
-        Button_TaskUp.addMouseListener(new MouseAdapter() {
+        buttonTaskUp.setText("Up");
+        buttonTaskUp.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Button_TaskUpMouseClicked(evt);
+                buttonTaskUpMouseClicked(evt);
             }
         });
 
-        Button_IncrPriority.setText("+ Priority");
-        Button_IncrPriority.addMouseListener(new MouseAdapter() {
+        buttonIncrPriority.setText("+ Priority");
+        buttonIncrPriority.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Button_IncrPriorityMouseClicked(evt);
+                buttonIncrPriorityMouseClicked(evt);
             }
         });
 
-        Button_DecrPriority.setText("- Priority");
-        Button_DecrPriority.addMouseListener(new MouseAdapter() {
+        buttonDecrPriority.setText("- Priority");
+        buttonDecrPriority.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Button_DecrPriorityMouseClicked(evt);
+                buttonDecrPriorityMouseClicked(evt);
             }
         });
 
-        Button_OverwriteTasks.setText("Overwrite");
-        Button_OverwriteTasks.setEnabled(false);
-        Button_OverwriteTasks.addMouseListener(new MouseAdapter() {
+        buttonOverwriteTasks.setText("Overwrite");
+        buttonOverwriteTasks.setEnabled(false);
+        buttonOverwriteTasks.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Button_OverwriteTasksMouseClicked(evt);
+                buttonOverwriteTasksMouseClicked(evt);
             }
         });
 
-        Button_SaveTasksAs.setText("Save As");
-        Button_SaveTasksAs.addMouseListener(new MouseAdapter() {
+        buttonSaveTasksAs.setText("Save As");
+        buttonSaveTasksAs.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Button_SaveTasksAsMouseClicked(evt);
+                buttonSaveTasksAsMouseClicked(evt);
             }
         });
 
-        Button_ExpandAll.setText("Show all");
-        Button_ExpandAll.addMouseListener(new MouseAdapter() {
+        buttonExpandAll.setText("Show all");
+        buttonExpandAll.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Button_ExpandAllMouseClicked(evt);
+                buttonExpandAllMouseClicked(evt);
             }
         });
 
-        Button_ContractAll.setText("Hide all");
-        Button_ContractAll.addMouseListener(new MouseAdapter() {
+        buttonContractAll.setText("Hide all");
+        buttonContractAll.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Button_ContractAllMouseClicked(evt);
+                buttonContractAllMouseClicked(evt);
             }
         });
 
-        Label_UnsavedChanges.setText("There are unsaved changes");
-        Label_UnsavedChanges.setEnabled(false);
+        labelUnsavedChanges.setText("There are unsaved changes");
+        labelUnsavedChanges.setEnabled(false);
 
         GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -248,29 +248,29 @@ public class MainView extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(Button_ExpandAll, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Button_NewTask, GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                    .addComponent(Button_RemoveTask, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(buttonExpandAll, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonNewTask, GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                    .addComponent(buttonRemoveTask, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(Button_ContractAll, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonContractAll, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Label_UnsavedChanges))
+                        .addComponent(labelUnsavedChanges))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(Button_TaskUp, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(buttonTaskUp, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Button_IncrPriority, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(buttonIncrPriority, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Button_OverwriteTasks, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(buttonOverwriteTasks, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(Button_TaskDown, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(buttonTaskDown, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Button_DecrPriority, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(buttonDecrPriority, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Button_SaveTasksAs, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(buttonSaveTasksAs, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(9, 9, 9)))
                 .addGap(20, 20, 20))
         );
@@ -278,21 +278,21 @@ public class MainView extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(Button_NewTask)
-                    .addComponent(Button_IncrPriority)
-                    .addComponent(Button_TaskUp)
-                    .addComponent(Button_OverwriteTasks))
+                    .addComponent(buttonNewTask)
+                    .addComponent(buttonIncrPriority)
+                    .addComponent(buttonTaskUp)
+                    .addComponent(buttonOverwriteTasks))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(Button_TaskDown)
-                    .addComponent(Button_DecrPriority)
-                    .addComponent(Button_RemoveTask)
-                    .addComponent(Button_SaveTasksAs))
+                    .addComponent(buttonTaskDown)
+                    .addComponent(buttonDecrPriority)
+                    .addComponent(buttonRemoveTask)
+                    .addComponent(buttonSaveTasksAs))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(Button_ExpandAll)
-                    .addComponent(Button_ContractAll)
-                    .addComponent(Label_UnsavedChanges))
+                    .addComponent(buttonExpandAll)
+                    .addComponent(buttonContractAll)
+                    .addComponent(labelUnsavedChanges))
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -318,66 +318,66 @@ public class MainView extends javax.swing.JFrame {
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Button_TaskWorking.setText("Working");
-        Button_TaskWorking.addMouseListener(new MouseAdapter() {
+        buttonTaskWorking.setText("Working");
+        buttonTaskWorking.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Button_TaskWorkingMouseClicked(evt);
+                buttonTaskWorkingMouseClicked(evt);
             }
         });
 
-        Button_TaskCancel.setText("Cancel");
-        Button_TaskCancel.addMouseListener(new MouseAdapter() {
+        buttonTaskCancel.setText("Cancel");
+        buttonTaskCancel.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Button_TaskCancelMouseClicked(evt);
+                buttonTaskCancelMouseClicked(evt);
             }
         });
 
-        Button_TaskDone.setText("Done");
-        Button_TaskDone.addMouseListener(new MouseAdapter() {
+        buttonTaskDone.setText("Done");
+        buttonTaskDone.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Button_TaskDoneMouseClicked(evt);
+                buttonTaskDoneMouseClicked(evt);
             }
         });
 
-        Button_TaskDelete.setText("Delete");
-        Button_TaskDelete.addMouseListener(new MouseAdapter() {
+        buttonTaskDelete.setText("Delete");
+        buttonTaskDelete.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Button_TaskDeleteMouseClicked(evt);
+                buttonTaskDeleteMouseClicked(evt);
             }
         });
 
-        Button_TaskOnRevision.setText("On revision");
-        Button_TaskOnRevision.addMouseListener(new MouseAdapter() {
+        buttonTaskOnRevision.setText("On revision");
+        buttonTaskOnRevision.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Button_TaskOnRevisionMouseClicked(evt);
+                buttonTaskOnRevisionMouseClicked(evt);
             }
         });
 
-        Button_TaskHold.setText("Put on Hold");
-        Button_TaskHold.addMouseListener(new MouseAdapter() {
+        buttonTaskHold.setText("Put on Hold");
+        buttonTaskHold.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Button_TaskHoldMouseClicked(evt);
+                buttonTaskHoldMouseClicked(evt);
             }
         });
 
-        Button_TaskPendingRevision.setText("Pending revision");
-        Button_TaskPendingRevision.addMouseListener(new MouseAdapter() {
+        buttonTaskPendingRevision.setText("Pending revision");
+        buttonTaskPendingRevision.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Button_TaskPendingRevisionMouseClicked(evt);
+                buttonTaskPendingRevisionMouseClicked(evt);
             }
         });
 
-        Button_SaveTaskEdit.setText("Save Edit");
-        Button_SaveTaskEdit.addMouseListener(new MouseAdapter() {
+        buttonSaveTaskEdit.setText("Save Edit");
+        buttonSaveTaskEdit.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Button_SaveTaskEditMouseClicked(evt);
+                buttonSaveTaskEditMouseClicked(evt);
             }
         });
 
-        Button_Clear.setText("Clear");
-        Button_Clear.addMouseListener(new MouseAdapter() {
+        buttonClear.setText("Clear");
+        buttonClear.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                Button_ClearMouseClicked(evt);
+                buttonClearMouseClicked(evt);
             }
         });
 
@@ -387,67 +387,67 @@ public class MainView extends javax.swing.JFrame {
             .addGroup(GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(Button_TaskWorking, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_TaskDone, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_TaskHold, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonTaskWorking, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonTaskDone, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonTaskHold, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(Button_TaskPendingRevision, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_TaskOnRevision, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_SaveTaskEdit, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonTaskPendingRevision, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonTaskOnRevision, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonSaveTaskEdit, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(Button_TaskCancel, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_TaskDelete, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Button_Clear, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonTaskCancel, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonTaskDelete, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonClear, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(Button_TaskDone)
-                    .addComponent(Button_TaskOnRevision)
-                    .addComponent(Button_TaskCancel))
+                    .addComponent(buttonTaskDone)
+                    .addComponent(buttonTaskOnRevision)
+                    .addComponent(buttonTaskCancel))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(Button_TaskPendingRevision)
-                    .addComponent(Button_TaskDelete)
-                    .addComponent(Button_TaskWorking))
+                    .addComponent(buttonTaskPendingRevision)
+                    .addComponent(buttonTaskDelete)
+                    .addComponent(buttonTaskWorking))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(Button_TaskHold)
-                    .addComponent(Button_SaveTaskEdit)
-                    .addComponent(Button_Clear))
+                    .addComponent(buttonTaskHold)
+                    .addComponent(buttonSaveTaskEdit)
+                    .addComponent(buttonClear))
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Label_TaskState.setHorizontalAlignment(SwingConstants.CENTER);
-        Label_TaskState.setText("-");
+        labelTaskState.setHorizontalAlignment(SwingConstants.CENTER);
+        labelTaskState.setText("-");
 
-        TextBox_TaskDate.setEditable(false);
+        textBoxTaskDate.setEditable(false);
 
-        Label_TaskID.setHorizontalAlignment(SwingConstants.CENTER);
-        Label_TaskID.setText("000000");
+        labelTaskID.setHorizontalAlignment(SwingConstants.CENTER);
+        labelTaskID.setText("000000");
 
         jLabel1.setText("Name");
 
         jLabel2.setText("Date");
 
-        TextArea_TaskChanges.setEditable(false);
-        TextArea_TaskChanges.setColumns(20);
-        TextArea_TaskChanges.setLineWrap(true);
-        TextArea_TaskChanges.setRows(5);
-        jScrollPane1.setViewportView(TextArea_TaskChanges);
+        textAreaTaskChanges.setEditable(false);
+        textAreaTaskChanges.setColumns(20);
+        textAreaTaskChanges.setLineWrap(true);
+        textAreaTaskChanges.setRows(5);
+        jScrollPane1.setViewportView(textAreaTaskChanges);
 
         jLabel3.setText("Description");
 
         jLabel6.setText("id:");
 
-        TextArea_TaskDescription.setColumns(20);
-        TextArea_TaskDescription.setLineWrap(true);
-        TextArea_TaskDescription.setRows(5);
-        jScrollPane7.setViewportView(TextArea_TaskDescription);
+        textAreaTaskDescription.setColumns(20);
+        textAreaTaskDescription.setLineWrap(true);
+        textAreaTaskDescription.setRows(5);
+        jScrollPane7.setViewportView(textAreaTaskDescription);
 
         jLabel4.setText("History");
 
@@ -464,16 +464,16 @@ public class MainView extends javax.swing.JFrame {
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(TextBox_TaskName)
+                        .addComponent(textBoxTaskName)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Label_TaskID, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(labelTaskID, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1)
                     .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(TextBox_TaskDate)
+                        .addComponent(textBoxTaskDate)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Label_TaskState, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(labelTaskState, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane7))
                 .addContainerGap())
         );
@@ -481,16 +481,16 @@ public class MainView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(TextBox_TaskName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Label_TaskID)
+                    .addComponent(textBoxTaskName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelTaskID)
                     .addComponent(jLabel6)
                     .addComponent(jLabel1))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(TextBox_TaskDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textBoxTaskDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2))
-                    .addComponent(Label_TaskState, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelTaskState, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -524,21 +524,21 @@ public class MainView extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
-        MenuItem_OpenFile.setText("Open");
-        MenuItem_OpenFile.addMouseListener(new MouseAdapter() {
+        menuItemOpenFile.setText("Open");
+        menuItemOpenFile.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
-                MenuItem_OpenFileMousePressed(evt);
+                menuItemOpenFileMousePressed(evt);
             }
         });
-        jMenu1.add(MenuItem_OpenFile);
+        jMenu1.add(menuItemOpenFile);
 
-        MenuItem_About.setText("About");
-        MenuItem_About.addMouseListener(new MouseAdapter() {
+        menuItemAbout.setText("About");
+        menuItemAbout.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
-                MenuItem_AboutMousePressed(evt);
+                menuItemAboutMousePressed(evt);
             }
         });
-        jMenu1.add(MenuItem_About);
+        jMenu1.add(menuItemAbout);
 
         jMenuBar1.add(jMenu1);
 
@@ -554,7 +554,7 @@ public class MainView extends javax.swing.JFrame {
                         .addComponent(jPanel3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(TextBox_Error, GroupLayout.PREFERRED_SIZE, 850, GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(textBoxError, GroupLayout.PREFERRED_SIZE, 850, GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -563,7 +563,7 @@ public class MainView extends javax.swing.JFrame {
                     .addComponent(jPanel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TextBox_Error, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addComponent(textBoxError, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -579,60 +579,60 @@ public class MainView extends javax.swing.JFrame {
 		}
 		TreePath path = new TreePath(node.getPath());
 		if (expanded) {
-			Tree_Task.expandPath(path);
+			treeTasks.expandPath(path);
 		}
 		else {
-			Tree_Task.collapsePath(path);
+			treeTasks.collapsePath(path);
 		}
 	}
 	
-	private void set_tree_expanded_state(boolean expanded) {
-		DefaultMutableTreeNode node = (DefaultMutableTreeNode) Tree_Task.getModel().getRoot();
+	private void setTreeExpandedState(boolean expanded) {
+		DefaultMutableTreeNode node = (DefaultMutableTreeNode) treeTasks.getModel().getRoot();
 		setNodeExpandedState(node, expanded);
 	}
 	
-	private void clear_TextBox_Error(int millis) {
+	private void clearTextBoxError(int millis) {
 		Timer t = new Timer(millis, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TextBox_Error.setText(null);
+                textBoxError.setText(null);
             }
         });
         t.setRepeats(false);
         t.start();
 	}
 	
-	private void issue_error_msg(String msg) {
-		TextBox_Error.setText("Error: " + msg);
+	private void issueErrorMsg(String msg) {
+		textBoxError.setText("Error: " + msg);
 		log.error(msg);
-		clear_TextBox_Error(20000);
+		clearTextBoxError(20000);
 	}
 	
-	private void issue_warning_msg(String msg) {
-		TextBox_Error.setText("Warning: " + msg);
+	private void issueWarningMsg(String msg) {
+		textBoxError.setText("Warning: " + msg);
 		log.warning(msg);
-		clear_TextBox_Error(10000);
+		clearTextBoxError(10000);
 	}
 	
-	private void set_changes_unsaved() {
-		changes_saved = false;
-		Label_UnsavedChanges.setText("There are unsaved changes");
+	private void setChangesUnsaved() {
+		changesSaved = false;
+		labelUnsavedChanges.setText("There are unsaved changes");
 	}
-	private void set_changes_saved() {
-		changes_saved = true;
-		Label_UnsavedChanges.setText("");
+	private void setChangesSaved() {
+		changesSaved = true;
+		labelUnsavedChanges.setText("");
 	}
-	private boolean are_changes_saved() { return changes_saved; }
+	private boolean areChangesSaved() { return changesSaved; }
 	
-	private void overwrite_changes() {
+	private void overwriteChanges() {
 		log.info("Saving tasks to disk");
 		TaskManager tm = TaskManager.get_instance();
-		tm.write_tasks(true);
+		tm.writeTasks(true);
 		log.info("Tasks created/edited so far have been saved to disk");
-		set_changes_saved();
+		setChangesSaved();
 	}
 	
-	private void save_changes_as() {
+	private void saveChangesAs() {
 		log.info("Choosing file for saving...");
 		
 		JFileChooser fc = new JFileChooser();
@@ -644,23 +644,23 @@ public class MainView extends javax.swing.JFrame {
         }
 		file = fc.getSelectedFile();
 		String filename = file.getAbsolutePath();
-		Button_OverwriteTasks.setEnabled(true);
+		buttonOverwriteTasks.setEnabled(true);
 		
 		log.info("Saving to file '" + filename + "'");
 		
 		TaskManager tm = TaskManager.get_instance();
 		boolean do_backup = true;
-		if (!tm.get_task_file().equals(filename)) {
+		if (!tm.getTaskFile().equals(filename)) {
 			do_backup = false;
-			tm.set_task_file(filename);
+			tm.setTaskFile(filename);
 		}
-		tm.write_tasks(do_backup);
-		set_changes_saved();
+		tm.writeTasks(do_backup);
+		setChangesSaved();
 	}
 	
 	// assuming there are unsaved changes...
-	private void prompt_save_changes() {
-		String task_file = TaskManager.get_instance().get_task_file();
+	private void promptSaveChanges() {
+		String task_file = TaskManager.get_instance().getTaskFile();
 		boolean save_as = false;
 		if (task_file.equals("")) {
 			log.info("There are unsaved changes that need to be stored in a file");
@@ -686,113 +686,113 @@ public class MainView extends javax.swing.JFrame {
 		log.info("User wants to save changes");
 		if (save_as) {
 			log.info("Need a file");
-			save_changes_as();
+			saveChangesAs();
 			return;
 		}
-		overwrite_changes();
+		overwriteChanges();
 	}
 	
-	private String get_priority(DefaultMutableTreeNode n) {
-		if (high_prior_node.isNodeDescendant(n)) { return "high"; }
-		else if (med_prior_node.isNodeDescendant(n)) { return "med"; }
-		else if (low_prior_node.isNodeDescendant(n)) { return "low"; }
-		issue_error_msg("Could not determine priority of node");
+	private String getPriority(DefaultMutableTreeNode n) {
+		if (highPriorNode.isNodeDescendant(n)) { return "high"; }
+		else if (medPriorNode.isNodeDescendant(n)) { return "med"; }
+		else if (lowPriorNode.isNodeDescendant(n)) { return "low"; }
+		issueErrorMsg("Could not determine priority of node");
 		return "?";
 	}
 	
-	private void refresh_boxes_task(Task t) {
-		TextBox_TaskName.setText(t.get_name());
-		Label_TaskID.setText(t.get_id());
-		Label_TaskState.setText(t.current_state().get_state().toString());
-		TextBox_TaskDate.setText(t.get_pretty_date());
-		TextArea_TaskDescription.setText(t.get_description());
-		TextArea_TaskChanges.setText(t.changes_to_string());
+	private void refreshBoxesTask(Task t) {
+		textBoxTaskName.setText(t.getName());
+		labelTaskID.setText(t.getId());
+		labelTaskState.setText(t.currentState().getState().toString());
+		textBoxTaskDate.setText(t.getPrettyDate());
+		textAreaTaskDescription.setText(t.getDescription());
+		textAreaTaskChanges.setText(t.changesToString());
 	}
 	
-	private void clear_boxes_task() {
-		TextArea_TaskDescription.setText("");
-		Label_TaskID.setText("000000");
-		Label_TaskState.setText("-");
-		TextArea_TaskChanges.setText("");
-		TextBox_TaskName.setText("");
-		TextBox_TaskDate.setText("");
+	private void clearBoxesTask() {
+		textAreaTaskDescription.setText("");
+		labelTaskID.setText("000000");
+		labelTaskState.setText("-");
+		textAreaTaskChanges.setText("");
+		textBoxTaskName.setText("");
+		textBoxTaskDate.setText("");
 	}
 	
-	private boolean tree_has_selection(String msg) {
-		if (Tree_Task.getSelectionCount() == 0) {
-			issue_error_msg(msg);
+	private boolean treeHasSelection(String msg) {
+		if (treeTasks.getSelectionCount() == 0) {
+			issueErrorMsg(msg);
 			return false;
 		}
 		return true;
 	}
 	
-	private boolean tree_has_selection() {
-		return Tree_Task.getSelectionCount() > 0;
+	private boolean treeHasSelection() {
+		return treeTasks.getSelectionCount() > 0;
 	}
 	
-    private void Button_ClearMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_ClearMouseClicked
-        clear_boxes_task();
-    }//GEN-LAST:event_Button_ClearMouseClicked
+    private void buttonClearMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonClearMouseClicked
+        clearBoxesTask();
+    }//GEN-LAST:event_buttonClearMouseClicked
 	
-    private void Tree_TaskValueChanged(TreeSelectionEvent evt) {//GEN-FIRST:event_Tree_TaskValueChanged
-        if (!tree_has_selection()) { return; }
+    private void treeTasksValueChanged(TreeSelectionEvent evt) {//GEN-FIRST:event_treeTasksValueChanged
+        if (!treeHasSelection()) { return; }
 		DefaultMutableTreeNode sel
-			= (DefaultMutableTreeNode) Tree_Task.getLastSelectedPathComponent();
+			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		if (sel.getLevel() <= 1) {
-			clear_boxes_task();
+			clearBoxesTask();
 			return;
 		}
 		Task node_task = (Task) sel.getUserObject();
 		// fill in the text boxes
-		refresh_boxes_task(node_task);
-    }//GEN-LAST:event_Tree_TaskValueChanged
+		refreshBoxesTask(node_task);
+    }//GEN-LAST:event_treeTasksValueChanged
 
-    private void Button_RemoveTaskMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_RemoveTaskMouseClicked
-		if (!tree_has_selection("A task must be selected in order to delete it")) { return; }
+    private void buttonRemoveTaskMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonRemoveTaskMouseClicked
+		if (!treeHasSelection("A task must be selected in order to delete it")) { return; }
 		
 		DefaultMutableTreeNode sel
-			= (DefaultMutableTreeNode) Tree_Task.getLastSelectedPathComponent();
+			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		if (sel.getLevel() <= 1) {
-			issue_error_msg("You can't delete the root node or the high/med/low nodes");
+			issueErrorMsg("You can't delete the root node or the high/med/low nodes");
 			return;
 		}
 		
 		TaskManager tm = TaskManager.get_instance();
 		Task node_task = (Task) sel.getUserObject();
-		boolean d = tm.delete_task(node_task.get_id());
+		boolean d = tm.deleteTask(node_task.getId());
 		if (!d) {
 			log.info("Attempted at removing a subtask from the task manager");
 			log.info("    Subtasks are never added at the manager");
 		}
 		
 		DefaultMutableTreeNode par_sel
-			= (DefaultMutableTreeNode) Tree_Task.getLastSelectedPathComponent();
-		tree_model.removeNodeFromParent(sel);
-		tree_model.reload(par_sel);
-		set_changes_unsaved();
-    }//GEN-LAST:event_Button_RemoveTaskMouseClicked
+			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
+		treeModel.removeNodeFromParent(sel);
+		treeModel.reload(par_sel);
+		setChangesUnsaved();
+    }//GEN-LAST:event_buttonRemoveTaskMouseClicked
 
-    private void Button_NewTaskMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_NewTaskMouseClicked
-        if (Tree_Task.getSelectionCount() == 0) {
-			issue_error_msg("A task can't be added if no category/task is selected");
+    private void buttonNewTaskMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonNewTaskMouseClicked
+        if (treeTasks.getSelectionCount() == 0) {
+			issueErrorMsg("A task can't be added if no category/task is selected");
 			return;
 		}
-		else if (Tree_Task.getSelectionCount() > 1) {
-			issue_error_msg("Select only one category/task in order to create a task");
+		else if (treeTasks.getSelectionCount() > 1) {
+			issueErrorMsg("Select only one category/task in order to create a task");
 			return;
 		}
 		
 		// find out if the task is high/med/low
 		DefaultMutableTreeNode sel
-			= (DefaultMutableTreeNode) Tree_Task.getLastSelectedPathComponent();
+			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		
 		// get data used to identify the task
-		String task_name = TextBox_TaskName.getText();
+		String task_name = textBoxTaskName.getText();
 		if (task_name.equals("")) {
 			task_name = "Nameless task";
 			log.info("No name for new task");
 		}
-		String task_descr = TextArea_TaskDescription.getText();
+		String task_descr = textAreaTaskDescription.getText();
 		if (task_descr.equals("")) {
 			task_descr = "Empty task (yay! nothing to do!)";
 			log.info("No description for new task");
@@ -800,15 +800,15 @@ public class MainView extends javax.swing.JFrame {
 		
 		// create the task
 		TaskManager tm = TaskManager.get_instance();
-		Task new_t = tm.new_task(task_name, task_descr);
+		Task new_t = tm.newTask(task_name, task_descr);
 		
 		// the task should only be added to the taks manager's
 		// containers if they are children of the "high/med/low" nodes.
 		if (sel.getLevel() == 1) {
-			String prior = get_priority(sel);
-			if (prior.equals("high")) { tm.insert_high_task(0, new_t); }
-			else if (prior.equals("med")) { tm.insert_med_task(0, new_t); }
-			else if (prior.equals("low")) { tm.insert_low_task(0, new_t); }
+			String prior = getPriority(sel);
+			if (prior.equals("high")) { tm.insertHighTask(0, new_t); }
+			else if (prior.equals("med")) { tm.insertMedTask(0, new_t); }
+			else if (prior.equals("low")) { tm.insertLowTask(0, new_t); }
 			else { return; }
 		}
 		
@@ -818,29 +818,29 @@ public class MainView extends javax.swing.JFrame {
 			// the task associated to the selected node
 			Task node_task = (Task) sel.getUserObject();
 			// add the new task as a subtask
-			node_task.add_subtask(new_t);
+			node_task.addSubtask(new_t);
 			// change state
-			String m = "A subtask was added (id: " + new_t.get_id() + ")";
-			node_task.change_state(m, TaskStateEnum.AddedSubtask);
+			String m = "A subtask was added (id: " + new_t.getId() + ")";
+			node_task.changeState(m, TaskStateEnum.AddedSubtask);
 			// fill in the text boxes
-			refresh_boxes_task(node_task);
+			refreshBoxesTask(node_task);
 		}
 		// make the node so as to show it to the user
 		DefaultMutableTreeNode new_node = new DefaultMutableTreeNode(new_t);
 		sel.insert(new_node, 0);
-		tree_model.reload(sel);
-		Tree_Task.expandPath(new TreePath(sel.getPath()));
-		set_changes_unsaved();
-    }//GEN-LAST:event_Button_NewTaskMouseClicked
+		treeModel.reload(sel);
+		treeTasks.expandPath(new TreePath(sel.getPath()));
+		setChangesUnsaved();
+    }//GEN-LAST:event_buttonNewTaskMouseClicked
 
-    private void Button_OverwriteTasksMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_OverwriteTasksMouseClicked
-        overwrite_changes();
-    }//GEN-LAST:event_Button_OverwriteTasksMouseClicked
+    private void buttonOverwriteTasksMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonOverwriteTasksMouseClicked
+        overwriteChanges();
+    }//GEN-LAST:event_buttonOverwriteTasksMouseClicked
 
-	private void move_task_up_down(String dir, int incr) {
-		if (!tree_has_selection("A task must be selected in order to move it")) { return; }
+	private void moveTaskUpDown(String dir, int incr) {
+		if (!treeHasSelection("A task must be selected in order to move it")) { return; }
 		DefaultMutableTreeNode sel
-			= (DefaultMutableTreeNode) Tree_Task.getLastSelectedPathComponent();
+			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		if (sel.getLevel() <= 1) {
 			log.info("Can't move root node or nodes high/med/low");
 			return;
@@ -849,7 +849,7 @@ public class MainView extends javax.swing.JFrame {
 		// the task associated to the node
 		Task t = (Task) sel.getUserObject();
 		
-		log.info("Selected node (task id: '" + t.get_id() + "' has level " + sel.getLevel());
+		log.info("Selected node (task id: '" + t.getId() + "' has level " + sel.getLevel());
 		log.info("    Moving selection '" + dir + "' (by " + incr + ")");
 		
 		DefaultMutableTreeNode par_sel = (DefaultMutableTreeNode) sel.getParent();
@@ -867,21 +867,21 @@ public class MainView extends javax.swing.JFrame {
 		
 		// move the task inside the task manager
 		if (sel.getLevel() == 2) {
-			String prior = get_priority(sel);
+			String prior = getPriority(sel);
 			log.info("    Moving task of priority '" + prior + "' within the task manager");
 			TaskManager tm = TaskManager.get_instance();
 			int i;
 			if (prior.equals("high")) {
-				i = tm.del_high_task(t.get_id());
-				tm.insert_high_task(i + incr, t);
+				i = tm.deleteHighTask(t.getId());
+				tm.insertHighTask(i + incr, t);
 			}
 			else if (prior.equals("med")) {
-				i = tm.del_med_task(t.get_id());
-				tm.insert_med_task(i + incr, t);
+				i = tm.deleteMedTask(t.getId());
+				tm.insertMedTask(i + incr, t);
 			}
 			else if (prior.equals("low")) {
-				i = tm.del_low_task(t.get_id());
-				tm.insert_low_task(i + incr, t);
+				i = tm.deleteLowTask(t.getId());
+				tm.insertLowTask(i + incr, t);
 			}
 			else { return; }
 			log.info("    Moved from position " + (i) + " to position " + (i + incr) + "");
@@ -889,48 +889,48 @@ public class MainView extends javax.swing.JFrame {
 		
 		// if the task has a parent, move the subtask
 		// within the parent's list of subtasks
-		Task parent_task = t.get_parent();
+		Task parent_task = t.getParent();
 		if (parent_task != null) {
 			log.info("    Moving task within the parent task's list of subtasks");
-			parent_task.move_subtask_by(t.get_id(), incr);
+			parent_task.moveSubtaskBy(t.getId(), incr);
 		}
 		
 		// move the task in the tree
-		tree_model.removeNodeFromParent(sel);
+		treeModel.removeNodeFromParent(sel);
 		par_sel.insert(sel, idx + incr);
 		
 		sel = (DefaultMutableTreeNode) par_sel.getChildAt(idx + incr);
-		tree_model.reload(par_sel);
-		Tree_Task.expandPath(new TreePath(sel.getPath()));
-		Tree_Task.setSelectionPath(new TreePath(sel.getPath()));
-		set_changes_unsaved();
+		treeModel.reload(par_sel);
+		treeTasks.expandPath(new TreePath(sel.getPath()));
+		treeTasks.setSelectionPath(new TreePath(sel.getPath()));
+		setChangesUnsaved();
 	}
 	
-    private void Button_TaskUpMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_TaskUpMouseClicked
-        move_task_up_down("up", -1);
-    }//GEN-LAST:event_Button_TaskUpMouseClicked
+    private void buttonTaskUpMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonTaskUpMouseClicked
+        moveTaskUpDown("up", -1);
+    }//GEN-LAST:event_buttonTaskUpMouseClicked
 
-    private void Button_TaskDownMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_TaskDownMouseClicked
-        move_task_up_down("down", +1);
-    }//GEN-LAST:event_Button_TaskDownMouseClicked
+    private void buttonTaskDownMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonTaskDownMouseClicked
+        moveTaskUpDown("down", +1);
+    }//GEN-LAST:event_buttonTaskDownMouseClicked
 
-	private void change_task_priority(String dir, int incr) {
-		if (!tree_has_selection("A task must be selected in order to move it")) {
+	private void changeTaskPriority(String dir, int incr) {
+		if (!treeHasSelection("A task must be selected in order to move it")) {
 			return;
 		}
 		DefaultMutableTreeNode sel
-			= (DefaultMutableTreeNode) Tree_Task.getLastSelectedPathComponent();
+			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		if (sel.getLevel() < 0) { return; }
 		if (sel.getLevel() <= 1) {
-			issue_warning_msg("Can't move root node or nodes high/med/low");
+			issueWarningMsg("Can't move root node or nodes high/med/low");
 			return;
 		}
 		if (sel.getLevel() > 2) {
-			issue_warning_msg("Can't change a task's priority if it a subtask of another task");
+			issueWarningMsg("Can't change a task's priority if it a subtask of another task");
 			return;
 		}
 		
-		String cur_prior = get_priority(sel);
+		String cur_prior = getPriority(sel);
 		if (dir.equals("incr") && cur_prior.equals("high")) {
 			log.warning("Can't increase priority of highest-priority task");
 			return;
@@ -949,27 +949,27 @@ public class MainView extends javax.swing.JFrame {
 		String new_prior = "??";
 		
 		if (cur_prior.equals("high")) {
-			from_prior = high_prior_node;
-			to_prior = med_prior_node;
+			from_prior = highPriorNode;
+			to_prior = medPriorNode;
 			new_prior = "med";
 			verb = "Decreased";
 		}
 		else if (cur_prior.equals("med")) {
-			from_prior = med_prior_node;
+			from_prior = medPriorNode;
 			if (dir.equals("incr")) {
-				to_prior = high_prior_node;
+				to_prior = highPriorNode;
 				new_prior = "high";
 				verb = "Increased";
 			}
 			else if (dir.equals("decr")) {
-				to_prior = low_prior_node;
+				to_prior = lowPriorNode;
 				new_prior = "low";
 				verb = "Decreased";
 			}
 		}
 		else if (cur_prior.equals("low")) {
-			from_prior = low_prior_node;
-			to_prior = med_prior_node;
+			from_prior = lowPriorNode;
+			to_prior = medPriorNode;
 			new_prior = "medium";
 			verb = "Increased";
 		}
@@ -978,50 +978,50 @@ public class MainView extends javax.swing.JFrame {
 		from_prior.remove(sel);
 		to_prior.insert(sel, 0);
 		
-		if (cur_prior.equals("high"))     { tm.del_high_task(t.get_id()); }
-		else if (cur_prior.equals("med")) { tm.del_med_task(t.get_id()); }
-		else if (cur_prior.equals("low")) { tm.del_low_task(t.get_id()); }
+		if (cur_prior.equals("high"))     { tm.deleteHighTask(t.getId()); }
+		else if (cur_prior.equals("med")) { tm.deleteMedTask(t.getId()); }
+		else if (cur_prior.equals("low")) { tm.deleteLowTask(t.getId()); }
 		
-		if (new_prior.equals("high"))     { tm.insert_high_task(0, t); }
-		else if (new_prior.equals("med")) { tm.insert_med_task(0, t); }
-		else if (new_prior.equals("low")) { tm.insert_low_task(0, t); }
+		if (new_prior.equals("high"))     { tm.insertHighTask(0, t); }
+		else if (new_prior.equals("med")) { tm.insertMedTask(0, t); }
+		else if (new_prior.equals("low")) { tm.insertLowTask(0, t); }
 		
-		t.change_state(
+		t.changeState(
 			verb + " priority to " + new_prior + ".",
 			TaskStateEnum.PriorityChanged
 		);
 		
-		refresh_boxes_task(t);
-		tree_model.reload(from_prior);
-		tree_model.reload(to_prior);
-		Tree_Task.expandPath(new TreePath(from_prior.getPath()));
-		Tree_Task.expandPath(new TreePath(to_prior.getPath()));
-		Tree_Task.expandPath(new TreePath(sel.getPath()));
-		set_changes_unsaved();
+		refreshBoxesTask(t);
+		treeModel.reload(from_prior);
+		treeModel.reload(to_prior);
+		treeTasks.expandPath(new TreePath(from_prior.getPath()));
+		treeTasks.expandPath(new TreePath(to_prior.getPath()));
+		treeTasks.expandPath(new TreePath(sel.getPath()));
+		setChangesUnsaved();
 	}
 	
-    private void Button_IncrPriorityMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_IncrPriorityMouseClicked
-        change_task_priority("incr", -1);
-    }//GEN-LAST:event_Button_IncrPriorityMouseClicked
+    private void buttonIncrPriorityMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonIncrPriorityMouseClicked
+        changeTaskPriority("incr", -1);
+    }//GEN-LAST:event_buttonIncrPriorityMouseClicked
 
-    private void Button_DecrPriorityMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_DecrPriorityMouseClicked
-        change_task_priority("decr", +1);
-    }//GEN-LAST:event_Button_DecrPriorityMouseClicked
+    private void buttonDecrPriorityMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonDecrPriorityMouseClicked
+        changeTaskPriority("decr", +1);
+    }//GEN-LAST:event_buttonDecrPriorityMouseClicked
 
 	// 'n' is the parent of task 't'
-	private void task_to_node(DefaultMutableTreeNode n, Task t) {
+	private void taskToNode(DefaultMutableTreeNode n, Task t) {
 		// make a new node, with associated task
 		DefaultMutableTreeNode new_node = new DefaultMutableTreeNode(t);
 		// insert node
 		n.insert(new_node, n.getChildCount());
 		// insert subtasks
-		t.get_subtasks().forEach((st) -> { task_to_node(new_node, st); });
+		t.getSubtasks().forEach((st) -> { taskToNode(new_node, st); });
 	}
 	
-    private void MenuItem_OpenFileMousePressed(MouseEvent evt) {//GEN-FIRST:event_MenuItem_OpenFileMousePressed
+    private void menuItemOpenFileMousePressed(MouseEvent evt) {//GEN-FIRST:event_menuItemOpenFileMousePressed
         
-		if (!are_changes_saved()) {
-			prompt_save_changes();
+		if (!areChangesSaved()) {
+			promptSaveChanges();
 		}
 		
 		log.info("Choosing file for opening...");
@@ -1039,58 +1039,58 @@ public class MainView extends javax.swing.JFrame {
 		log.info("Opening file '" + filename + "'");
 		
 		TaskManager tm = TaskManager.get_instance();
-		tm.set_task_file(filename);
-		if (!tm.read_tasks()) {
-			issue_warning_msg("Could not open selected file '" + filename + "'");
+		tm.setTaskFile(filename);
+		if (!tm.readTasks()) {
+			issueWarningMsg("Could not open selected file '" + filename + "'");
 			return;
 		}
-		Button_OverwriteTasks.setEnabled(true);
+		buttonOverwriteTasks.setEnabled(true);
 		
 		// clear tree...
-		high_prior_node.removeAllChildren();
-		med_prior_node.removeAllChildren();
-		low_prior_node.removeAllChildren();
-		tree_model.reload();
+		highPriorNode.removeAllChildren();
+		medPriorNode.removeAllChildren();
+		lowPriorNode.removeAllChildren();
+		treeModel.reload();
 		
 		// fill tree...
-		tm.get_high_prior_tasks().forEach((t) -> { task_to_node(high_prior_node, t); });
-		tm.get_med_prior_tasks().forEach((t) -> { task_to_node(med_prior_node, t); });
-		tm.get_low_prior_tasks().forEach((t) -> { task_to_node(low_prior_node, t); });
-		tree_model.reload();
-		set_tree_expanded_state(true);
-    }//GEN-LAST:event_MenuItem_OpenFileMousePressed
+		tm.getHighPriorTasks().forEach((t) -> { taskToNode(highPriorNode, t); });
+		tm.getMedPriorTasks().forEach((t) -> { taskToNode(medPriorNode, t); });
+		tm.getLowPriorTasks().forEach((t) -> { taskToNode(lowPriorNode, t); });
+		treeModel.reload();
+		setTreeExpandedState(true);
+    }//GEN-LAST:event_menuItemOpenFileMousePressed
 
-    private void Button_SaveTasksAsMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_SaveTasksAsMouseClicked
-        save_changes_as();
-    }//GEN-LAST:event_Button_SaveTasksAsMouseClicked
+    private void buttonSaveTasksAsMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonSaveTasksAsMouseClicked
+        saveChangesAs();
+    }//GEN-LAST:event_buttonSaveTasksAsMouseClicked
 
-    private void Button_SaveTaskEditMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_SaveTaskEditMouseClicked
-        if (!tree_has_selection("A task must be selected in order to edit its name and description")) {
+    private void buttonSaveTaskEditMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonSaveTaskEditMouseClicked
+        if (!treeHasSelection("A task must be selected in order to edit its name and description")) {
 			return;
 		}
 		DefaultMutableTreeNode sel
-			= (DefaultMutableTreeNode) Tree_Task.getLastSelectedPathComponent();
+			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		
 		Task t = (Task) sel.getUserObject();
-		t.set_name(TextBox_TaskName.getText());
-		t.set_description(TextArea_TaskDescription.getText());
-		t.change_state("Edited name and/or description.", TaskStateEnum.Edited);
-		refresh_boxes_task(t);
+		t.setName(textBoxTaskName.getText());
+		t.setDescription(textAreaTaskDescription.getText());
+		t.changeState("Edited name and/or description.", TaskStateEnum.Edited);
+		refreshBoxesTask(t);
 		// this edit jhas been written to the task, but not to the file
-		set_changes_unsaved();
-    }//GEN-LAST:event_Button_SaveTaskEditMouseClicked
+		setChangesUnsaved();
+    }//GEN-LAST:event_buttonSaveTaskEditMouseClicked
 
-	private void change_task_state(TaskStateEnum s, String custom_reason, boolean use_reason)
+	private void changeTaskState(TaskStateEnum s, String custom_reason, boolean use_reason)
 	{
-		if (!tree_has_selection("A task must be selected in order to change its state")) {
+		if (!treeHasSelection("A task must be selected in order to change its state")) {
 			return;
 		}
 		DefaultMutableTreeNode sel
-			= (DefaultMutableTreeNode) Tree_Task.getLastSelectedPathComponent();
+			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		Task t = (Task) sel.getUserObject();
-		String r = t.ask_change_state(s);
+		String r = t.askChangeState(s);
 		if (!r.equals("")) {
-			issue_error_msg("Can't change state of task (id: " + t.get_id() + ") due to: " + r);
+			issueErrorMsg("Can't change state of task (id: " + t.getId() + ") due to: " + r);
 			return;
 		}
 		String reason;
@@ -1101,57 +1101,57 @@ public class MainView extends javax.swing.JFrame {
 				JOptionPane.PLAIN_MESSAGE // no icon
 			);
 		}
-		t.change_state(reason, s);
-		refresh_boxes_task(t);
-		tree_model.reload(sel);
-		set_changes_unsaved();
+		t.changeState(reason, s);
+		refreshBoxesTask(t);
+		treeModel.reload(sel);
+		setChangesUnsaved();
 	}
 	
-    private void Button_TaskDoneMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_TaskDoneMouseClicked
-        change_task_state(TaskStateEnum.Done, "The task has been completed.", true);
-    }//GEN-LAST:event_Button_TaskDoneMouseClicked
+    private void buttonTaskDoneMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonTaskDoneMouseClicked
+        changeTaskState(TaskStateEnum.Done, "The task has been completed.", true);
+    }//GEN-LAST:event_buttonTaskDoneMouseClicked
 
-    private void Button_TaskWorkingMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_TaskWorkingMouseClicked
-        change_task_state(TaskStateEnum.Working, "Working on it.", true);
-    }//GEN-LAST:event_Button_TaskWorkingMouseClicked
+    private void buttonTaskWorkingMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonTaskWorkingMouseClicked
+        changeTaskState(TaskStateEnum.Working, "Working on it.", true);
+    }//GEN-LAST:event_buttonTaskWorkingMouseClicked
 
-    private void Button_TaskHoldMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_TaskHoldMouseClicked
-        change_task_state(TaskStateEnum.PutOnHold, "", false);
-    }//GEN-LAST:event_Button_TaskHoldMouseClicked
+    private void buttonTaskHoldMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonTaskHoldMouseClicked
+        changeTaskState(TaskStateEnum.PutOnHold, "", false);
+    }//GEN-LAST:event_buttonTaskHoldMouseClicked
 
-    private void Button_TaskOnRevisionMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_TaskOnRevisionMouseClicked
-        change_task_state(TaskStateEnum.OnRevision, "The task is being revised.", true);
-    }//GEN-LAST:event_Button_TaskOnRevisionMouseClicked
+    private void buttonTaskOnRevisionMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonTaskOnRevisionMouseClicked
+        changeTaskState(TaskStateEnum.OnRevision, "The task is being revised.", true);
+    }//GEN-LAST:event_buttonTaskOnRevisionMouseClicked
 
-    private void Button_TaskPendingRevisionMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_TaskPendingRevisionMouseClicked
-        change_task_state(TaskStateEnum.PendingRevision, "", false);
-    }//GEN-LAST:event_Button_TaskPendingRevisionMouseClicked
+    private void buttonTaskPendingRevisionMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonTaskPendingRevisionMouseClicked
+        changeTaskState(TaskStateEnum.PendingRevision, "", false);
+    }//GEN-LAST:event_buttonTaskPendingRevisionMouseClicked
 
-    private void Button_TaskCancelMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_TaskCancelMouseClicked
-        change_task_state(TaskStateEnum.Cancelled, "", false);
-    }//GEN-LAST:event_Button_TaskCancelMouseClicked
+    private void buttonTaskCancelMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonTaskCancelMouseClicked
+        changeTaskState(TaskStateEnum.Cancelled, "", false);
+    }//GEN-LAST:event_buttonTaskCancelMouseClicked
 
-    private void Button_TaskDeleteMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_TaskDeleteMouseClicked
-        change_task_state(TaskStateEnum.Deleted, "", false);
-    }//GEN-LAST:event_Button_TaskDeleteMouseClicked
+    private void buttonTaskDeleteMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonTaskDeleteMouseClicked
+        changeTaskState(TaskStateEnum.Deleted, "", false);
+    }//GEN-LAST:event_buttonTaskDeleteMouseClicked
 
-    private void MenuItem_AboutMousePressed(MouseEvent evt) {//GEN-FIRST:event_MenuItem_AboutMousePressed
+    private void menuItemAboutMousePressed(MouseEvent evt) {//GEN-FIRST:event_menuItemAboutMousePressed
         JOptionPane.showMessageDialog(null,
 			"Todo List Manager\n\nCopyright 2019\n\nBy: Lluís Alemany Puig"
 		);
-    }//GEN-LAST:event_MenuItem_AboutMousePressed
+    }//GEN-LAST:event_menuItemAboutMousePressed
 
-    private void Button_ExpandAllMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_ExpandAllMouseClicked
-        set_tree_expanded_state(true);
-    }//GEN-LAST:event_Button_ExpandAllMouseClicked
+    private void buttonExpandAllMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonExpandAllMouseClicked
+        setTreeExpandedState(true);
+    }//GEN-LAST:event_buttonExpandAllMouseClicked
 
-    private void Button_ContractAllMouseClicked(MouseEvent evt) {//GEN-FIRST:event_Button_ContractAllMouseClicked
-        set_tree_expanded_state(false);
-    }//GEN-LAST:event_Button_ContractAllMouseClicked
+    private void buttonContractAllMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonContractAllMouseClicked
+        setTreeExpandedState(false);
+    }//GEN-LAST:event_buttonContractAllMouseClicked
 
     private void formWindowClosing(WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        if (!are_changes_saved()) {
-			prompt_save_changes();
+        if (!areChangesSaved()) {
+			promptSaveChanges();
 		}
     }//GEN-LAST:event_formWindowClosing
 
@@ -1191,36 +1191,25 @@ public class MainView extends javax.swing.JFrame {
 	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton Button_Clear;
-    private JButton Button_ContractAll;
-    private JButton Button_DecrPriority;
-    private JButton Button_ExpandAll;
-    private JButton Button_IncrPriority;
-    private JButton Button_NewTask;
-    private JButton Button_OverwriteTasks;
-    private JButton Button_RemoveTask;
-    private JButton Button_SaveTaskEdit;
-    private JButton Button_SaveTasksAs;
-    private JButton Button_TaskCancel;
-    private JButton Button_TaskDelete;
-    private JButton Button_TaskDone;
-    private JButton Button_TaskDown;
-    private JButton Button_TaskHold;
-    private JButton Button_TaskOnRevision;
-    private JButton Button_TaskPendingRevision;
-    private JButton Button_TaskUp;
-    private JButton Button_TaskWorking;
-    private JLabel Label_TaskID;
-    private JLabel Label_TaskState;
-    private JLabel Label_UnsavedChanges;
-    private JMenuItem MenuItem_About;
-    private JMenuItem MenuItem_OpenFile;
-    private JTextArea TextArea_TaskChanges;
-    private JTextArea TextArea_TaskDescription;
-    private JTextField TextBox_Error;
-    private JTextField TextBox_TaskDate;
-    private JTextField TextBox_TaskName;
-    private JTree Tree_Task;
+    private JButton buttonClear;
+    private JButton buttonContractAll;
+    private JButton buttonDecrPriority;
+    private JButton buttonExpandAll;
+    private JButton buttonIncrPriority;
+    private JButton buttonNewTask;
+    private JButton buttonOverwriteTasks;
+    private JButton buttonRemoveTask;
+    private JButton buttonSaveTaskEdit;
+    private JButton buttonSaveTasksAs;
+    private JButton buttonTaskCancel;
+    private JButton buttonTaskDelete;
+    private JButton buttonTaskDone;
+    private JButton buttonTaskDown;
+    private JButton buttonTaskHold;
+    private JButton buttonTaskOnRevision;
+    private JButton buttonTaskPendingRevision;
+    private JButton buttonTaskUp;
+    private JButton buttonTaskWorking;
     private JLabel jLabel1;
     private JLabel jLabel2;
     private JLabel jLabel3;
@@ -1236,12 +1225,23 @@ public class MainView extends javax.swing.JFrame {
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane6;
     private JScrollPane jScrollPane7;
+    private JLabel labelTaskID;
+    private JLabel labelTaskState;
+    private JLabel labelUnsavedChanges;
+    private JMenuItem menuItemAbout;
+    private JMenuItem menuItemOpenFile;
+    private JTextArea textAreaTaskChanges;
+    private JTextArea textAreaTaskDescription;
+    private JTextField textBoxError;
+    private JTextField textBoxTaskDate;
+    private JTextField textBoxTaskName;
+    private JTree treeTasks;
     // End of variables declaration//GEN-END:variables
 
-	private DefaultTreeModel tree_model;
-	private DefaultMutableTreeNode high_prior_node;
-	private DefaultMutableTreeNode med_prior_node;
-	private DefaultMutableTreeNode low_prior_node;
+	private DefaultTreeModel treeModel;
+	private DefaultMutableTreeNode highPriorNode;
+	private DefaultMutableTreeNode medPriorNode;
+	private DefaultMutableTreeNode lowPriorNode;
 	private Logger log;
-	private boolean changes_saved = true;
+	private boolean changesSaved = true;
 }

@@ -46,35 +46,35 @@ import todomanager.util.Tools;
 public class TaskManager {
 	
 	private Logger log;
-	private String task_file = "";
+	private String taskFile = "";
 	
 	private static TaskManager instance = null;
-	private ArrayList<Task> high_prior_tasks = new ArrayList<>();
-	private ArrayList<Task> med_prior_tasks = new ArrayList<>();
-	private ArrayList<Task> low_prior_tasks = new ArrayList<>();
-	private Integer num_tasks = 0;
+	private ArrayList<Task> highPriorTasks = new ArrayList<>();
+	private ArrayList<Task> medPriorTasks = new ArrayList<>();
+	private ArrayList<Task> lowPriorTasks = new ArrayList<>();
+	private Integer numTasks = 0;
 	
-	private String make_id() {
-		String id = Integer.toString(num_tasks);
+	private String makeId() {
+		String id = Integer.toString(numTasks);
 		int n_zeros = 6 - id.length();
 		return (new String(new char[n_zeros]).replace('\0', '0')) + id;
 	}
 	
-	private Task find_task(ArrayList<Task> ts, String id) {
+	private Task findTask(ArrayList<Task> ts, String id) {
 		for (int i = 0; i < ts.size(); ++i) {
-			if (ts.get(i).get_id().equals(id)) { 
+			if (ts.get(i).getId().equals(id)) { 
 				return ts.get(i);
 			}
 		}
 		return null;
 	}
 	
-	private int delete_task(ArrayList<Task> ts, String id) {
+	private int deleteTask(ArrayList<Task> ts, String id) {
 		int j = -1;
 		Task t = null;
 		// remove task from vector
 		for (int i = 0; i < ts.size() && t == null; ++i) {
-			if (ts.get(i).get_id().equals(id)) { 
+			if (ts.get(i).getId().equals(id)) { 
 				t = ts.get(i);
 				j = i;
 				ts.remove(i);
@@ -83,31 +83,31 @@ public class TaskManager {
 		if (t != null) {
 			// if the task was removed, its subtasks are
 			// also found in the same vector -> remove them
-			for (Task st : t.get_subtasks()) {
-				delete_task(ts, st.get_id());
+			for (Task st : t.getSubtasks()) {
+				TaskManager.this.deleteTask(ts, st.getId());
 			}
 		}
 		return j;
 	}
 	
-	private void write_task(JSONWriter json, Task t) {
+	private void taskToJSON(JSONWriter json, Task t) {
 		json.object();
 		
-		json.key("id").value(t.get_id());
-		json.key("name").value(t.get_name());
-		json.key("description").value(t.get_description());
-		json.key("comparable_date").value(t.get_comp_date());
-		json.key("pretty_date").value(t.get_pretty_date());
+		json.key("id").value(t.getId());
+		json.key("name").value(t.getName());
+		json.key("description").value(t.getDescription());
+		json.key("comparable_date").value(t.getCompDate());
+		json.key("pretty_date").value(t.getPrettyDate());
 		
 		// write state changes
 		json.key("changes");
 		json.array();
-			for (TaskState s : t.get_changes()) {
+			for (TaskState s : t.getChanges()) {
 				json.object()
-					.key("comparable_date").value(s.get_comp_date())
-					.key("pretty_date").value(s.get_pretty_date())
-					.key("reason_state").value(s.get_reason())
-					.key("state").value(s.get_state())
+					.key("comparable_date").value(s.getComparableDate())
+					.key("pretty_date").value(s.getPrettyDate())
+					.key("reason_state").value(s.getReason())
+					.key("state").value(s.getState())
 					.endObject();
 			}
 		json.endArray();
@@ -115,20 +115,20 @@ public class TaskManager {
 		// write subtasks
 		json.key("subtasks");
 		json.array();
-			t.get_subtasks().forEach((st) -> { write_task(json, st); });
+			t.getSubtasks().forEach((st) -> { taskToJSON(json, st); });
 		json.endArray();
 		
 		json.endObject();
 	}
 	
-	private void append_tasks(JSONWriter json, ArrayList<Task> ts) {
+	private void tasksToJSON(JSONWriter json, ArrayList<Task> ts) {
 		json.array();
-		ts.forEach((t) -> { write_task(json, t); });
+		ts.forEach((t) -> { taskToJSON(json, t); });
 		json.endArray();
 	}
 
 	private TaskManager() {
-		log = Logger.get_instance();
+		log = Logger.getInstance();
 	}
 	
 	public static TaskManager get_instance() {
@@ -138,10 +138,10 @@ public class TaskManager {
 		return instance;
 	}
 	
-	public void set_task_file(String filename) { task_file = filename; }
-	public String get_task_file() { return task_file; }
+	public void setTaskFile(String filename) { taskFile = filename; }
+	public String getTaskFile() { return taskFile; }
 	
-	private Task parse_task(JSONObject obj) {
+	private Task fromJSONtoTask(JSONObject obj) {
 		String id = obj.getString("id");
 		String name = obj.getString("name");
 		String descr = obj.getString("description");
@@ -160,33 +160,33 @@ public class TaskManager {
 			TaskState ts = new TaskState(cdate, pdate, reason, TaskStateEnum.fromString(state));
 			changes.add(ts);
 		}
-		t.hard_set_changes(changes);
+		t.hardSetChanges(changes);
 		
 		JSONArray arrtasks = obj.getJSONArray("subtasks");
 		ArrayList<Task> subtasks = new ArrayList<>();
 		for (int i = 0; i < arrtasks.length(); ++i) {
-			subtasks.add(parse_task( (JSONObject) arrtasks.get(i) ));
+			subtasks.add(fromJSONtoTask( (JSONObject) arrtasks.get(i) ));
 		}
-		t.hard_set_subtasks(subtasks);
+		t.hardSetSubtasks(subtasks);
 		return t;
 	}
-	private void parse_tasks(JSONArray arr, ArrayList<Task> tasks) {
+	private void parseTasks(JSONArray arr, ArrayList<Task> tasks) {
 		for (int i = 0; i < arr.length(); ++i) {
-			Task t = parse_task((JSONObject) arr.get(i));
+			Task t = fromJSONtoTask((JSONObject) arr.get(i));
 			tasks.add(t);
 		}
 	}
-	public boolean read_tasks() {
-		String lines_file = Tools.read_file(task_file);
+	public boolean readTasks() {
+		String lines_file = Tools.readFile(taskFile);
 		if (lines_file.equals("?")) {
-			log.error("Could not open file '" + task_file + "'.");
+			log.error("Could not open file '" + taskFile + "'.");
 			return false;
 		}
 		
 		// clear current contents
-		high_prior_tasks.clear();
-		med_prior_tasks.clear();
-		low_prior_tasks.clear();
+		highPriorTasks.clear();
+		medPriorTasks.clear();
+		lowPriorTasks.clear();
 		
 		// main JSON object
 		JSONObject main = new JSONObject(lines_file);
@@ -195,24 +195,24 @@ public class TaskManager {
 		JSONArray med = main.getJSONArray("med_prior_tasks");
 		JSONArray high = main.getJSONArray("high_prior_tasks");
 		
-		parse_tasks(low, low_prior_tasks);
-		parse_tasks(med, med_prior_tasks);
-		parse_tasks(high, high_prior_tasks);
+		parseTasks(low, lowPriorTasks);
+		parseTasks(med, medPriorTasks);
+		parseTasks(high, highPriorTasks);
 		return true;
 	}
 	
-	public boolean write_tasks(boolean do_backup) {
-		log.info("Writing tasks into file '" + task_file + "'.");
+	public boolean writeTasks(boolean do_backup) {
+		log.info("Writing tasks into file '" + taskFile + "'.");
 		if (do_backup) {
 			log.info("    Do a backup first...");
 		}
 		
-		if (do_backup && Tools.backup_file(task_file) != Tools.IOResult.Success) {
-			log.error("Could not back up file '" + task_file + "'.");
+		if (do_backup && Tools.backupFile(taskFile) != Tools.IOResult.Success) {
+			log.error("Could not back up file '" + taskFile + "'.");
 			return false;
 		}
 		
-		File file = new File(task_file);
+		File file = new File(taskFile);
 		FileWriter writer = null;
 		
 		try {
@@ -222,7 +222,7 @@ public class TaskManager {
 		catch (IOException ex) {
 			ex.printStackTrace();
 			java.util.logging.Logger.getLogger(Logger.class.getName()).log(Level.SEVERE, null, ex);
-			log.error("Could not open file '" + task_file + "' for writing.");
+			log.error("Could not open file '" + taskFile + "' for writing.");
 			return false;
 		}
 		
@@ -232,11 +232,11 @@ public class TaskManager {
 		JSONWriter json = new JSONWriter(writer);
 		json.object();
 		json.key("low_prior_tasks");
-		append_tasks(json, low_prior_tasks);
+		tasksToJSON(json, lowPriorTasks);
 		json.key("med_prior_tasks");
-		append_tasks(json, med_prior_tasks);
+		tasksToJSON(json, medPriorTasks);
 		json.key("high_prior_tasks");
-		append_tasks(json, high_prior_tasks);
+		tasksToJSON(json, highPriorTasks);
 		json.endObject();
 		
 		try {
@@ -245,42 +245,42 @@ public class TaskManager {
 		catch (IOException ex) {
 			ex.printStackTrace();
 			java.util.logging.Logger.getLogger(Logger.class.getName()).log(Level.SEVERE, null, ex);
-			log.error("Could not write into file '" + task_file + "'");
+			log.error("Could not write into file '" + taskFile + "'");
 			return false;
 		}
 		
 		return true;
 	}
 	
-	public ArrayList<Task> get_high_prior_tasks() { return high_prior_tasks; }
-	public ArrayList<Task> get_med_prior_tasks()  { return med_prior_tasks; }
-	public ArrayList<Task> get_low_prior_tasks()  { return low_prior_tasks; }
+	public ArrayList<Task> getHighPriorTasks() { return highPriorTasks; }
+	public ArrayList<Task> getMedPriorTasks()  { return medPriorTasks; }
+	public ArrayList<Task> getLowPriorTasks()  { return lowPriorTasks; }
 
-	public Task get_task(String id) {
-		Task t = find_task(high_prior_tasks, id);
-		if (t == null) { t = find_task(med_prior_tasks, id); }
-		if (t == null) { t = find_task(low_prior_tasks, id); }
+	public Task getTask(String id) {
+		Task t = findTask(highPriorTasks, id);
+		if (t == null) { t = findTask(medPriorTasks, id); }
+		if (t == null) { t = findTask(lowPriorTasks, id); }
 		return t;
 	}
 	
-	public boolean delete_task(String id) {
-		int i = delete_task(high_prior_tasks, id);
-		if (i == -1) { i = delete_task(med_prior_tasks, id); }
-		if (i == -1) { i = delete_task(low_prior_tasks, id); }
+	public boolean deleteTask(String id) {
+		int i = TaskManager.this.deleteTask(highPriorTasks, id);
+		if (i == -1) { i = TaskManager.this.deleteTask(medPriorTasks, id); }
+		if (i == -1) { i = TaskManager.this.deleteTask(lowPriorTasks, id); }
 		return i != -1;
 	}
 	
-	public int del_high_task(String id) { return delete_task(high_prior_tasks, id); }
-	public int del_med_task(String id) { return delete_task(med_prior_tasks, id); }
-	public int del_low_task(String id) { return delete_task(low_prior_tasks, id); }
+	public int deleteHighTask(String id) { return TaskManager.this.deleteTask(highPriorTasks, id); }
+	public int deleteMedTask(String id) { return TaskManager.this.deleteTask(medPriorTasks, id); }
+	public int deleteLowTask(String id) { return TaskManager.this.deleteTask(lowPriorTasks, id); }
 	
-	public void insert_high_task(int i, Task t) { high_prior_tasks.add(i, t); }
-	public void insert_med_task(int i, Task t) { med_prior_tasks.add(i, t); }
-	public void insert_low_task(int i, Task t) { low_prior_tasks.add(i, t); }
+	public void insertHighTask(int i, Task t) { highPriorTasks.add(i, t); }
+	public void insertMedTask(int i, Task t) { medPriorTasks.add(i, t); }
+	public void insertLowTask(int i, Task t) { lowPriorTasks.add(i, t); }
 	
-	public Task new_task(String name, String descr) {
-		Task t = new Task(make_id(), name, descr, Tools.get_comp_date(), Tools.get_pretty_date());
-		++num_tasks;
+	public Task newTask(String name, String descr) {
+		Task t = new Task(makeId(), name, descr, Tools.getComparableDate(), Tools.getPrettyDate());
+		++numTasks;
 		return t;
 	}
 }

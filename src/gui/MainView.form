@@ -9,20 +9,20 @@
             <Property name="text" type="java.lang.String" value="File"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuItem_OpenFile">
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemOpenFile">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Open"/>
               </Properties>
               <Events>
-                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="MenuItem_OpenFileMousePressed"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuItemOpenFileMousePressed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuItem_About">
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemAbout">
               <Properties>
                 <Property name="text" type="java.lang.String" value="About"/>
               </Properties>
               <Events>
-                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="MenuItem_AboutMousePressed"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuItemAboutMousePressed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -66,7 +66,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel7" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="TextBox_Error" min="-2" pref="850" max="-2" attributes="0"/>
+                  <Component id="textBoxError" min="-2" pref="850" max="-2" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -80,7 +80,7 @@
                   <Component id="jPanel7" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="TextBox_Error" min="-2" max="-2" attributes="0"/>
+              <Component id="textBoxError" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -126,14 +126,14 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTree" name="Tree_Task">
+            <Component class="javax.swing.JTree" name="treeTasks">
               <Properties>
                 <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.editors2.TreeModelEditor">
                   <TreeModel code="Tasks&#xa; High Priority&#xa; Medium Priority&#xa; Low Priority"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="valueChanged" listener="javax.swing.event.TreeSelectionListener" parameters="javax.swing.event.TreeSelectionEvent" handler="Tree_TaskValueChanged"/>
+                <EventHandler event="valueChanged" listener="javax.swing.event.TreeSelectionListener" parameters="javax.swing.event.TreeSelectionEvent" handler="treeTasksValueChanged"/>
               </Events>
             </Component>
           </SubComponents>
@@ -146,32 +146,32 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="Button_ExpandAll" alignment="0" max="32767" attributes="0"/>
-                          <Component id="Button_NewTask" pref="90" max="32767" attributes="0"/>
-                          <Component id="Button_RemoveTask" max="32767" attributes="0"/>
+                          <Component id="buttonExpandAll" alignment="0" max="32767" attributes="0"/>
+                          <Component id="buttonNewTask" pref="90" max="32767" attributes="0"/>
+                          <Component id="buttonRemoveTask" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="Button_ContractAll" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Component id="buttonContractAll" min="-2" pref="90" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="Label_UnsavedChanges" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelUnsavedChanges" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="Button_TaskUp" min="-2" pref="90" max="-2" attributes="0"/>
+                                      <Component id="buttonTaskUp" min="-2" pref="90" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="Button_IncrPriority" min="-2" pref="90" max="-2" attributes="0"/>
+                                      <Component id="buttonIncrPriority" min="-2" pref="90" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="Button_OverwriteTasks" max="32767" attributes="0"/>
+                                      <Component id="buttonOverwriteTasks" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="Button_TaskDown" min="-2" pref="90" max="-2" attributes="0"/>
+                                      <Component id="buttonTaskDown" min="-2" pref="90" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="Button_DecrPriority" min="-2" pref="90" max="-2" attributes="0"/>
+                                      <Component id="buttonDecrPriority" min="-2" pref="90" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="Button_SaveTasksAs" max="32767" attributes="0"/>
+                                      <Component id="buttonSaveTasksAs" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="9" pref="9" max="-2" attributes="0"/>
@@ -186,23 +186,23 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="Button_NewTask" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Button_IncrPriority" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Button_TaskUp" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Button_OverwriteTasks" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonNewTask" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonIncrPriority" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonTaskUp" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonOverwriteTasks" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="Button_TaskDown" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Button_DecrPriority" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Button_RemoveTask" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Button_SaveTasksAs" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonTaskDown" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonDecrPriority" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonRemoveTask" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonSaveTasksAs" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="Button_ExpandAll" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Button_ContractAll" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Label_UnsavedChanges" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonExpandAll" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonContractAll" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelUnsavedChanges" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -210,88 +210,88 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="Button_RemoveTask">
+            <Component class="javax.swing.JButton" name="buttonRemoveTask">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Remove"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_RemoveTaskMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonRemoveTaskMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Button_NewTask">
+            <Component class="javax.swing.JButton" name="buttonNewTask">
               <Properties>
                 <Property name="text" type="java.lang.String" value="New Task"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_NewTaskMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonNewTaskMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Button_TaskDown">
+            <Component class="javax.swing.JButton" name="buttonTaskDown">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Down"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_TaskDownMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonTaskDownMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Button_TaskUp">
+            <Component class="javax.swing.JButton" name="buttonTaskUp">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Up"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_TaskUpMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonTaskUpMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Button_IncrPriority">
+            <Component class="javax.swing.JButton" name="buttonIncrPriority">
               <Properties>
                 <Property name="text" type="java.lang.String" value="+ Priority"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_IncrPriorityMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonIncrPriorityMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Button_DecrPriority">
+            <Component class="javax.swing.JButton" name="buttonDecrPriority">
               <Properties>
                 <Property name="text" type="java.lang.String" value="- Priority"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_DecrPriorityMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonDecrPriorityMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Button_OverwriteTasks">
+            <Component class="javax.swing.JButton" name="buttonOverwriteTasks">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Overwrite"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_OverwriteTasksMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonOverwriteTasksMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Button_SaveTasksAs">
+            <Component class="javax.swing.JButton" name="buttonSaveTasksAs">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Save As"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_SaveTasksAsMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonSaveTasksAsMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Button_ExpandAll">
+            <Component class="javax.swing.JButton" name="buttonExpandAll">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Show all"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_ExpandAllMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonExpandAllMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Button_ContractAll">
+            <Component class="javax.swing.JButton" name="buttonContractAll">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Hide all"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_ContractAllMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonContractAllMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="Label_UnsavedChanges">
+            <Component class="javax.swing.JLabel" name="labelUnsavedChanges">
               <Properties>
                 <Property name="text" type="java.lang.String" value="There are unsaved changes"/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -301,7 +301,7 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JTextField" name="TextBox_Error">
+    <Component class="javax.swing.JTextField" name="textBoxError">
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel7">
 
@@ -339,21 +339,21 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="Button_TaskWorking" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
-                          <Component id="Button_TaskDone" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
-                          <Component id="Button_TaskHold" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="buttonTaskWorking" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="buttonTaskDone" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="buttonTaskHold" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="Button_TaskPendingRevision" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
-                          <Component id="Button_TaskOnRevision" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
-                          <Component id="Button_SaveTaskEdit" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="buttonTaskPendingRevision" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="buttonTaskOnRevision" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="buttonSaveTaskEdit" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="Button_TaskCancel" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
-                          <Component id="Button_TaskDelete" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
-                          <Component id="Button_Clear" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="buttonTaskCancel" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="buttonTaskDelete" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="buttonClear" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -364,21 +364,21 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="Button_TaskDone" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Button_TaskOnRevision" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Button_TaskCancel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonTaskDone" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonTaskOnRevision" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonTaskCancel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="Button_TaskPendingRevision" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Button_TaskDelete" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Button_TaskWorking" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonTaskPendingRevision" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonTaskDelete" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonTaskWorking" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="Button_TaskHold" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Button_SaveTaskEdit" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Button_Clear" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonTaskHold" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonSaveTaskEdit" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonClear" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -386,76 +386,76 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="Button_TaskWorking">
+            <Component class="javax.swing.JButton" name="buttonTaskWorking">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Working"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_TaskWorkingMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonTaskWorkingMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Button_TaskCancel">
+            <Component class="javax.swing.JButton" name="buttonTaskCancel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancel"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_TaskCancelMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonTaskCancelMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Button_TaskDone">
+            <Component class="javax.swing.JButton" name="buttonTaskDone">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Done"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_TaskDoneMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonTaskDoneMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Button_TaskDelete">
+            <Component class="javax.swing.JButton" name="buttonTaskDelete">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Delete"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_TaskDeleteMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonTaskDeleteMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Button_TaskOnRevision">
+            <Component class="javax.swing.JButton" name="buttonTaskOnRevision">
               <Properties>
                 <Property name="text" type="java.lang.String" value="On revision"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_TaskOnRevisionMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonTaskOnRevisionMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Button_TaskHold">
+            <Component class="javax.swing.JButton" name="buttonTaskHold">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Put on Hold"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_TaskHoldMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonTaskHoldMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Button_TaskPendingRevision">
+            <Component class="javax.swing.JButton" name="buttonTaskPendingRevision">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pending revision"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_TaskPendingRevisionMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonTaskPendingRevisionMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Button_SaveTaskEdit">
+            <Component class="javax.swing.JButton" name="buttonSaveTaskEdit">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Save Edit"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_SaveTaskEditMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonSaveTaskEditMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Button_Clear">
+            <Component class="javax.swing.JButton" name="buttonClear">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Clear"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_ClearMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonClearMouseClicked"/>
               </Events>
             </Component>
           </SubComponents>
@@ -476,17 +476,17 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="TextBox_TaskName" max="32767" attributes="0"/>
+                              <Component id="textBoxTaskName" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="Label_TaskID" min="-2" pref="64" max="-2" attributes="0"/>
+                              <Component id="labelTaskID" min="-2" pref="64" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="TextBox_TaskDate" max="32767" attributes="0"/>
+                              <Component id="textBoxTaskDate" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="Label_TaskState" min="-2" pref="85" max="-2" attributes="0"/>
+                              <Component id="labelTaskState" min="-2" pref="85" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane7" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -499,18 +499,18 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="TextBox_TaskName" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Label_TaskID" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textBoxTaskName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelTaskID" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="TextBox_TaskDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textBoxTaskDate" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="Label_TaskState" min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="labelTaskState" min="-2" pref="26" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -530,24 +530,24 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="Label_TaskState">
+            <Component class="javax.swing.JLabel" name="labelTaskState">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="-"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="TextBox_TaskDate">
+            <Component class="javax.swing.JTextField" name="textBoxTaskDate">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="Label_TaskID">
+            <Component class="javax.swing.JLabel" name="labelTaskID">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="000000"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="TextBox_TaskName">
+            <Component class="javax.swing.JTextField" name="textBoxTaskName">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
@@ -566,7 +566,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTextArea" name="TextArea_TaskChanges">
+                <Component class="javax.swing.JTextArea" name="textAreaTaskChanges">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="columns" type="int" value="20"/>
@@ -593,7 +593,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTextArea" name="TextArea_TaskDescription">
+                <Component class="javax.swing.JTextArea" name="textAreaTaskDescription">
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
                     <Property name="lineWrap" type="boolean" value="true"/>

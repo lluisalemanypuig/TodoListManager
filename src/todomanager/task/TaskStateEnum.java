@@ -64,7 +64,7 @@ public enum TaskStateEnum {
 	}
 	
 	/** The states a task needs to be in for it to be changed to state 's'. */
-	public static ArrayList<TaskStateEnum> precond_curtask(TaskStateEnum s) {
+	public static ArrayList<TaskStateEnum> precondCurtask(TaskStateEnum s) {
 		ArrayList<TaskStateEnum> arr = new ArrayList<>();
 		switch (s) {
 			case Done:
@@ -99,7 +99,7 @@ public enum TaskStateEnum {
 	}
 	
 	/** The states a task's subtasks need to be in for it to be changed to state 's'. */
-	public static ArrayList<TaskStateEnum> precond_subtasks(TaskStateEnum s) {
+	public static ArrayList<TaskStateEnum> precondSubtasks(TaskStateEnum s) {
 		ArrayList<TaskStateEnum> arr = new ArrayList<>();
 		switch (s) {
 			case Done:

@@ -37,7 +37,7 @@ import todomanager.util.Logger;
  */
 public class Task {
 	
-	private void add_change_state(String cdate, String pdate, String why, TaskStateEnum s) {
+	private void addChangeState(String cdate, String pdate, String why, TaskStateEnum s) {
 		changes.add(new TaskState(cdate, pdate, why, s));
 	}
 		
@@ -48,54 +48,54 @@ public class Task {
 	/// Task's description
 	private String description = "";
 	/// Task's creation date (comparable)
-	private String comp_date = "";
+	private String compDate = "";
 	/// Task's creation date (pretty)
-	private String pretty_date = "";
+	private String prettyDate = "";
 	/// List of state changes of this task
 	private ArrayList<TaskState> changes = new ArrayList<>();
 	/// The subtasks of this task
 	private ArrayList<Task> subtasks = new ArrayList<>();
 	/// Parent task
-	private Task parent_task = null;
+	private Task parentTask = null;
 	
 	public Task(String _id, String _name, String descr, String _cdate, String _pdate) {
 		id = _id;
 		name = _name;
 		description = descr;
-		comp_date = _cdate;
-		pretty_date = _pdate;
+		compDate = _cdate;
+		prettyDate = _pdate;
 		
 		changes = new ArrayList<>();
 		subtasks = new ArrayList<>();
-		parent_task = null;
+		parentTask = null;
 		
-		add_change_state(_cdate, _pdate, "Opened task", TaskStateEnum.Opened);
+		addChangeState(_cdate, _pdate, "Opened task", TaskStateEnum.Opened);
 	}
 	
-	public String get_id() { return id; }
-	public String get_name() { return name; }
-	public void set_name(String n) { name = n; }
-	public String get_description() { return description; }
-	public void set_description(String d) { description = d; }
-	public String get_comp_date() { return comp_date; }
-	public String get_pretty_date() { return pretty_date; }
-	public ArrayList<TaskState> get_changes() { return changes; }
-	public ArrayList<Task> get_subtasks() { return subtasks; }
-	public Task get_parent() { return parent_task; }
+	public String getId() { return id; }
+	public String getName() { return name; }
+	public void setName(String n) { name = n; }
+	public String getDescription() { return description; }
+	public void setDescription(String d) { description = d; }
+	public String getCompDate() { return compDate; }
+	public String getPrettyDate() { return prettyDate; }
+	public ArrayList<TaskState> getChanges() { return changes; }
+	public ArrayList<Task> getSubtasks() { return subtasks; }
+	public Task getParent() { return parentTask; }
 	@Override
-	public String toString() { return name + " -- (id: " + get_id() + ")"; }
+	public String toString() { return name + " -- (id: " + getId() + ")"; }
 	
-	public void set_parent(Task t) { parent_task = t; }
-	public void hard_set_changes(ArrayList<TaskState> c) { changes = c; }
-	public void hard_set_subtasks(ArrayList<Task> s) { subtasks = s; }
+	public void setParent(Task t) { parentTask = t; }
+	public void hardSetChanges(ArrayList<TaskState> c) { changes = c; }
+	public void hardSetSubtasks(ArrayList<Task> s) { subtasks = s; }
 	
-	public TaskState current_state() {
+	public TaskState currentState() {
 		ArrayList<TaskStateEnum> null_states = new ArrayList<>();
 		null_states.add(TaskStateEnum.Edited);
 		null_states.add(TaskStateEnum.AddedSubtask);
 		null_states.add(TaskStateEnum.PriorityChanged);
 		int i = changes.size() - 1;
-		while (i >= 0 && null_states.contains(changes.get(i).get_state())) { --i; }
+		while (i >= 0 && null_states.contains(changes.get(i).getState())) { --i; }
 		return changes.get(i);
 	}
 	
@@ -103,26 +103,26 @@ public class Task {
 	 * Are all the substasks in a certain state?
 	 * @param ls List of task states
 	 */
-	public boolean subtasks_state_is_one_of(ArrayList<TaskStateEnum> ls) {
+	public boolean subtasksStateIsOneOf(ArrayList<TaskStateEnum> ls) {
 		if (subtasks.size() == 0) { return true; }
-		return subtasks.stream().allMatch( (t) -> (t.is_one_of_state(ls)) );
+		return subtasks.stream().allMatch( (t) -> (t.isOneOfState(ls)) );
 	}
 	/**
 	 * A task is in a state only if it is marked to be in that state
 	 * and so are all of its subtasks.
 	 * @param ls List of task states
 	 */
-	public boolean is_one_of_state(ArrayList<TaskStateEnum> ls) {
-		return ls.contains(current_state().get_state());
+	public boolean isOneOfState(ArrayList<TaskStateEnum> ls) {
+		return ls.contains(currentState().getState());
 	}
 	
-	public boolean is_done() {
-		return current_state().get_state() == TaskStateEnum.Done;
+	public boolean isDone() {
+		return currentState().getState() == TaskStateEnum.Done;
 	}
 	
 	// -------------------------------------------------------------------------
 	
-	public String ask_change_state(TaskStateEnum s) {
+	public String askChangeState(TaskStateEnum s) {
 		// always "yes" for these changes
 		switch (s) {
 			case Edited:
@@ -131,24 +131,24 @@ public class Task {
 				return "";
 		}
 		
-		SystemInfo sysinfo = SystemInfo.get_instance();
-		Logger log = Logger.get_instance();
+		SystemInfo sysinfo = SystemInfo.getInstance();
+		Logger log = Logger.getInstance();
 		
-		ArrayList<TaskStateEnum> cur_level = TaskStateEnum.precond_curtask(s);
-		ArrayList<TaskStateEnum> sub_level = TaskStateEnum.precond_subtasks(s);
+		ArrayList<TaskStateEnum> cur_level = TaskStateEnum.precondCurtask(s);
+		ArrayList<TaskStateEnum> sub_level = TaskStateEnum.precondSubtasks(s);
 		
-		if (!is_one_of_state(cur_level)) {
-			String r = "The state of task " + get_id() + " is none of: " + cur_level;
-			r += ". Its state is: " + current_state().get_state() + "." + sysinfo.new_line;
+		if (!isOneOfState(cur_level)) {
+			String r = "The state of task " + getId() + " is none of: " + cur_level;
+			r += ". Its state is: " + currentState().getState() + "." + sysinfo.new_line;
 			log.warning(r);
 			return r;
 		}
 		
 		String reason = "";
 		for (Task t : subtasks) {
-			if (!t.is_one_of_state(sub_level)) {
+			if (!t.isOneOfState(sub_level)) {
 				String r = 
-					"Task " + t.get_id() + " (subtask of " + get_id() + "), " +
+					"Task " + t.getId() + " (subtask of " + getId() + "), " +
 					"is not in any of the states: " + sub_level + sysinfo.new_line;
 				reason += r;
 				log.warning(r);
@@ -159,8 +159,8 @@ public class Task {
 	
 	// -------------------------------------------------------------------------
 	
-	private void change_state(String cdate, String pdate, String why, TaskStateEnum s) {
-		add_change_state(cdate, pdate, why, s);
+	private void changeState(String cdate, String pdate, String why, TaskStateEnum s) {
+		addChangeState(cdate, pdate, why, s);
 		switch (s) {
 			case Edited:
 			case PriorityChanged:
@@ -168,39 +168,38 @@ public class Task {
 				return;
 		}
 		
-		ArrayList<TaskStateEnum> cur_level = TaskStateEnum.precond_curtask(s);
+		ArrayList<TaskStateEnum> cur_level = TaskStateEnum.precondCurtask(s);
 		for (Task t : subtasks) {
-			if (t.is_one_of_state(cur_level)) {
-				t.change_state(cdate, pdate, why, s);
+			if (t.isOneOfState(cur_level)) {
+				t.changeState(cdate, pdate, why, s);
 			}
 		}
 	}
-	public void change_state(String why, TaskStateEnum s) {
-		String cdate = Tools.get_comp_date();
-		String pdate = Tools.get_pretty_date();
-		change_state(cdate, pdate, why, s);
+	public void changeState(String why, TaskStateEnum s) {
+		String cdate = Tools.getComparableDate();
+		String pdate = Tools.getPrettyDate();
+		Task.this.changeState(cdate, pdate, why, s);
 	}
 	
 	// -------------------------------------------------------------------------
 	
-	public void add_subtask(Task t) {
-		if (is_done()) {
-			add_change_state(
-				t.get_comp_date(),
-				t.get_pretty_date(),
+	public void addSubtask(Task t) {
+		if (isDone()) {
+			addChangeState(t.getCompDate(),
+				t.getPrettyDate(),
 				"A subtask was added.",
 				TaskStateEnum.Opened
 			);
 		}
 		subtasks.add(0, t);
-		t.parent_task = this;
+		t.parentTask = this;
 	}
 	
-	public boolean move_subtask_by(String id, int incr) {
+	public boolean moveSubtaskBy(String id, int incr) {
 		Task t = null;
 		int j = -1;
 		for (int i = 0; i < subtasks.size() && t == null; ++i) {
-			if (subtasks.get(i).get_id().equals(id)) {
+			if (subtasks.get(i).getId().equals(id)) {
 				t = subtasks.get(i);
 				j = i;
 				subtasks.remove(i);
@@ -213,20 +212,20 @@ public class Task {
 	
 	// -------------------------------------------------------------------------
 	
-	public String changes_to_string() {
-		SystemInfo sysinfo = SystemInfo.get_instance();
+	public String changesToString() {
+		SystemInfo sysinfo = SystemInfo.getInstance();
 		String c = "";
 		for (TaskState ts : changes) {
-			c += ts.get_pretty_date() + sysinfo.new_line;
-			switch (ts.get_state()) {
+			c += ts.getPrettyDate() + sysinfo.new_line;
+			switch (ts.getState()) {
 				case Edited:
 				case PriorityChanged:
 				case AddedSubtask:
-					c += "    " + ts.get_reason() + sysinfo.new_line;
+					c += "    " + ts.getReason() + sysinfo.new_line;
 					break;
 				default:
-					c += "    State of task set to: " + ts.get_state() + sysinfo.new_line;
-					c += "    Reason: " + ts.get_reason() + sysinfo.new_line;
+					c += "    State of task set to: " + ts.getState() + sysinfo.new_line;
+					c += "    Reason: " + ts.getReason() + sysinfo.new_line;
 			}
 		}
 		return c;

@@ -41,10 +41,10 @@ import java.util.stream.Stream;
  * @author Lluís Alemany Puig
  */
 public class Tools {
-	public static String get_comp_date() {
+	public static String getComparableDate() {
 		return new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 	}
-	public static String get_pretty_date() {
+	public static String getPrettyDate() {
 		return (new Date()).toString();
 	}
 	
@@ -55,8 +55,8 @@ public class Tools {
 		Success
 	}
 	
-	public static String read_file(String filePath) {
-		SystemInfo sysinfo = SystemInfo.get_instance();
+	public static String readFile(String filePath) {
+		SystemInfo sysinfo = SystemInfo.getInstance();
 		StringBuilder contentBuilder = new StringBuilder();
 		try (Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)) {
 			stream.forEach(s -> contentBuilder.append(s).append(sysinfo.new_line));
@@ -66,8 +66,8 @@ public class Tools {
 		}
 		return contentBuilder.toString();
     }
-	public static IOResult backup_file(String filename) {
-		String old_contents = read_file(filename);
+	public static IOResult backupFile(String filename) {
+		String old_contents = readFile(filename);
 		if (old_contents.equals("?")) { return IOResult.ErrorRead; }
 		
 		File file = new File(filename);

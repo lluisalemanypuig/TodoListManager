@@ -34,9 +34,9 @@ import java.util.ArrayList;
 public class TaskState {
 	
 	/// Date of task's state change (comparable)
-	private final String comp_date;
+	private final String compDate;
 	/// Date of task's state change (pretty)
-	private final String pretty_date;
+	private final String prettyDate;
 	/// Why did this task change state?
 	private final String reason;
 	/// The new task's state.
@@ -50,16 +50,14 @@ public class TaskState {
 	 * @param s The new task's state.
 	 */
 	public TaskState(String cdate, String pdate, String why, TaskStateEnum s) {
-		comp_date = cdate;
-		pretty_date = pdate;
+		compDate = cdate;
+		prettyDate = pdate;
 		reason = why;
 		state = s;
 	}
 	
-	public String get_comp_date() { return comp_date; }
-	public String get_pretty_date() { return pretty_date; }
-	public String get_reason() { return reason; }
-	public TaskStateEnum get_state() { return state; }
-	
-	
+	public String getComparableDate() { return compDate; }
+	public String getPrettyDate() { return prettyDate; }
+	public String getReason() { return reason; }
+	public TaskStateEnum getState() { return state; }
 }

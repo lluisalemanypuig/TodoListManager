@@ -87,13 +87,12 @@ public class CustomTreeCellRenderer extends DefaultTreeCellRenderer {
 	{
 		super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
-		Object userObject = node.getUserObject();
 		
 		// the first two levels will never contain tasks
 		if (node.getLevel() <= 1) { return this; }
 		
 		Task t = (Task) node.getUserObject();
-		TaskStateEnum s = t.current_state().get_state();
+		TaskStateEnum s = t.currentState().getState();
 		
 		setToolTipText(s.toString());
 		switch (s) {
@@ -108,24 +107,6 @@ public class CustomTreeCellRenderer extends DefaultTreeCellRenderer {
 			default:
 				// do nothing
 		}
-		
-		/*
-		if (userObject instanceof ProjectParticipant) {
-			ProjectParticipant pp = (ProjectParticipant) userObject;
-			String text = String.format(SPAN_FORMAT, "blue", pp.getName());
-			text += " [" + String.format(SPAN_FORMAT, "orange", pp.getRole()) + "]";
-			this.setText("<html>" + text + "</html>");
-			this.setIcon(employeeIcon);
-		} else if (userObject instanceof Project) {
-			Project project = (Project) userObject;
-			String text = String.format(SPAN_FORMAT, "green", project.getName());
-			this.setText("<html>" + text + "</html>");
-		} else {
-			String text = String.format(SPAN_FORMAT, "red", userObject);
-			this.setText("<html>" + text + "</html>");
-		}
-		*/
-		
 		return this;
 	}
 }

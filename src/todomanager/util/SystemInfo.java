@@ -35,23 +35,23 @@ public class SystemInfo {
 	// static variable single_instance of type Singleton
 	private static SystemInfo instance = null;
 
-	/// ISO name for the OS's language.
-	public String lang_raw;
-	/// Name of the OS.
+	/** ISO name for the OS's language. */
+	public String langRaw;
+	/** Name of the OS. */
 	public String OS;
-	/// New line character (OS-dependent).
+	/** New line character (OS-dependent). */
 	public String new_line;
 	
-	protected final void extract_system_info() {
+	protected final void extractSystemInfo() {
 		Locale locale = Locale.getDefault();
-		lang_raw = locale.getLanguage();
+		langRaw = locale.getLanguage();
 		
 		// get OS type
 		OS = System.getProperty("os.name").toLowerCase();
-		if (is_Windows()) {
+		if (isWindows()) {
 			new_line = "\r\n";
 		}
-		else if (is_Unix() || is_Mac()) {
+		else if (isUnix() || isMac()) {
 			new_line = "\n";
 		}
 		else {
@@ -64,30 +64,26 @@ public class SystemInfo {
 	}
 	
 	private SystemInfo() {
-		extract_system_info();
+		extractSystemInfo();
 	}
 
-	public static SystemInfo get_instance() {
+	public static SystemInfo getInstance() {
 		if (instance == null) {
 			instance = new SystemInfo();
 		}
 		return instance;
 	}
 	
-	/// Is Windows?
-	public boolean is_Windows() {
+	public boolean isWindows() {
 		return OS.contains("win");
 	}
-	/// Is Mac?
-	public boolean is_Mac() {
+	public boolean isMac() {
 		return OS.contains("mac");
 	}
-	/// Is Unix?
-	public boolean is_Unix() {
+	public boolean isUnix() {
 		return OS.contains("nix") || OS.contains("nux") || OS.indexOf("aix") > 0;
 	}
-	/// Is Solaris?
-	public boolean is_Solaris() {
+	public boolean isSolaris() {
 		return OS.contains("sunos");
 	}
 } 
