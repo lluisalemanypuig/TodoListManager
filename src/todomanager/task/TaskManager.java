@@ -183,6 +183,7 @@ public class TaskManager {
 			subtasks.add(fromJSONtoTask( (JSONObject) arrtasks.get(i) ));
 		}
 		t.hardSetSubtasks(subtasks);
+		numTasks += subtasks.size();
 		return t;
 	}
 	private void parseTasks(JSONArray arr, ArrayList<Task> tasks) {
@@ -190,6 +191,7 @@ public class TaskManager {
 			Task t = fromJSONtoTask((JSONObject) arr.get(i));
 			tasks.add(t);
 		}
+		numTasks += tasks.size();
 	}
 	public boolean readTasks() {
 		String lines_file = Tools.readFile(taskFile);
@@ -202,6 +204,7 @@ public class TaskManager {
 		highPriorTasks.clear();
 		medPriorTasks.clear();
 		lowPriorTasks.clear();
+		numTasks = 0;
 		
 		// main JSON object
 		JSONObject main = new JSONObject(lines_file);
