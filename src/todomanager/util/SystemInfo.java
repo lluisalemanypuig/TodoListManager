@@ -40,7 +40,7 @@ public class SystemInfo {
 	/** Name of the OS. */
 	public String OS;
 	/** New line character (OS-dependent). */
-	public String new_line;
+	public String newLine;
 	
 	protected final void extractSystemInfo() {
 		Locale locale = Locale.getDefault();
@@ -49,10 +49,10 @@ public class SystemInfo {
 		// get OS type
 		OS = System.getProperty("os.name").toLowerCase();
 		if (isWindows()) {
-			new_line = "\r\n";
+			newLine = "\r\n";
 		}
 		else if (isUnix() || isMac()) {
-			new_line = "\n";
+			newLine = "\n";
 		}
 		else {
 			System.out.println("SystemInfo error:");

@@ -51,8 +51,6 @@ public class CustomTreeCellRenderer extends DefaultTreeCellRenderer {
 	public CustomTreeCellRenderer(int s) {
 		String cur_dir = System.getProperty("user.dir") + "/TodoListManagerData/";
 		
-		System.out.println(cur_dir);
-		
 		icon_cancelled = new ImageIcon(cur_dir + "imgs/cancelled.png");
 		icon_cancelled = new ImageIcon(icon_cancelled.getImage().getScaledInstance(s, s, java.awt.Image.SCALE_SMOOTH));
 		

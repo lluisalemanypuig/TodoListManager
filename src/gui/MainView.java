@@ -73,6 +73,7 @@ public class MainView extends javax.swing.JFrame {
 	public MainView() {
 		log = Logger.getInstance();
 		log.begin();
+		log.info("Program executed from path: " + System.getProperty("user.dir"));
 		
 		initComponents();
 		
@@ -1072,10 +1073,17 @@ public class MainView extends javax.swing.JFrame {
 			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		
 		Task t = (Task) sel.getUserObject();
+		// current task's name and description
+		String prevName = t.getName();
+		String prevDescr = t.getDescription();
+		// new name and description
 		t.setName(textBoxTaskName.getText());
 		t.setDescription(textAreaTaskDescription.getText());
-		t.changeState("Edited name and/or description.", TaskStateEnum.Edited);
+		// set the change to the task
+		t.taskWasEdited("Edited name and/or description.", prevName, prevDescr, TaskStateEnum.Edited);
+		
 		refreshBoxesTask(t);
+		
 		// this edit jhas been written to the task, but not to the file
 		setChangesUnsaved();
     }//GEN-LAST:event_buttonSaveTaskEditMouseClicked

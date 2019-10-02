@@ -59,7 +59,7 @@ public class Tools {
 		SystemInfo sysinfo = SystemInfo.getInstance();
 		StringBuilder contentBuilder = new StringBuilder();
 		try (Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)) {
-			stream.forEach(s -> contentBuilder.append(s).append(sysinfo.new_line));
+			stream.forEach(s -> contentBuilder.append(s).append(sysinfo.newLine));
 		}
 		catch (IOException e) {
 			return "?";

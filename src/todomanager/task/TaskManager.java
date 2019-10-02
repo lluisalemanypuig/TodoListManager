@@ -102,12 +102,16 @@ public class TaskManager {
 		// write state changes
 		json.key("changes");
 		json.array();
-			for (TaskState s : t.getChanges()) {
+			for (TaskState ts : t.getChanges()) {
 				json.object()
-					.key("comparable_date").value(s.getComparableDate())
-					.key("pretty_date").value(s.getPrettyDate())
-					.key("reason_state").value(s.getReason())
-					.key("state").value(s.getState())
+					.key("comparable_date").value(ts.getComparableDate())
+					.key("pretty_date").value(ts.getPrettyDate())
+					.key("reason").value(ts.getReason())
+					.key("state").value(ts.getState())
+					.key("pTN").value(ts.getPreviousTaskName() == null ? "" : ts.getPreviousTaskName())
+					.key("nTN").value(ts.getNextTaskName() == null ? "" : ts.getNextTaskName())
+					.key("pTD").value(ts.getPreviousTaskDescription() == null ? "" : ts.getPreviousTaskDescription())
+					.key("nTD").value(ts.getNextTaskDescription() == null ? "" : ts.getNextTaskDescription())
 					.endObject();
 			}
 		json.endArray();
@@ -155,9 +159,20 @@ public class TaskManager {
 			JSONObject stobj = (JSONObject) arrchanges.get(i);
 			String cdate = stobj.getString("comparable_date");
 			String pdate = stobj.getString("pretty_date");
-			String reason = stobj.getString("reason_state");
+			String reason = stobj.getString("reason");
 			String state = stobj.getString("state");
-			TaskState ts = new TaskState(cdate, pdate, reason, TaskStateEnum.fromString(state));
+			String pTN = stobj.getString("pTN");
+			String nTN = stobj.getString("nTN");
+			String pTD = stobj.getString("pTD");
+			String nTD = stobj.getString("nTD");
+			if (pTN.equals("")) { pTN = null; }
+			if (nTN.equals("")) { nTN = null; }
+			if (pTD.equals("")) { pTD = null; }
+			if (nTD.equals("")) { nTD = null; }
+			TaskState ts = new TaskState(
+				cdate, pdate, reason, pTN, nTN, pTD, nTD,
+				TaskStateEnum.fromString(state)
+			);
 			changes.add(ts);
 		}
 		t.hardSetChanges(changes);

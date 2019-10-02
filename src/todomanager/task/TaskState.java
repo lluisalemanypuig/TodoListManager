@@ -25,39 +25,62 @@
 
 package todomanager.task;
 
-import java.util.ArrayList;
-
 /**
  * @brief Class to represent a task's state.
  * @author Lluís Alemany Puig
  */
 public class TaskState {
 	
-	/// Date of task's state change (comparable)
+	/** Date of task's state change (comparable) */
 	private final String compDate;
-	/// Date of task's state change (pretty)
+	/** Date of task's state change (pretty) */
 	private final String prettyDate;
-	/// Why did this task change state?
+	/** Why did this task change state? */
 	private final String reason;
-	/// The new task's state.
+	/** The new task's state. */
 	private final TaskStateEnum state;
+	/** The task's name before the change. */
+	private final String prevTaskName;
+	/** The task's name after the change. */
+	private final String nextTaskName;
+	/** The task's description before the change. */
+	private final String prevTaskDescr;
+	/** The task's description after the change. */
+	private final String nextTaskDescr;
 	
 	/**
 	 * Sets the date, reason and state of the task's state change.
 	 * @param cdate Date of state in format YYYY.MM.DD.HH.MM.SS.
 	 * @param pdate Date of state in a prettier format.
 	 * @param why Why did this happen (optional for 'Opened', 'Done', 'Working'
+	 * @param pTN Task's name before the change.
+	 * @param nTN Task's name after the change.
+	 * @param pTD Task's description before the change.
+	 * @param nTD Task's description after the change.
 	 * @param s The new task's state.
 	 */
-	public TaskState(String cdate, String pdate, String why, TaskStateEnum s) {
+	public TaskState(
+		String cdate, String pdate, String why,
+		String pTN, String nTN, String pTD, String nTD,
+		TaskStateEnum s
+	)
+	{
 		compDate = cdate;
 		prettyDate = pdate;
 		reason = why;
 		state = s;
+		prevTaskName = pTN;
+		nextTaskName = nTN;
+		prevTaskDescr = pTD;
+		nextTaskDescr = nTD;
 	}
 	
 	public String getComparableDate() { return compDate; }
 	public String getPrettyDate() { return prettyDate; }
 	public String getReason() { return reason; }
 	public TaskStateEnum getState() { return state; }
+	public String getPreviousTaskName() { return prevTaskName; }
+	public String getNextTaskName() { return nextTaskName; }
+	public String getPreviousTaskDescription() { return prevTaskDescr; }
+	public String getNextTaskDescription() { return nextTaskDescr; }
 }

@@ -89,7 +89,7 @@ public class Logger {
 	
 	public Logger begin() {
 		try {
-			fileWriter.write("<---- Start log ---->" + SystemInfo.getInstance().new_line);
+			fileWriter.write("<---- Start log ---->" + SystemInfo.getInstance().newLine);
 			fileWriter.flush();
 		}
 		catch (IOException ex) {
@@ -100,7 +100,7 @@ public class Logger {
 	}
 	public Logger end() {
 		try {
-			fileWriter.write("<----  End  log ---->" + SystemInfo.getInstance().new_line);
+			fileWriter.write("<----  End  log ---->" + SystemInfo.getInstance().newLine);
 			fileWriter.flush();
 		}
 		catch (IOException ex) {
@@ -111,7 +111,7 @@ public class Logger {
 	}
 	public Logger warning(String msg) {
 		try {
-			fileWriter.write(date() + "WARNING " + msg + SystemInfo.getInstance().new_line);
+			fileWriter.write(date() + "WARNING " + msg + SystemInfo.getInstance().newLine);
 			fileWriter.flush();
 		}
 		catch (IOException ex) {
@@ -122,7 +122,7 @@ public class Logger {
 	}
 	public Logger error(String msg) {
 		try {
-			fileWriter.write(date() + "  ERROR " + msg + SystemInfo.getInstance().new_line);
+			fileWriter.write(date() + "  ERROR " + msg + SystemInfo.getInstance().newLine);
 			fileWriter.flush();
 		}
 		catch (IOException ex) {
@@ -133,7 +133,7 @@ public class Logger {
 	}
 	public Logger info(String msg) {
 		try {
-			fileWriter.write(date() + "   INFO " + msg + SystemInfo.getInstance().new_line);
+			fileWriter.write(date() + "   INFO " + msg + SystemInfo.getInstance().newLine);
 			fileWriter.flush();
 		}
 		catch (IOException ex) {

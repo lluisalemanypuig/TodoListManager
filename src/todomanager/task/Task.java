@@ -37,8 +37,13 @@ import todomanager.util.Logger;
  */
 public class Task {
 	
-	private void addChangeState(String cdate, String pdate, String why, TaskStateEnum s) {
-		changes.add(new TaskState(cdate, pdate, why, s));
+	private void addChangeState(
+		String cdate, String pdate, String why,
+		String pTN, String nTN, String pTD, String nTD,
+		TaskStateEnum s
+	)
+	{
+		changes.add(new TaskState(cdate, pdate, why, pTN, nTN, pTD, nTD, s));
 	}
 		
 	/// Task's id (used to uniquely identify the task)
@@ -69,7 +74,9 @@ public class Task {
 		subtasks = new ArrayList<>();
 		parentTask = null;
 		
-		addChangeState(_cdate, _pdate, "Opened task", TaskStateEnum.Opened);
+		// the task's name and description changed from "nothing"
+		// to "something". However, no need to capture this change
+		addChangeState(_cdate, _pdate, "Opened task", null, null, null, null, TaskStateEnum.Opened);
 	}
 	
 	public String getId() { return id; }
@@ -104,7 +111,7 @@ public class Task {
 	 * @param ls List of task states
 	 */
 	public boolean subtasksStateIsOneOf(ArrayList<TaskStateEnum> ls) {
-		if (subtasks.size() == 0) { return true; }
+		if (subtasks.isEmpty()) { return true; }
 		return subtasks.stream().allMatch( (t) -> (t.isOneOfState(ls)) );
 	}
 	/**
@@ -139,7 +146,7 @@ public class Task {
 		
 		if (!isOneOfState(cur_level)) {
 			String r = "The state of task " + getId() + " is none of: " + cur_level;
-			r += ". Its state is: " + currentState().getState() + "." + sysinfo.new_line;
+			r += ". Its state is: " + currentState().getState() + "." + sysinfo.newLine;
 			log.warning(r);
 			return r;
 		}
@@ -149,7 +156,7 @@ public class Task {
 			if (!t.isOneOfState(sub_level)) {
 				String r = 
 					"Task " + t.getId() + " (subtask of " + getId() + "), " +
-					"is not in any of the states: " + sub_level + sysinfo.new_line;
+					"is not in any of the states: " + sub_level + sysinfo.newLine;
 				reason += r;
 				log.warning(r);
 			}
@@ -159,10 +166,38 @@ public class Task {
 	
 	// -------------------------------------------------------------------------
 	
-	private void changeState(String cdate, String pdate, String why, TaskStateEnum s) {
-		addChangeState(cdate, pdate, why, s);
+	/**
+	 * Change the state of a task
+	 * @param cdate Comparable date
+	 * @param pdate Pretty date
+	 * @param why Reason of change
+	 * @param prevName Previous name of the taks. If the change is not 'Edited',
+	 * set it to null.
+	 * @param prevDescr Previous description of the taks. If the change is not
+	 * 'Edited', set it to null.
+	 * @param s New task's state.
+	 */
+	private void changeState(
+		String cdate, String pdate, String why,
+		String prevName, String prevDescr,
+		TaskStateEnum s
+	)
+	{
 		switch (s) {
 			case Edited:
+				addChangeState(
+					cdate, pdate, why,
+					prevName, getName(), prevDescr, getDescription(),
+					s
+				);
+				return;
+			default:
+				// no change of name or description
+				addChangeState(cdate, pdate, why,null, null, null, null, s);
+		}
+		
+		// in these cases, no more work to do
+		switch (s) {
 			case PriorityChanged:
 			case AddedSubtask:
 				return;
@@ -171,23 +206,43 @@ public class Task {
 		ArrayList<TaskStateEnum> cur_level = TaskStateEnum.precondCurtask(s);
 		for (Task t : subtasks) {
 			if (t.isOneOfState(cur_level)) {
-				t.changeState(cdate, pdate, why, s);
+				t.changeState(cdate, pdate, null,null, why, s);
 			}
 		}
 	}
+	/**
+	 * Change the state of a task when @e s is not 'Edited'.
+	 * @param why Reason of change
+	 * @param s New state of the task
+	 */
 	public void changeState(String why, TaskStateEnum s) {
 		String cdate = Tools.getComparableDate();
 		String pdate = Tools.getPrettyDate();
-		Task.this.changeState(cdate, pdate, why, s);
+		changeState(cdate, pdate, why, null,null, s);
 	}
 	
 	// -------------------------------------------------------------------------
 	
+	/**
+	 * Change the state of a task its name and/or description have been edited.
+	 * @param why Reason of change
+	 * @param prevName Task's previous name.
+	 * @param prevDescr Task's previous description.
+	 * @param s New state of the task
+	 */
+	public void taskWasEdited(String why, String prevName, String prevDescr, TaskStateEnum s) {
+		String cdate = Tools.getComparableDate();
+		String pdate = Tools.getPrettyDate();
+		changeState(cdate, pdate, why, prevName, prevDescr, s);
+	}
+	
 	public void addSubtask(Task t) {
 		if (isDone()) {
-			addChangeState(t.getCompDate(),
+			addChangeState(
+				t.getCompDate(),
 				t.getPrettyDate(),
 				"A subtask was added.",
+				null, null, null, null,
 				TaskStateEnum.Opened
 			);
 		}
@@ -213,19 +268,19 @@ public class Task {
 	// -------------------------------------------------------------------------
 	
 	public String changesToString() {
-		SystemInfo sysinfo = SystemInfo.getInstance();
+		SystemInfo sys = SystemInfo.getInstance();
 		String c = "";
 		for (TaskState ts : changes) {
-			c += ts.getPrettyDate() + sysinfo.new_line;
+			c += ts.getPrettyDate() + sys.newLine;
 			switch (ts.getState()) {
 				case Edited:
 				case PriorityChanged:
 				case AddedSubtask:
-					c += "    " + ts.getReason() + sysinfo.new_line;
+					c += "    " + ts.getReason() + sys.newLine;
 					break;
 				default:
-					c += "    State of task set to: " + ts.getState() + sysinfo.new_line;
-					c += "    Reason: " + ts.getReason() + sysinfo.new_line;
+					c += "    State of task set to: " + ts.getState() + sys.newLine;
+					c += "    Reason: " + ts.getReason() + sys.newLine;
 			}
 		}
 		return c;
