@@ -1,6 +1,6 @@
 /*********************************************************************
  *
- *  TodoListManager - Open-source Manager of todo lists
+ *  TodoListManager - Open-source manager of todo lists
  *
  *  Copyright (C) 2019
  *
