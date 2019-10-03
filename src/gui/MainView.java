@@ -37,8 +37,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.Timer;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -48,6 +50,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -68,6 +71,13 @@ import todomanager.util.Logger;
  */
 public class MainView extends javax.swing.JFrame {
 
+	private DefaultTreeModel treeModel;
+	private DefaultMutableTreeNode highPriorNode;
+	private DefaultMutableTreeNode medPriorNode;
+	private DefaultMutableTreeNode lowPriorNode;
+	private Logger log;
+	private boolean changesSaved = true;
+	
 	/**
 	 * Creates new form MainView
 	 */
@@ -162,6 +172,7 @@ public class MainView extends javax.swing.JFrame {
         treeNode2 = new DefaultMutableTreeNode("Low Priority");
         treeNode1.add(treeNode2);
         treeTasks.setModel(new DefaultTreeModel(treeNode1));
+        treeTasks.setRootVisible(false);
         treeTasks.addTreeSelectionListener(new TreeSelectionListener() {
             public void valueChanged(TreeSelectionEvent evt) {
                 treeTasksValueChanged(evt);
@@ -254,28 +265,21 @@ public class MainView extends javax.swing.JFrame {
                     .addComponent(buttonRemoveTask, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(buttonTaskUp, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonIncrPriority, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonOverwriteTasks, GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
-                        .addGap(6, 6, 6))
+                    .addComponent(buttonTaskUp, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonTaskDown, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonContractAll, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonTaskDown, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonContractAll, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(buttonDecrPriority, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonIncrPriority, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(labelUnsavedChanges)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonDecrPriority, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonSaveTasksAs, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap())
+                            .addComponent(buttonSaveTasksAs, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonOverwriteTasks, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(labelUnsavedChanges, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -304,9 +308,9 @@ public class MainView extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane6, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane6)
+                    .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, 400, Short.MAX_VALUE))
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -621,7 +625,13 @@ public class MainView extends javax.swing.JFrame {
 	private void setChangesUnsaved() {
 		changesSaved = false;
 		labelUnsavedChanges.setText("There are unsaved changes");
+		
+		TaskManager tm = TaskManager.getInstance();
+		if (!tm.getTaskFile().equals("")) {
+			buttonOverwriteTasks.setEnabled(true);
+		}
 	}
+	
 	private void setChangesSaved() {
 		changesSaved = true;
 		labelUnsavedChanges.setText("");
@@ -631,7 +641,7 @@ public class MainView extends javax.swing.JFrame {
 	
 	private void overwriteChanges() {
 		log.info("Saving tasks to disk");
-		TaskManager tm = TaskManager.get_instance();
+		TaskManager tm = TaskManager.getInstance();
 		tm.writeTasks(true);
 		log.info("Tasks created/edited so far have been saved to disk");
 		setChangesSaved();
@@ -653,7 +663,7 @@ public class MainView extends javax.swing.JFrame {
 		
 		log.info("Saving to file '" + filename + "'");
 		
-		TaskManager tm = TaskManager.get_instance();
+		TaskManager tm = TaskManager.getInstance();
 		boolean do_backup = true;
 		if (!tm.getTaskFile().equals(filename)) {
 			do_backup = false;
@@ -665,7 +675,7 @@ public class MainView extends javax.swing.JFrame {
 	
 	// assuming there are unsaved changes...
 	private void promptSaveChanges() {
-		String task_file = TaskManager.get_instance().getTaskFile();
+		String task_file = TaskManager.getInstance().getTaskFile();
 		boolean save_as = false;
 		if (task_file.equals("")) {
 			log.info("There are unsaved changes that need to be stored in a file");
@@ -762,7 +772,7 @@ public class MainView extends javax.swing.JFrame {
 			return;
 		}
 		
-		TaskManager tm = TaskManager.get_instance();
+		TaskManager tm = TaskManager.getInstance();
 		Task node_task = (Task) sel.getUserObject();
 		boolean d = tm.deleteTask(node_task.getId());
 		if (!d) {
@@ -782,29 +792,45 @@ public class MainView extends javax.swing.JFrame {
 			issueErrorMsg("A task can't be added if no category/task is selected");
 			return;
 		}
-		else if (treeTasks.getSelectionCount() > 1) {
-			issueErrorMsg("Select only one category/task in order to create a task");
+		
+		NewTaskGUI makeTask = new NewTaskGUI();
+		
+		Object[] button_options = {"Create task", "Cancel"};
+		int res = JOptionPane.showOptionDialog(
+			null, makeTask,
+			"Create a new task",
+			JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
+			null, button_options, null
+		);
+		
+		if (res != JOptionPane.OK_OPTION) {
+			log.info("User cancelled creation of new task");
 			return;
 		}
+		
+		// get data used to identify the task
+		String task_name = makeTask.getTaskName();
+		String task_descr = makeTask.getTaskDescription();
+		
+		log.info("New task:");
+		log.info("    Name: " + task_name);
+		log.info("    Description: " + task_descr);
 		
 		// find out if the task is high/med/low
 		DefaultMutableTreeNode sel
 			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		
-		// get data used to identify the task
-		String task_name = textBoxTaskName.getText();
 		if (task_name.equals("")) {
 			task_name = "Nameless task";
 			log.info("No name for new task");
 		}
-		String task_descr = textAreaTaskDescription.getText();
 		if (task_descr.equals("")) {
 			task_descr = "Empty task (yay! nothing to do!)";
 			log.info("No description for new task");
 		}
 		
 		// create the task
-		TaskManager tm = TaskManager.get_instance();
+		TaskManager tm = TaskManager.getInstance();
 		Task new_t = tm.newTask(task_name, task_descr);
 		
 		// the task should only be added to the taks manager's
@@ -830,11 +856,13 @@ public class MainView extends javax.swing.JFrame {
 			// fill in the text boxes
 			refreshBoxesTask(node_task);
 		}
+		
 		// make the node so as to show it to the user
 		DefaultMutableTreeNode new_node = new DefaultMutableTreeNode(new_t);
 		sel.insert(new_node, 0);
 		treeModel.reload(sel);
 		treeTasks.expandPath(new TreePath(sel.getPath()));
+		treeTasks.setSelectionPath(new TreePath(sel.getPath()));
 		setChangesUnsaved();
     }//GEN-LAST:event_buttonNewTaskMouseClicked
 
@@ -874,7 +902,7 @@ public class MainView extends javax.swing.JFrame {
 		if (sel.getLevel() == 2) {
 			String prior = getPriority(sel);
 			log.info("    Moving task of priority '" + prior + "' within the task manager");
-			TaskManager tm = TaskManager.get_instance();
+			TaskManager tm = TaskManager.getInstance();
 			int i;
 			if (prior.equals("high")) {
 				i = tm.deleteHighTask(t.getId());
@@ -946,7 +974,7 @@ public class MainView extends javax.swing.JFrame {
 		}
 		
 		Task t = (Task) sel.getUserObject();
-		TaskManager tm = TaskManager.get_instance();
+		TaskManager tm = TaskManager.getInstance();
 		
 		DefaultMutableTreeNode from_prior = null;
 		DefaultMutableTreeNode to_prior = null;
@@ -1043,7 +1071,7 @@ public class MainView extends javax.swing.JFrame {
 		
 		log.info("Opening file '" + filename + "'");
 		
-		TaskManager tm = TaskManager.get_instance();
+		TaskManager tm = TaskManager.getInstance();
 		tm.setTaskFile(filename);
 		if (!tm.readTasks()) {
 			issueWarningMsg("Could not open selected file '" + filename + "'");
@@ -1250,10 +1278,4 @@ public class MainView extends javax.swing.JFrame {
     private JTree treeTasks;
     // End of variables declaration//GEN-END:variables
 
-	private DefaultTreeModel treeModel;
-	private DefaultMutableTreeNode highPriorNode;
-	private DefaultMutableTreeNode medPriorNode;
-	private DefaultMutableTreeNode lowPriorNode;
-	private Logger log;
-	private boolean changesSaved = true;
 }

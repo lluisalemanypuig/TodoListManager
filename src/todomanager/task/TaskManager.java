@@ -135,7 +135,7 @@ public class TaskManager {
 		log = Logger.getInstance();
 	}
 	
-	public static TaskManager get_instance() {
+	public static TaskManager getInstance() {
 		if (instance == null) {
 			instance = new TaskManager();
 		}
