@@ -25,7 +25,6 @@
 
 package gui;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -37,10 +36,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.Timer;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -50,7 +47,6 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -153,8 +149,10 @@ public class MainView extends javax.swing.JFrame {
         jLabel4 = new JLabel();
         jMenuBar1 = new JMenuBar();
         jMenu1 = new JMenu();
-        menuItemOpenFile = new JMenuItem();
-        menuItemAbout = new JMenuItem();
+        menuItem1_OpenFile = new JMenuItem();
+        menuItem1_Exit = new JMenuItem();
+        jMenu2 = new JMenu();
+        menuItem2_About = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Todo List Manager");
@@ -531,23 +529,35 @@ public class MainView extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
-        menuItemOpenFile.setText("Open");
-        menuItemOpenFile.addMouseListener(new MouseAdapter() {
+        menuItem1_OpenFile.setText("Open");
+        menuItem1_OpenFile.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
-                menuItemOpenFileMousePressed(evt);
+                menuItem1_OpenFileMousePressed(evt);
             }
         });
-        jMenu1.add(menuItemOpenFile);
+        jMenu1.add(menuItem1_OpenFile);
 
-        menuItemAbout.setText("About");
-        menuItemAbout.addMouseListener(new MouseAdapter() {
+        menuItem1_Exit.setText("Exit");
+        menuItem1_Exit.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
-                menuItemAboutMousePressed(evt);
+                menuItem1_ExitMousePressed(evt);
             }
         });
-        jMenu1.add(menuItemAbout);
+        jMenu1.add(menuItem1_Exit);
 
         jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Help");
+
+        menuItem2_About.setText("About");
+        menuItem2_About.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                menuItem2_AboutMousePressed(evt);
+            }
+        });
+        jMenu2.add(menuItem2_About);
+
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -1056,7 +1066,7 @@ public class MainView extends javax.swing.JFrame {
 		t.getSubtasks().forEach((st) -> { taskToNode(new_node, st); });
 	}
 	
-    private void menuItemOpenFileMousePressed(MouseEvent evt) {//GEN-FIRST:event_menuItemOpenFileMousePressed
+    private void menuItem1_OpenFileMousePressed(MouseEvent evt) {//GEN-FIRST:event_menuItem1_OpenFileMousePressed
 		if (!areChangesSaved()) {
 			promptSaveChanges();
 		}
@@ -1098,7 +1108,7 @@ public class MainView extends javax.swing.JFrame {
 		setTreeExpandedState(true);
 		// technically, there are no changes so...
 		setChangesSaved();
-    }//GEN-LAST:event_menuItemOpenFileMousePressed
+    }//GEN-LAST:event_menuItem1_OpenFileMousePressed
 
     private void buttonSaveTasksAsMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonSaveTasksAsMouseClicked
         saveChangesAs();
@@ -1204,11 +1214,11 @@ public class MainView extends javax.swing.JFrame {
         changeTaskState(TaskStateEnum.Deleted, "", false);
     }//GEN-LAST:event_buttonTaskDeleteMouseClicked
 
-    private void menuItemAboutMousePressed(MouseEvent evt) {//GEN-FIRST:event_menuItemAboutMousePressed
+    private void menuItem2_AboutMousePressed(MouseEvent evt) {//GEN-FIRST:event_menuItem2_AboutMousePressed
         JOptionPane.showMessageDialog(null,
 			"Todo List Manager\n\nCopyright 2019\n\nBy: Lluís Alemany Puig"
 		);
-    }//GEN-LAST:event_menuItemAboutMousePressed
+    }//GEN-LAST:event_menuItem2_AboutMousePressed
 
     private void buttonExpandAllMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonExpandAllMouseClicked
         setTreeExpandedState(true);
@@ -1223,6 +1233,10 @@ public class MainView extends javax.swing.JFrame {
 			promptSaveChanges();
 		}
     }//GEN-LAST:event_formWindowClosing
+
+    private void menuItem1_ExitMousePressed(MouseEvent evt) {//GEN-FIRST:event_menuItem1_ExitMousePressed
+		dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    }//GEN-LAST:event_menuItem1_ExitMousePressed
 
 	/**
 	 * @param args the command line arguments
@@ -1285,6 +1299,7 @@ public class MainView extends javax.swing.JFrame {
     private JLabel jLabel4;
     private JLabel jLabel6;
     private JMenu jMenu1;
+    private JMenu jMenu2;
     private JMenuBar jMenuBar1;
     private JPanel jPanel1;
     private JPanel jPanel2;
@@ -1297,8 +1312,9 @@ public class MainView extends javax.swing.JFrame {
     private JLabel labelTaskID;
     private JLabel labelTaskState;
     private JLabel labelUnsavedChanges;
-    private JMenuItem menuItemAbout;
-    private JMenuItem menuItemOpenFile;
+    private JMenuItem menuItem1_Exit;
+    private JMenuItem menuItem1_OpenFile;
+    private JMenuItem menuItem2_About;
     private JTextArea textAreaTaskChanges;
     private JTextArea textAreaTaskDescription;
     private JTextField textBoxError;
