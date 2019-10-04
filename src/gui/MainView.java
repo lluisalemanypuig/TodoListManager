@@ -773,7 +773,7 @@ public class MainView extends javax.swing.JFrame {
 		DefaultMutableTreeNode sel
 			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		if (sel.getLevel() <= 1) {
-			issueErrorMsg("You can't delete the root node or the high/med/low nodes");
+			issueWarningMsg("You can't delete the root node or the high/med/low nodes");
 			return;
 		}
 		
@@ -794,7 +794,7 @@ public class MainView extends javax.swing.JFrame {
 
     private void buttonNewTaskMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonNewTaskMouseClicked
         if (treeTasks.getSelectionCount() == 0) {
-			issueErrorMsg("A task can't be added if no category/task is selected.");
+			issueWarningMsg("A task can't be added if no category/task is selected.");
 			return;
 		}
 		
@@ -866,7 +866,7 @@ public class MainView extends javax.swing.JFrame {
 		sel.insert(new_node, 0);
 		treeModel.reload(sel);
 		treeTasks.expandPath(new TreePath(sel.getPath()));
-		treeTasks.setSelectionPath(new TreePath(sel.getPath()));
+		treeTasks.setSelectionPath(new TreePath(new_node.getPath()));
 		setChangesUnsaved();
     }//GEN-LAST:event_buttonNewTaskMouseClicked
 
@@ -879,7 +879,7 @@ public class MainView extends javax.swing.JFrame {
 		DefaultMutableTreeNode sel
 			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		if (sel.getLevel() <= 1) {
-			log.info("Can't move root node or nodes high/med/low.");
+			issueWarningMsg("Can't move root node or nodes high/med/low.");
 			return;
 		}
 		
@@ -969,11 +969,11 @@ public class MainView extends javax.swing.JFrame {
 		
 		String cur_prior = getPriority(sel);
 		if (dir.equals("incr") && cur_prior.equals("high")) {
-			issueWarningMsg("Can't increase priority of highest-priority task.");
+			issueWarningMsg("Can't increase priority of a highest-priority task.");
 			return;
 		}
 		if (dir.equals("decr") && cur_prior.equals("low")) {
-			issueWarningMsg("Can't decrease priority of lowest-priority task.");
+			issueWarningMsg("Can't decrease priority of a lowest-priority task.");
 			return;
 		}
 		
@@ -1034,6 +1034,7 @@ public class MainView extends javax.swing.JFrame {
 		treeTasks.expandPath(new TreePath(from_prior.getPath()));
 		treeTasks.expandPath(new TreePath(to_prior.getPath()));
 		treeTasks.expandPath(new TreePath(sel.getPath()));
+		treeTasks.setSelectionPath(new TreePath(sel.getPath()));
 		setChangesUnsaved();
 	}
 	
@@ -1117,7 +1118,6 @@ public class MainView extends javax.swing.JFrame {
 		String prevName = t.getName();
 		String prevDescr = t.getDescription();
 		
-		
 		// prompt the user with an interface
 		TaskGUI editTask = new TaskGUI();
 		editTask.setTaskName(prevName);
@@ -1133,7 +1133,6 @@ public class MainView extends javax.swing.JFrame {
 			log.info("User cancelled edition of task.");
 			return;
 		}
-
 
 		// new name and description
 		t.setName(editTask.getTaskName());
