@@ -1094,7 +1094,10 @@ public class MainView extends javax.swing.JFrame {
 		tm.getMedPriorTasks().forEach((t) -> { taskToNode(medPriorNode, t); });
 		tm.getLowPriorTasks().forEach((t) -> { taskToNode(lowPriorNode, t); });
 		treeModel.reload();
+		// expand the tree
 		setTreeExpandedState(true);
+		// technically, there are no changes so...
+		setChangesSaved();
     }//GEN-LAST:event_menuItemOpenFileMousePressed
 
     private void buttonSaveTasksAsMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonSaveTasksAsMouseClicked
