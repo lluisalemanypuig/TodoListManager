@@ -334,7 +334,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="buttonTaskPendingRevision" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
                           <Component id="buttonTaskOnRevision" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
-                          <Component id="buttonSaveTaskEdit" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="buttonEditTask" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -364,7 +364,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="buttonTaskHold" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="buttonSaveTaskEdit" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonEditTask" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonClear" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -429,13 +429,13 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonTaskPendingRevisionMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="buttonSaveTaskEdit">
+            <Component class="javax.swing.JButton" name="buttonEditTask">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Save Edit"/>
+                <Property name="text" type="java.lang.String" value="Edit Task"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonSaveTaskEditMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonEditTaskMouseClicked"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="buttonClear">

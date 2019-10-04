@@ -135,7 +135,7 @@ public class MainView extends javax.swing.JFrame {
         buttonTaskOnRevision = new JButton();
         buttonTaskHold = new JButton();
         buttonTaskPendingRevision = new JButton();
-        buttonSaveTaskEdit = new JButton();
+        buttonEditTask = new JButton();
         buttonClear = new JButton();
         jPanel1 = new JPanel();
         labelTaskState = new JLabel();
@@ -371,11 +371,11 @@ public class MainView extends javax.swing.JFrame {
             }
         });
 
-        buttonSaveTaskEdit.setText("Save Edit");
-        buttonSaveTaskEdit.setEnabled(false);
-        buttonSaveTaskEdit.addMouseListener(new MouseAdapter() {
+        buttonEditTask.setText("Edit Task");
+        buttonEditTask.setEnabled(false);
+        buttonEditTask.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                buttonSaveTaskEditMouseClicked(evt);
+                buttonEditTaskMouseClicked(evt);
             }
         });
 
@@ -399,7 +399,7 @@ public class MainView extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(buttonTaskPendingRevision, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonTaskOnRevision, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonSaveTaskEdit, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonEditTask, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(buttonTaskCancel, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
@@ -422,7 +422,7 @@ public class MainView extends javax.swing.JFrame {
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonTaskHold)
-                    .addComponent(buttonSaveTaskEdit)
+                    .addComponent(buttonEditTask)
                     .addComponent(buttonClear))
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -754,12 +754,17 @@ public class MainView extends javax.swing.JFrame {
 		DefaultMutableTreeNode sel
 			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		if (sel.getLevel() <= 1) {
+			// clear text boxes (nothing selected so nothing to show)
 			clearBoxesTask();
+			// disable edit button
+			buttonEditTask.setEnabled(false);
 			return;
 		}
 		Task node_task = (Task) sel.getUserObject();
 		// fill in the text boxes
 		refreshBoxesTask(node_task);
+		// enable edit button
+		buttonEditTask.setEnabled(true);
     }//GEN-LAST:event_treeTasksValueChanged
 
     private void buttonRemoveTaskMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonRemoveTaskMouseClicked
@@ -789,12 +794,12 @@ public class MainView extends javax.swing.JFrame {
 
     private void buttonNewTaskMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonNewTaskMouseClicked
         if (treeTasks.getSelectionCount() == 0) {
-			issueErrorMsg("A task can't be added if no category/task is selected");
+			issueErrorMsg("A task can't be added if no category/task is selected.");
 			return;
 		}
 		
-		NewTaskGUI makeTask = new NewTaskGUI();
-		
+		// prompt the user with an interface
+		TaskGUI makeTask = new TaskGUI();
 		Object[] button_options = {"Create task", "Cancel"};
 		int res = JOptionPane.showOptionDialog(
 			null, makeTask,
@@ -802,9 +807,8 @@ public class MainView extends javax.swing.JFrame {
 			JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
 			null, button_options, null
 		);
-		
 		if (res != JOptionPane.OK_OPTION) {
-			log.info("User cancelled creation of new task");
+			log.info("User cancelled creation of new task.");
 			return;
 		}
 		
@@ -813,8 +817,8 @@ public class MainView extends javax.swing.JFrame {
 		String task_descr = makeTask.getTaskDescription();
 		
 		log.info("New task:");
-		log.info("    Name: " + task_name);
-		log.info("    Description: " + task_descr);
+		log.info("    Name: " + task_name + ".");
+		log.info("    Description: " + task_descr + ".");
 		
 		// find out if the task is high/med/low
 		DefaultMutableTreeNode sel
@@ -822,11 +826,11 @@ public class MainView extends javax.swing.JFrame {
 		
 		if (task_name.equals("")) {
 			task_name = "Nameless task";
-			log.info("No name for new task");
+			log.info("No name for new task.");
 		}
 		if (task_descr.equals("")) {
 			task_descr = "Empty task (yay! nothing to do!)";
-			log.info("No description for new task");
+			log.info("No description for new task.");
 		}
 		
 		// create the task
@@ -875,33 +879,33 @@ public class MainView extends javax.swing.JFrame {
 		DefaultMutableTreeNode sel
 			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		if (sel.getLevel() <= 1) {
-			log.info("Can't move root node or nodes high/med/low");
+			log.info("Can't move root node or nodes high/med/low.");
 			return;
 		}
 		
 		// the task associated to the node
 		Task t = (Task) sel.getUserObject();
 		
-		log.info("Selected node (task id: '" + t.getId() + "' has level " + sel.getLevel());
-		log.info("    Moving selection '" + dir + "' (by " + incr + ")");
+		log.info("Selected node (task id: '" + t.getId() + "' has level " + sel.getLevel() + ".");
+		log.info("    Moving selection '" + dir + "' (by " + incr + ").");
 		
 		DefaultMutableTreeNode par_sel = (DefaultMutableTreeNode) sel.getParent();
 		int idx = par_sel.getIndex(sel);
 		if (dir.equals("up") && idx == 0) {
-			log.warning("Can't increase priority of the highest-priority subtask");
+			issueWarningMsg("Can't increase priority of the highest-priority subtask.");
 			return;
 		}
 		if (dir.equals("down") && idx == par_sel.getChildCount() - 1) {
-			log.warning("Can't decrease priority of the lowest-priority subtask");
+			issueWarningMsg("Can't decrease priority of the lowest-priority subtask.");
 			return;
 		}
 		
-		log.info("    Selected node is the " + idx + "-th child of its parent");
+		log.info("    Selected node is the " + idx + "-th child of its parent.");
 		
 		// move the task inside the task manager
 		if (sel.getLevel() == 2) {
 			String prior = getPriority(sel);
-			log.info("    Moving task of priority '" + prior + "' within the task manager");
+			log.info("    Moving task of priority '" + prior + "' within the task manager.");
 			TaskManager tm = TaskManager.getInstance();
 			int i;
 			if (prior.equals("high")) {
@@ -917,14 +921,14 @@ public class MainView extends javax.swing.JFrame {
 				tm.insertLowTask(i + incr, t);
 			}
 			else { return; }
-			log.info("    Moved from position " + (i) + " to position " + (i + incr) + "");
+			log.info("    Moved from position " + (i) + " to position " + (i + incr) + ".");
 		}
 		
 		// if the task has a parent, move the subtask
 		// within the parent's list of subtasks
 		Task parent_task = t.getParent();
 		if (parent_task != null) {
-			log.info("    Moving task within the parent task's list of subtasks");
+			log.info("    Moving task within the parent task's list of subtasks.");
 			parent_task.moveSubtaskBy(t.getId(), incr);
 		}
 		
@@ -955,21 +959,21 @@ public class MainView extends javax.swing.JFrame {
 			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		if (sel.getLevel() < 0) { return; }
 		if (sel.getLevel() <= 1) {
-			issueWarningMsg("Can't move root node or nodes high/med/low");
+			issueWarningMsg("Can't move root node or nodes high/med/low.");
 			return;
 		}
 		if (sel.getLevel() > 2) {
-			issueWarningMsg("Can't change a task's priority if it a subtask of another task");
+			issueWarningMsg("Can't change a task's priority if it is a subtask of another task.");
 			return;
 		}
 		
 		String cur_prior = getPriority(sel);
 		if (dir.equals("incr") && cur_prior.equals("high")) {
-			log.warning("Can't increase priority of highest-priority task");
+			issueWarningMsg("Can't increase priority of highest-priority task.");
 			return;
 		}
 		if (dir.equals("decr") && cur_prior.equals("low")) {
-			log.warning("Can't decrease priority of lowest-priority task");
+			issueWarningMsg("Can't decrease priority of lowest-priority task.");
 			return;
 		}
 		
@@ -1052,7 +1056,6 @@ public class MainView extends javax.swing.JFrame {
 	}
 	
     private void menuItemOpenFileMousePressed(MouseEvent evt) {//GEN-FIRST:event_menuItemOpenFileMousePressed
-        
 		if (!areChangesSaved()) {
 			promptSaveChanges();
 		}
@@ -1063,18 +1066,18 @@ public class MainView extends javax.swing.JFrame {
 		File file;
 		int returnVal = fc.showOpenDialog(jPanel3);
         if (returnVal != JFileChooser.APPROVE_OPTION) {
-            log.info("Open command cancelled by user");
+            log.info("Open command cancelled by user.");
 			return;
         }
 		file = fc.getSelectedFile();
 		String filename = file.getAbsolutePath();
 		
-		log.info("Opening file '" + filename + "'");
+		log.info("Opening file '" + filename + "'.");
 		
 		TaskManager tm = TaskManager.getInstance();
 		tm.setTaskFile(filename);
 		if (!tm.readTasks()) {
-			issueWarningMsg("Could not open selected file '" + filename + "'");
+			issueErrorMsg("Could not open selected file '" + filename + "'.");
 			return;
 		}
 		buttonOverwriteTasks.setEnabled(true);
@@ -1097,20 +1100,44 @@ public class MainView extends javax.swing.JFrame {
         saveChangesAs();
     }//GEN-LAST:event_buttonSaveTasksAsMouseClicked
 
-    private void buttonSaveTaskEditMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonSaveTaskEditMouseClicked
-        if (!treeHasSelection("A task must be selected in order to edit its name and description")) {
+    private void buttonEditTaskMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonEditTaskMouseClicked
+        if (!treeHasSelection("A task must be selected in order to edit its name and description.")) {
 			return;
 		}
 		DefaultMutableTreeNode sel
 			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		
+		if (sel.getLevel() == 1) {
+			issueErrorMsg("The selection must be a task (not a priority list)!");
+			return;
+		}
+		
 		Task t = (Task) sel.getUserObject();
 		// current task's name and description
 		String prevName = t.getName();
 		String prevDescr = t.getDescription();
+		
+		
+		// prompt the user with an interface
+		TaskGUI editTask = new TaskGUI();
+		editTask.setTaskName(prevName);
+		editTask.setTaskDescription(prevDescr);
+		Object[] button_options = {"Save edits", "Cancel"};
+		int res = JOptionPane.showOptionDialog(
+			null, editTask,
+			"Edit an already exiting task",
+			JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
+			null, button_options, null
+		);
+		if (res != JOptionPane.OK_OPTION) {
+			log.info("User cancelled edition of task.");
+			return;
+		}
+
+
 		// new name and description
-		t.setName(textBoxTaskName.getText());
-		t.setDescription(textAreaTaskDescription.getText());
+		t.setName(editTask.getTaskName());
+		t.setDescription(editTask.getTaskDescription());
 		// set the change to the task
 		t.taskWasEdited("Edited name and/or description.", prevName, prevDescr, TaskStateEnum.Edited);
 		
@@ -1118,7 +1145,7 @@ public class MainView extends javax.swing.JFrame {
 		
 		// this edit jhas been written to the task, but not to the file
 		setChangesUnsaved();
-    }//GEN-LAST:event_buttonSaveTaskEditMouseClicked
+    }//GEN-LAST:event_buttonEditTaskMouseClicked
 
 	private void changeTaskState(TaskStateEnum s, String custom_reason, boolean use_reason)
 	{
@@ -1234,12 +1261,12 @@ public class MainView extends javax.swing.JFrame {
     private JButton buttonClear;
     private JButton buttonContractAll;
     private JButton buttonDecrPriority;
+    private JButton buttonEditTask;
     private JButton buttonExpandAll;
     private JButton buttonIncrPriority;
     private JButton buttonNewTask;
     private JButton buttonOverwriteTasks;
     private JButton buttonRemoveTask;
-    private JButton buttonSaveTaskEdit;
     private JButton buttonSaveTasksAs;
     private JButton buttonTaskCancel;
     private JButton buttonTaskDelete;

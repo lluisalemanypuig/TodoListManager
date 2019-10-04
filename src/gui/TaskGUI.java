@@ -25,25 +25,26 @@
  */
 package gui;
 
-import java.awt.BorderLayout;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
  *
  * @author lluis
  */
-public class NewTaskGUI extends JPanel {
+public class TaskGUI extends JPanel {
 
 	/**
 	 * Creates new form NewTaskGUI
 	 */
-	public NewTaskGUI() {
+	public TaskGUI() {
 		initComponents();
 	}
 
 	public String getTaskName() { return textFieldTaskName.getText(); }
 	public String getTaskDescription() { return textAreaTaskDescription.getText(); }
+	
+	public void setTaskName(String n) { textFieldTaskName.setText(n); }
+	public void setTaskDescription(String d) { textAreaTaskDescription.setText(d); }
 	
 	/**
 	 * This method is called from within the constructor to initialize the form.
