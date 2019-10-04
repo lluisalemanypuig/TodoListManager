@@ -45,14 +45,14 @@ import todomanager.util.Tools;
  */
 public class TaskManager {
 	
-	private Logger log;
-	private String taskFile = "";
+	private final Logger log;
+	private String tasksFile = "";
 	
 	private static TaskManager instance = null;
-	private ArrayList<Task> highPriorTasks = new ArrayList<>();
-	private ArrayList<Task> medPriorTasks = new ArrayList<>();
-	private ArrayList<Task> lowPriorTasks = new ArrayList<>();
-	private Integer numTasks = 0;
+	private final ArrayList<Task> highPriorTasks;
+	private final ArrayList<Task> medPriorTasks;
+	private final ArrayList<Task> lowPriorTasks;
+	private Integer numTasks;
 	
 	private String makeId() {
 		String id = Integer.toString(numTasks);
@@ -90,49 +90,12 @@ public class TaskManager {
 		return j;
 	}
 	
-	private void taskToJSON(JSONWriter json, Task t) {
-		json.object();
-		
-		json.key("id").value(t.getId());
-		json.key("name").value(t.getName());
-		json.key("description").value(t.getDescription());
-		json.key("comparable_date").value(t.getCompDate());
-		json.key("pretty_date").value(t.getPrettyDate());
-		
-		// write state changes
-		json.key("changes");
-		json.array();
-			for (TaskState ts : t.getChanges()) {
-				json.object()
-					.key("comparable_date").value(ts.getComparableDate())
-					.key("pretty_date").value(ts.getPrettyDate())
-					.key("reason").value(ts.getReason())
-					.key("state").value(ts.getState())
-					.key("pTN").value(ts.getPreviousTaskName() == null ? "" : ts.getPreviousTaskName())
-					.key("nTN").value(ts.getNextTaskName() == null ? "" : ts.getNextTaskName())
-					.key("pTD").value(ts.getPreviousTaskDescription() == null ? "" : ts.getPreviousTaskDescription())
-					.key("nTD").value(ts.getNextTaskDescription() == null ? "" : ts.getNextTaskDescription())
-					.endObject();
-			}
-		json.endArray();
-		
-		// write subtasks
-		json.key("subtasks");
-		json.array();
-			t.getSubtasks().forEach((st) -> { taskToJSON(json, st); });
-		json.endArray();
-		
-		json.endObject();
-	}
-	
-	private void tasksToJSON(JSONWriter json, ArrayList<Task> ts) {
-		json.array();
-		ts.forEach((t) -> { taskToJSON(json, t); });
-		json.endArray();
-	}
-
 	private TaskManager() {
 		log = Logger.getInstance();
+		highPriorTasks = new ArrayList<>();
+		medPriorTasks = new ArrayList<>();
+		lowPriorTasks = new ArrayList<>();
+		numTasks = 0;
 	}
 	
 	public static TaskManager getInstance() {
@@ -142,8 +105,8 @@ public class TaskManager {
 		return instance;
 	}
 	
-	public void setTaskFile(String filename) { taskFile = filename; }
-	public String getTaskFile() { return taskFile; }
+	public void setTaskFile(String filename) { tasksFile = filename; }
+	public String getTaskFile() { return tasksFile; }
 	
 	private Task fromJSONtoTask(JSONObject obj) {
 		String id = obj.getString("id");
@@ -194,9 +157,11 @@ public class TaskManager {
 		numTasks += tasks.size();
 	}
 	public boolean readTasks() {
-		String lines_file = Tools.readFile(taskFile);
+		log.info("Reading tasks from file '" + tasksFile + "'");
+		
+		String lines_file = Tools.readFile(tasksFile);
 		if (lines_file.equals("?")) {
-			log.error("Could not open file '" + taskFile + "'.");
+			log.error("Could not open file '" + tasksFile + "'.");
 			return false;
 		}
 		
@@ -216,21 +181,60 @@ public class TaskManager {
 		parseTasks(low, lowPriorTasks);
 		parseTasks(med, medPriorTasks);
 		parseTasks(high, highPriorTasks);
+		log.info("File '" + tasksFile + "' read successfully.");
 		return true;
 	}
 	
+	private void taskToJSON(JSONWriter json, Task t) {
+		json.object();
+		
+		json.key("id").value(t.getId());
+		json.key("name").value(t.getName());
+		json.key("description").value(t.getDescription());
+		json.key("comparable_date").value(t.getCompDate());
+		json.key("pretty_date").value(t.getPrettyDate());
+		
+		// write state changes
+		json.key("changes");
+		json.array();
+		t.getChanges().forEach((ts) -> {
+			json.object()
+				.key("comparable_date").value(ts.getComparableDate())
+				.key("pretty_date").value(ts.getPrettyDate())
+				.key("reason").value(ts.getReason())
+				.key("state").value(ts.getState())
+				.key("pTN").value(ts.getPreviousTaskName() == null ? "" : ts.getPreviousTaskName())
+				.key("nTN").value(ts.getNextTaskName() == null ? "" : ts.getNextTaskName())
+				.key("pTD").value(ts.getPreviousTaskDescription() == null ? "" : ts.getPreviousTaskDescription())
+				.key("nTD").value(ts.getNextTaskDescription() == null ? "" : ts.getNextTaskDescription())
+			.endObject();
+		});
+		json.endArray();
+		
+		// write subtasks
+		json.key("subtasks");
+		json.array();
+			t.getSubtasks().forEach((st) -> { taskToJSON(json, st); });
+		json.endArray();
+		
+		json.endObject();
+	}
+	private void tasksToJSON(JSONWriter json, ArrayList<Task> ts) {
+		json.array();
+		ts.forEach((t) -> { taskToJSON(json, t); });
+		json.endArray();
+	}
 	public boolean writeTasks(boolean do_backup) {
-		log.info("Writing tasks into file '" + taskFile + "'.");
+		log.info("Writing tasks into file '" + tasksFile + "'.");
 		if (do_backup) {
 			log.info("    Do a backup first...");
+			if (Tools.backupFile(tasksFile) != Tools.IOResult.Success) {
+				log.error("    Could not back up file '" + tasksFile + "'.");
+				return false;
+			}
 		}
 		
-		if (do_backup && Tools.backupFile(taskFile) != Tools.IOResult.Success) {
-			log.error("Could not back up file '" + taskFile + "'.");
-			return false;
-		}
-		
-		File file = new File(taskFile);
+		File file = new File(tasksFile);
 		FileWriter writer = null;
 		
 		try {
@@ -240,12 +244,9 @@ public class TaskManager {
 		catch (IOException ex) {
 			ex.printStackTrace();
 			java.util.logging.Logger.getLogger(Logger.class.getName()).log(Level.SEVERE, null, ex);
-			log.error("Could not open file '" + taskFile + "' for writing.");
+			log.error("Could not open file '" + tasksFile + "' for writing.");
 			return false;
 		}
-		
-		log.info("    file == null ? " + (file == null));
-		log.info("    writer == null ? " + (writer == null));
 		
 		JSONWriter json = new JSONWriter(writer);
 		json.object();
@@ -263,10 +264,10 @@ public class TaskManager {
 		catch (IOException ex) {
 			ex.printStackTrace();
 			java.util.logging.Logger.getLogger(Logger.class.getName()).log(Level.SEVERE, null, ex);
-			log.error("Could not write into file '" + taskFile + "'");
+			log.error("Could not write into file '" + tasksFile + "'.");
 			return false;
 		}
-		
+		log.info("Tasks written into file '" + tasksFile + "' successfully.");
 		return true;
 	}
 	
