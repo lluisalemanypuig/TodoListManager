@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.Timer;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -1215,9 +1216,12 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonTaskDeleteMouseClicked
 
     private void menuItem2_AboutMousePressed(MouseEvent evt) {//GEN-FIRST:event_menuItem2_AboutMousePressed
-        JOptionPane.showMessageDialog(null,
-			"Todo List Manager\n\nCopyright 2019\n\nBy: Lluís Alemany Puig"
-		);
+        GUIAbout paneAbout = new GUIAbout();
+		JDialog dialogAbout = new JDialog(this, "About");
+		dialogAbout.add(paneAbout);
+		dialogAbout.setSize(750, 570);
+		dialogAbout.setResizable(false);
+		dialogAbout.setVisible(true);
     }//GEN-LAST:event_menuItem2_AboutMousePressed
 
     private void buttonExpandAllMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonExpandAllMouseClicked
