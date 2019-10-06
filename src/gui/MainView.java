@@ -810,7 +810,7 @@ public class MainView extends javax.swing.JFrame {
 		}
 		
 		// prompt the user with an interface
-		TaskGUI makeTask = new TaskGUI();
+		GUINewTask makeTask = new GUINewTask();
 		Object[] button_options = {"Create task", "Cancel"};
 		int res = JOptionPane.showOptionDialog(
 			null, makeTask,
@@ -1133,7 +1133,7 @@ public class MainView extends javax.swing.JFrame {
 		String prevDescr = t.getDescription();
 		
 		// prompt the user with an interface
-		TaskGUI editTask = new TaskGUI();
+		GUINewTask editTask = new GUINewTask();
 		editTask.setTaskName(prevName);
 		editTask.setTaskDescription(prevDescr);
 		Object[] button_options = {"Save edits", "Cancel"};
@@ -1222,6 +1222,7 @@ public class MainView extends javax.swing.JFrame {
 		dialogAbout.setSize(750, 570);
 		dialogAbout.setResizable(false);
 		dialogAbout.setVisible(true);
+		
     }//GEN-LAST:event_menuItem2_AboutMousePressed
 
     private void buttonExpandAllMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonExpandAllMouseClicked

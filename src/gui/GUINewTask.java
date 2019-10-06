@@ -31,12 +31,12 @@ import javax.swing.JPanel;
  *
  * @author lluis
  */
-public class TaskGUI extends JPanel {
+public class GUINewTask extends JPanel {
 
 	/**
 	 * Creates new form NewTaskGUI
 	 */
-	public TaskGUI() {
+	public GUINewTask() {
 		initComponents();
 	}
 
