@@ -39,15 +39,10 @@ public class Logger {
 	
 	private static Logger instance = null;
 	private String loggerFile;
-	private boolean startedLine;
-	private int nPrints;
 	private File file;
 	private FileWriter fileWriter;
 	
 	public void open() {
-		startedLine = false;
-		nPrints = 0;
-		
 		SystemInfo sysinfo = SystemInfo.getInstance();
 		if (sysinfo.isUnix() || sysinfo.isMac()) {
 			loggerFile = "/tmp/todomanager.log";
@@ -59,6 +54,7 @@ public class Logger {
 			System.out.println("Logger error:");
 			System.out.println("    OS '" + sysinfo.OS + "'.");
 			System.out.println("    Do not know what file to open for logger");
+			loggerFile = "something.log";
 		}
 		
 		file = new File(loggerFile);
