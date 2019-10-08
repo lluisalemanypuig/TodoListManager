@@ -38,32 +38,42 @@ import todomanager.util.Logger;
 public class Task {
 	
 	private void addChangeState(
+		String authorName,
 		String cdate, String pdate, String why,
 		String pTN, String nTN, String pTD, String nTD,
 		TaskStateEnum s
 	)
 	{
-		changes.add(new TaskState(cdate, pdate, why, pTN, nTN, pTD, nTD, s));
+		changes.add(new TaskState(authorName, cdate, pdate, why, pTN, nTN, pTD, nTD, s));
 	}
-		
-	/// Task's id (used to uniquely identify the task)
+	
+	/** Task's id (used to uniquely identify the task) */
 	private String id = "";
-	/// Task's name
+	/** Task's name */
 	private String name = "";
-	/// Task's description
+	/** Task's description */
 	private String description = "";
-	/// Task's creation date (comparable)
+	/** Task's creation date (comparable) */
 	private String compDate = "";
-	/// Task's creation date (pretty)
+	/** Task's creation date (pretty) */
 	private String prettyDate = "";
-	/// List of state changes of this task
+	/** List of state changes of this task */
 	private ArrayList<TaskState> changes = new ArrayList<>();
-	/// The subtasks of this task
+	/** The subtasks of this task */
 	private ArrayList<Task> subtasks = new ArrayList<>();
-	/// Parent task
+	/** Parent task */
 	private Task parentTask = null;
 	
-	public Task(String _id, String _name, String descr, String _cdate, String _pdate) {
+	/**
+	 * Task constructor.
+	 * @param _author Name of the person constructing the task.
+	 * @param _id Task's id (job of the Task Manager to create an id)
+	 * @param _name Task's name.
+	 * @param descr Task's description.
+	 * @param _cdate Date in comparable format.
+	 * @param _pdate Date in a pretty format.
+	 */
+	public Task(String _author, String _id, String _name, String descr, String _cdate, String _pdate) {
 		id = _id;
 		name = _name;
 		description = descr;
@@ -76,9 +86,10 @@ public class Task {
 		
 		// the task's name and description changed from "nothing"
 		// to "something". However, no need to capture this change
-		addChangeState(_cdate, _pdate, "Opened task", null, null, null, null, TaskStateEnum.Opened);
+		addChangeState(_author, _cdate, _pdate, "Opened task", null, null, null, null, TaskStateEnum.Opened);
 	}
 	
+	public String getCreator() { return changes.get(0).getAuthor(); }
 	public String getId() { return id; }
 	public String getName() { return name; }
 	public void setName(String n) { name = n; }
@@ -88,7 +99,7 @@ public class Task {
 	public String getPrettyDate() { return prettyDate; }
 	public ArrayList<TaskState> getChanges() { return changes; }
 	public ArrayList<Task> getSubtasks() { return subtasks; }
-	public Task getParent() { return parentTask; }
+	public Task getParentTask() { return parentTask; }
 	@Override
 	public String toString() { return name + " -- (id: " + getId() + ")"; }
 	
@@ -168,6 +179,7 @@ public class Task {
 	
 	/**
 	 * Change the state of a task
+	 * @param author Author's name
 	 * @param cdate Comparable date
 	 * @param pdate Pretty date
 	 * @param why Reason of change
@@ -178,6 +190,7 @@ public class Task {
 	 * @param s New task's state.
 	 */
 	private void changeState(
+		String author,
 		String cdate, String pdate, String why,
 		String prevName, String prevDescr,
 		TaskStateEnum s
@@ -186,14 +199,14 @@ public class Task {
 		switch (s) {
 			case Edited:
 				addChangeState(
-					cdate, pdate, why,
+					author, cdate, pdate, why,
 					prevName, getName(), prevDescr, getDescription(),
 					s
 				);
 				return;
 			default:
 				// no change of name or description
-				addChangeState(cdate, pdate, why,null, null, null, null, s);
+				addChangeState(author, cdate, pdate, why,null, null, null, null, s);
 		}
 		
 		// in these cases, no more work to do
@@ -206,39 +219,46 @@ public class Task {
 		ArrayList<TaskStateEnum> cur_level = TaskStateEnum.precondCurtask(s);
 		for (Task t : subtasks) {
 			if (t.isOneOfState(cur_level)) {
-				t.changeState(cdate, pdate, null,null, why, s);
+				t.changeState(author, cdate, pdate, null,null, why, s);
 			}
 		}
 	}
 	/**
 	 * Change the state of a task when @e s is not 'Edited'.
+	 * @param author Author's name.
 	 * @param why Reason of change
 	 * @param s New state of the task
 	 */
-	public void changeState(String why, TaskStateEnum s) {
+	public void changeState(String author, String why, TaskStateEnum s) {
 		String cdate = Tools.getComparableDate();
 		String pdate = Tools.getPrettyDate();
-		changeState(cdate, pdate, why, null,null, s);
+		changeState(author, cdate, pdate, why, null,null, s);
 	}
 	
 	// -------------------------------------------------------------------------
 	
 	/**
 	 * Change the state of a task its name and/or description have been edited.
-	 * @param why Reason of change
+	 * @param author Author's name.
+	 * @param why Reason of change.
 	 * @param prevName Task's previous name.
 	 * @param prevDescr Task's previous description.
 	 * @param s New state of the task
 	 */
-	public void taskWasEdited(String why, String prevName, String prevDescr, TaskStateEnum s) {
+	public void taskWasEdited(String author, String why, String prevName, String prevDescr, TaskStateEnum s) {
 		String cdate = Tools.getComparableDate();
 		String pdate = Tools.getPrettyDate();
-		changeState(cdate, pdate, why, prevName, prevDescr, s);
+		changeState(author, cdate, pdate, why, prevName, prevDescr, s);
 	}
 	
+	/**
+	 * Add a subtask to this task.
+	 * @param t The new task to be added.
+	 */
 	public void addSubtask(Task t) {
 		if (isDone()) {
 			addChangeState(
+				t.getCreator(),
 				t.getCompDate(),
 				t.getPrettyDate(),
 				"A subtask was added.",
@@ -268,21 +288,10 @@ public class Task {
 	// -------------------------------------------------------------------------
 	
 	public String changesToString() {
-		SystemInfo sys = SystemInfo.getInstance();
 		String c = "";
-		for (TaskState ts : changes) {
-			c += ts.getPrettyDate() + sys.newLine;
-			switch (ts.getState()) {
-				case Edited:
-				case PriorityChanged:
-				case AddedSubtask:
-					c += "    " + ts.getReason() + sys.newLine;
-					break;
-				default:
-					c += "    State of task set to: " + ts.getState() + sys.newLine;
-					c += "    Reason: " + ts.getReason() + sys.newLine;
-			}
-		}
+		c = changes.stream()
+			.map(		(ts) -> ts.toString()	)
+			.reduce(	c, String::concat		);
 		return c;
 	}
 }

@@ -108,13 +108,17 @@ public class TaskManager {
 	public void setTaskFile(String filename) { tasksFile = filename; }
 	public String getTaskFile() { return tasksFile; }
 	
+	private String __ifHasKeyReturnString(JSONObject obj, String k) {
+		if (obj.has(k)) { return obj.getString(k); }
+		return null;
+	}
+	
 	private Task fromJSONtoTask(JSONObject obj) {
 		String id = obj.getString("id");
 		String name = obj.getString("name");
 		String descr = obj.getString("description");
 		String comp_date = obj.getString("comparable_date");
 		String pretty_date = obj.getString("pretty_date");
-		Task t = new Task(id, name, descr, comp_date, pretty_date);
 		
 		JSONArray arrchanges = obj.getJSONArray("changes");
 		ArrayList<TaskState> changes = new ArrayList<>();
@@ -124,20 +128,21 @@ public class TaskManager {
 			String pdate = stobj.getString("pretty_date");
 			String reason = stobj.getString("reason");
 			String state = stobj.getString("state");
-			String pTN = stobj.getString("pTN");
-			String nTN = stobj.getString("nTN");
-			String pTD = stobj.getString("pTD");
-			String nTD = stobj.getString("nTD");
-			if (pTN.equals("")) { pTN = null; }
-			if (nTN.equals("")) { nTN = null; }
-			if (pTD.equals("")) { pTD = null; }
-			if (nTD.equals("")) { nTD = null; }
+			String author = __ifHasKeyReturnString(stobj, "author");
+			String pTN = __ifHasKeyReturnString(stobj, "pTN");
+			String nTN = __ifHasKeyReturnString(stobj, "nTN");
+			String pTD = __ifHasKeyReturnString(stobj, "pTD");
+			String nTD = __ifHasKeyReturnString(stobj, "nTD");
 			TaskState ts = new TaskState(
-				cdate, pdate, reason, pTN, nTN, pTD, nTD,
+				author, cdate, pdate, reason,
+				pTN, nTN, pTD, nTD,
 				TaskStateEnum.fromString(state)
 			);
 			changes.add(ts);
 		}
+		
+		String creator = changes.get(0).getAuthor();
+		Task t = new Task(creator, id, name, descr, comp_date, pretty_date);
 		t.hardSetChanges(changes);
 		
 		JSONArray arrtasks = obj.getJSONArray("subtasks");
@@ -203,6 +208,7 @@ public class TaskManager {
 				.key("pretty_date").value(ts.getPrettyDate())
 				.key("reason").value(ts.getReason())
 				.key("state").value(ts.getState())
+				.key("author").value(ts.getAuthor())
 				.key("pTN").value(ts.getPreviousTaskName() == null ? "" : ts.getPreviousTaskName())
 				.key("nTN").value(ts.getNextTaskName() == null ? "" : ts.getNextTaskName())
 				.key("pTD").value(ts.getPreviousTaskDescription() == null ? "" : ts.getPreviousTaskDescription())
@@ -297,8 +303,12 @@ public class TaskManager {
 	public void insertMedTask(int i, Task t) { medPriorTasks.add(i, t); }
 	public void insertLowTask(int i, Task t) { lowPriorTasks.add(i, t); }
 	
-	public Task newTask(String name, String descr) {
-		Task t = new Task(makeId(), name, descr, Tools.getComparableDate(), Tools.getPrettyDate());
+	public Task newTask(String creator, String taskName, String taskDescr) {
+		Task t = new Task(
+			creator, makeId(),
+			taskName, taskDescr,
+			Tools.getComparableDate(), Tools.getPrettyDate()
+		);
 		++numTasks;
 		return t;
 	}

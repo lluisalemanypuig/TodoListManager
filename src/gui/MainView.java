@@ -76,6 +76,7 @@ public class MainView extends javax.swing.JFrame {
 	private DefaultMutableTreeNode lowPriorNode;
 	private Logger log;
 	private boolean changesSaved = true;
+	private String authorName;
 	
 	/**
 	 * Creates new form MainView
@@ -97,6 +98,7 @@ public class MainView extends javax.swing.JFrame {
 		
 		CustomTreeCellRenderer renderer = new CustomTreeCellRenderer(14);
 		treeTasks.setCellRenderer(renderer);
+		
 		setChangesSaved();
 	}
 
@@ -147,10 +149,17 @@ public class MainView extends javax.swing.JFrame {
         jScrollPane7 = new JScrollPane();
         textAreaTaskDescription = new JTextArea();
         jLabel4 = new JLabel();
+        textBoxTaskAuthor = new JTextField();
+        jLabel5 = new JLabel();
+        jLabel7 = new JLabel();
         jToolBar1 = new JToolBar();
         buttonOpenTasks = new JButton();
         buttonOverwriteTasks = new JButton();
         buttonSaveTasksAs = new JButton();
+        jSeparator2 = new JToolBar.Separator();
+        buttonSetAuthor = new JButton();
+        labelAuthor = new JLabel();
+        jSeparator3 = new JToolBar.Separator();
         labelUnsavedChanges = new JLabel();
         jMenuBar1 = new JMenuBar();
         jMenu1 = new JMenu();
@@ -298,8 +307,8 @@ public class MainView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane6, GroupLayout.PREFERRED_SIZE, 655, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         buttonTaskWorking.setText("Working");
@@ -440,6 +449,12 @@ public class MainView extends javax.swing.JFrame {
 
         jLabel4.setText("History");
 
+        textBoxTaskAuthor.setEditable(false);
+
+        jLabel5.setText("Author");
+
+        jLabel7.setText("State:");
+
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -449,21 +464,25 @@ public class MainView extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel5))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+                    .addComponent(jScrollPane7, GroupLayout.Alignment.TRAILING)
+                    .addComponent(textBoxTaskName)
                     .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(textBoxTaskName)
+                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(textBoxTaskDate)
+                            .addComponent(textBoxTaskAuthor))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
+                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7, GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelTaskID, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1)
-                    .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(textBoxTaskDate)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelTaskState, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane7))
+                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                            .addComponent(labelTaskID, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelTaskState, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -471,25 +490,29 @@ public class MainView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(textBoxTaskName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelTaskID)
-                    .addComponent(jLabel6)
                     .addComponent(jLabel1))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(textBoxTaskDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2))
-                    .addComponent(labelTaskState, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(textBoxTaskAuthor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(labelTaskID)
+                    .addComponent(jLabel6))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(textBoxTaskDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel7)
+                    .addComponent(labelTaskState, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane7, GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane7, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 332, GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 302, GroupLayout.PREFERRED_SIZE)))
         );
 
         GroupLayout jPanel7Layout = new GroupLayout(jPanel7);
@@ -503,7 +526,7 @@ public class MainView extends javax.swing.JFrame {
         jPanel7Layout.setVerticalGroup(jPanel7Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -544,6 +567,22 @@ public class MainView extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(buttonSaveTasksAs);
+        jToolBar1.add(jSeparator2);
+
+        buttonSetAuthor.setText("Set author");
+        buttonSetAuthor.setFocusable(false);
+        buttonSetAuthor.setHorizontalTextPosition(SwingConstants.CENTER);
+        buttonSetAuthor.setVerticalTextPosition(SwingConstants.BOTTOM);
+        buttonSetAuthor.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                buttonSetAuthorMouseClicked(evt);
+            }
+        });
+        jToolBar1.add(buttonSetAuthor);
+
+        labelAuthor.setText("Unkown author");
+        jToolBar1.add(labelAuthor);
+        jToolBar1.add(jSeparator3);
 
         labelUnsavedChanges.setText("There are unsaved changes");
         labelUnsavedChanges.setEnabled(false);
@@ -621,8 +660,8 @@ public class MainView extends javax.swing.JFrame {
                 .addComponent(jToolBar1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textBoxError, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         );
@@ -693,6 +732,29 @@ public class MainView extends javax.swing.JFrame {
 		menuItem1_OverWriteTasks.setEnabled(false);
 	}
 	private boolean areChangesSaved() { return changesSaved; }
+	
+	private void updateAuthor(String n) {
+		authorName = n;
+		labelAuthor.setText(authorName);
+		log.info("Author name changed to: '" + authorName + "'.");
+	}
+	private String getAuthorName() { return authorName == null ? "??" : authorName; }
+	private String requestAuthorName() {
+		return JOptionPane.showInputDialog(this, "Enter the author's name:");
+	}
+	private void updateAuthorNameIfNone() {
+		String n = requestAuthorName();
+		if (n == null) {
+			issueWarningMsg("Author name has not been set.");
+		}
+		else {
+			updateAuthor(n);
+		}
+	}
+	private void setNewAuthor() {
+		authorName = requestAuthorName();
+		updateAuthor(authorName);
+	}
 	
 	private void overwriteChanges() {
 		log.info("Saving tasks to disk");
@@ -817,6 +879,7 @@ public class MainView extends javax.swing.JFrame {
 	
 	private void refreshBoxesTask(Task t) {
 		textBoxTaskName.setText(t.getName());
+		textBoxTaskAuthor.setText(t.getCreator());
 		labelTaskID.setText(t.getId());
 		labelTaskState.setText(t.currentState().getState().toString());
 		textBoxTaskDate.setText(t.getPrettyDate());
@@ -900,6 +963,7 @@ public class MainView extends javax.swing.JFrame {
 		
 		// prompt the user with an interface
 		GUINewTask makeTask = new GUINewTask();
+		makeTask.setTaskCreator(getAuthorName());
 		Object[] button_options = {"Create task", "Cancel"};
 		int res = JOptionPane.showOptionDialog(
 			null, makeTask,
@@ -913,29 +977,31 @@ public class MainView extends javax.swing.JFrame {
 		}
 		
 		// get data used to identify the task
-		String task_name = makeTask.getTaskName();
-		String task_descr = makeTask.getTaskDescription();
+		String taskName = makeTask.getTaskName();
+		String taskCreator = makeTask.getTaskCreator();
+		String taskDescr = makeTask.getTaskDescription();
 		
 		log.info("New task:");
-		log.info("    Name: " + task_name + ".");
-		log.info("    Description: " + task_descr + ".");
+		log.info("    Name: " + taskName + ".");
+		log.info("    Creator: " + taskCreator + ".");
+		log.info("    Description: " + taskDescr + ".");
 		
 		// find out if the task is high/med/low
 		DefaultMutableTreeNode sel
 			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		
-		if (task_name.equals("")) {
-			task_name = "Nameless task";
+		if (taskName.equals("")) {
+			taskName = "Nameless task";
 			log.info("No name for new task.");
 		}
-		if (task_descr.equals("")) {
-			task_descr = "Empty task (yay! nothing to do!)";
+		if (taskDescr.equals("")) {
+			taskDescr = "Empty task (yay! nothing to do!)";
 			log.info("No description for new task.");
 		}
 		
 		// create the task
 		TaskManager tm = TaskManager.getInstance();
-		Task new_t = tm.newTask(task_name, task_descr);
+		Task new_t = tm.newTask(taskCreator, taskName, taskDescr);
 		
 		// the task should only be added to the taks manager's
 		// containers if they are children of the "high/med/low" nodes.
@@ -956,7 +1022,7 @@ public class MainView extends javax.swing.JFrame {
 			node_task.addSubtask(new_t);
 			// change state
 			String m = "A subtask was added (id: " + new_t.getId() + ")";
-			node_task.changeState(m, TaskStateEnum.AddedSubtask);
+			node_task.changeState(taskCreator, m, TaskStateEnum.AddedSubtask);
 			// fill in the text boxes
 			refreshBoxesTask(node_task);
 		}
@@ -1022,7 +1088,7 @@ public class MainView extends javax.swing.JFrame {
 		
 		// if the task has a parent, move the subtask
 		// within the parent's list of subtasks
-		Task parent_task = t.getParent();
+		Task parent_task = t.getParentTask();
 		if (parent_task != null) {
 			log.info("    Moving task within the parent task's list of subtasks.");
 			parent_task.moveSubtaskBy(t.getId(), incr);
@@ -1051,6 +1117,8 @@ public class MainView extends javax.swing.JFrame {
 		if (!treeHasSelection("A task must be selected in order to move it")) {
 			return;
 		}
+		updateAuthorNameIfNone();
+		
 		DefaultMutableTreeNode sel
 			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		if (sel.getLevel() < 0) { return; }
@@ -1120,6 +1188,7 @@ public class MainView extends javax.swing.JFrame {
 		else if (new_prior.equals("low")) { tm.insertLowTask(0, t); }
 		
 		t.changeState(
+			getAuthorName(),
 			verb + " priority to " + new_prior + ".",
 			TaskStateEnum.PriorityChanged
 		);
@@ -1160,6 +1229,7 @@ public class MainView extends javax.swing.JFrame {
         if (!treeHasSelection("A task must be selected in order to edit its name and description.")) {
 			return;
 		}
+		
 		DefaultMutableTreeNode sel
 			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		
@@ -1176,6 +1246,7 @@ public class MainView extends javax.swing.JFrame {
 		// prompt the user with an interface
 		GUINewTask editTask = new GUINewTask();
 		editTask.setTaskName(prevName);
+		editTask.setTaskCreator(getAuthorName());
 		editTask.setTaskDescription(prevDescr);
 		Object[] button_options = {"Save edits", "Cancel"};
 		int res = JOptionPane.showOptionDialog(
@@ -1193,7 +1264,10 @@ public class MainView extends javax.swing.JFrame {
 		t.setName(editTask.getTaskName());
 		t.setDescription(editTask.getTaskDescription());
 		// set the change to the task
-		t.taskWasEdited("Edited name and/or description.", prevName, prevDescr, TaskStateEnum.Edited);
+		t.taskWasEdited(
+			editTask.getTaskCreator(), "Edited name and/or description.",
+			prevName, prevDescr, TaskStateEnum.Edited
+		);
 		
 		refreshBoxesTask(t);
 		
@@ -1206,6 +1280,8 @@ public class MainView extends javax.swing.JFrame {
 		if (!treeHasSelection("A task must be selected in order to change its state")) {
 			return;
 		}
+		updateAuthorNameIfNone();
+		
 		DefaultMutableTreeNode sel
 			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		Task t = (Task) sel.getUserObject();
@@ -1222,7 +1298,7 @@ public class MainView extends javax.swing.JFrame {
 				JOptionPane.PLAIN_MESSAGE // no icon
 			);
 		}
-		t.changeState(reason, s);
+		t.changeState(getAuthorName(), reason, s);
 		refreshBoxesTask(t);
 		treeModel.reload(sel);
 		setChangesUnsaved();
@@ -1310,6 +1386,10 @@ public class MainView extends javax.swing.JFrame {
 		}
     }//GEN-LAST:event_menuItem1_OverWriteTasksMouseClicked
 
+    private void buttonSetAuthorMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonSetAuthorMouseClicked
+		setNewAuthor();
+    }//GEN-LAST:event_buttonSetAuthorMouseClicked
+
 	/**
 	 * @param args the command line arguments
 	 */
@@ -1357,6 +1437,7 @@ public class MainView extends javax.swing.JFrame {
     private JButton buttonOverwriteTasks;
     private JButton buttonRemoveTask;
     private JButton buttonSaveTasksAs;
+    private JButton buttonSetAuthor;
     private JButton buttonTaskCancel;
     private JButton buttonTaskDelete;
     private JButton buttonTaskDone;
@@ -1370,7 +1451,9 @@ public class MainView extends javax.swing.JFrame {
     private JLabel jLabel2;
     private JLabel jLabel3;
     private JLabel jLabel4;
+    private JLabel jLabel5;
     private JLabel jLabel6;
+    private JLabel jLabel7;
     private JMenu jMenu1;
     private JMenu jMenu2;
     private JMenuBar jMenuBar1;
@@ -1383,7 +1466,10 @@ public class MainView extends javax.swing.JFrame {
     private JScrollPane jScrollPane6;
     private JScrollPane jScrollPane7;
     private JPopupMenu.Separator jSeparator1;
+    private JToolBar.Separator jSeparator2;
+    private JToolBar.Separator jSeparator3;
     private JToolBar jToolBar1;
+    private JLabel labelAuthor;
     private JLabel labelTaskID;
     private JLabel labelTaskState;
     private JLabel labelUnsavedChanges;
@@ -1395,6 +1481,7 @@ public class MainView extends javax.swing.JFrame {
     private JTextArea textAreaTaskChanges;
     private JTextArea textAreaTaskDescription;
     private JTextField textBoxError;
+    private JTextField textBoxTaskAuthor;
     private JTextField textBoxTaskDate;
     private JTextField textBoxTaskName;
     private JTree treeTasks;

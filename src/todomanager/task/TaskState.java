@@ -25,17 +25,19 @@
 
 package todomanager.task;
 
+import todomanager.util.SystemInfo;
+
 /**
  * @brief Class to represent a task's state.
  * @author Lluís Alemany Puig
  */
 public class TaskState {
 	
-	/** Date of task's state change (comparable) */
+	/** Date of task's state change (comparable). */
 	private final String compDate;
-	/** Date of task's state change (pretty) */
+	/** Date of task's state change (pretty). */
 	private final String prettyDate;
-	/** Why did this task change state? */
+	/** Why did this task change state?. */
 	private final String reason;
 	/** The new task's state. */
 	private final TaskStateEnum state;
@@ -47,6 +49,8 @@ public class TaskState {
 	private final String prevTaskDescr;
 	/** The task's description after the change. */
 	private final String nextTaskDescr;
+	/** Name of the change's author. */
+	private final String authorName;
 	
 	/**
 	 * Sets the date, reason and state of the task's state change.
@@ -60,11 +64,13 @@ public class TaskState {
 	 * @param s The new task's state.
 	 */
 	public TaskState(
+		String a,
 		String cdate, String pdate, String why,
 		String pTN, String nTN, String pTD, String nTD,
 		TaskStateEnum s
 	)
 	{
+		authorName = a;
 		compDate = cdate;
 		prettyDate = pdate;
 		reason = why;
@@ -75,6 +81,7 @@ public class TaskState {
 		nextTaskDescr = nTD;
 	}
 	
+	public String getAuthor() { return authorName; }
 	public String getComparableDate() { return compDate; }
 	public String getPrettyDate() { return prettyDate; }
 	public String getReason() { return reason; }
@@ -83,4 +90,35 @@ public class TaskState {
 	public String getNextTaskName() { return nextTaskName; }
 	public String getPreviousTaskDescription() { return prevTaskDescr; }
 	public String getNextTaskDescription() { return nextTaskDescr; }
+	
+	
+	@Override
+	public String toString() {
+		String nL = SystemInfo.getInstance().newLine;
+		String s = "";
+		
+		s += "On " + getPrettyDate() + nL;
+		switch (getState()) {
+			case Edited:
+				s += "    " + getAuthor() + " edited the task." + nL;
+				break;
+			case PriorityChanged:
+				s += "    " + getAuthor() + " changed the task's priority." + nL;
+				break;
+			case AddedSubtask:
+				s += "    " + getAuthor() + " added a subtask." + nL;
+				break;
+		}
+		if (
+			getState() != TaskStateEnum.Edited &&
+			getState() != TaskStateEnum.PriorityChanged &&
+			getState() != TaskStateEnum.AddedSubtask
+		)
+		{
+			s += "    State of task set to: " + getState() + nL;
+			s += "    Reason: " + getReason() + nL;
+		}
+		s += nL;
+		return s;
+	}
 }
