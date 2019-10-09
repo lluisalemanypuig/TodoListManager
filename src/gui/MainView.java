@@ -25,6 +25,7 @@
 
 package gui;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -34,6 +35,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import javax.swing.Box;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -158,6 +160,7 @@ public class MainView extends javax.swing.JFrame {
         buttonSaveTasksAs = new JButton();
         jSeparator2 = new JToolBar.Separator();
         buttonSetAuthor = new JButton();
+        filler1 = new Box.Filler(new Dimension(10, 0), new Dimension(10, 0), new Dimension(10, 32767));
         labelAuthor = new JLabel();
         jSeparator3 = new JToolBar.Separator();
         labelUnsavedChanges = new JLabel();
@@ -579,6 +582,7 @@ public class MainView extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(buttonSetAuthor);
+        jToolBar1.add(filler1);
 
         labelAuthor.setText("Unkown author");
         jToolBar1.add(labelAuthor);
@@ -1447,6 +1451,7 @@ public class MainView extends javax.swing.JFrame {
     private JButton buttonTaskPendingRevision;
     private JButton buttonTaskUp;
     private JButton buttonTaskWorking;
+    private Box.Filler filler1;
     private JLabel jLabel1;
     private JLabel jLabel2;
     private JLabel jLabel3;
