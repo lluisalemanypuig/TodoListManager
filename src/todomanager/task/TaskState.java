@@ -116,8 +116,32 @@ public class TaskState {
 		)
 		{
 			s += "    State of task set to: " + getState() + nL;
-			s += "    Reason: " + getReason() + nL;
 		}
+		
+		switch (getState()) {
+			case Opened:			s += "    The task was opened by: "; break;
+			case Working:			s += "    The person working on it is: "; break;
+			case Deleted:			s += "    The task was deleted by: "; break;
+			case PutOnHold:			s += "    The task was put on hold by: "; break;
+			case Cancelled:			s += "    The task was cancelled by: "; break;
+			case OnRevision:		s += "    The task is being revised by: "; break;
+			case PendingRevision:	s += "    The task needs revision according to: "; break;
+			case Done:				s += "    The task was completed by: "; break;
+		}
+		
+		switch (getState()) {
+			case Opened:
+			case Working:
+			case Deleted:
+			case PutOnHold:
+			case Cancelled:
+			case OnRevision:
+			case PendingRevision:
+			case Done:
+				s += getAuthor() + nL;
+		}
+		
+		s += "    Reason: " + getReason() + nL;
 		s += nL;
 		return s;
 	}
