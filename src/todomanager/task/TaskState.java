@@ -98,6 +98,7 @@ public class TaskState {
 		String s = "";
 		
 		s += "On " + getPrettyDate() + nL;
+		
 		switch (getState()) {
 			case Edited:
 				s += "    " + getAuthor() + " edited the task." + nL;
@@ -108,25 +109,30 @@ public class TaskState {
 			case AddedSubtask:
 				s += "    " + getAuthor() + " added a subtask." + nL;
 				break;
-		}
-		if (
-			getState() != TaskStateEnum.Edited &&
-			getState() != TaskStateEnum.PriorityChanged &&
-			getState() != TaskStateEnum.AddedSubtask
-		)
-		{
-			s += "    State of task set to: " + getState() + nL;
-		}
-		
-		switch (getState()) {
-			case Opened:			s += "    The task was opened by: "; break;
-			case Working:			s += "    The person working on it is: "; break;
-			case Deleted:			s += "    The task was deleted by: "; break;
-			case PutOnHold:			s += "    The task was put on hold by: "; break;
-			case Cancelled:			s += "    The task was cancelled by: "; break;
-			case OnRevision:		s += "    The task is being revised by: "; break;
-			case PendingRevision:	s += "    The task needs revision according to: "; break;
-			case Done:				s += "    The task was completed by: "; break;
+			case Opened:
+				s += "    The task was opened by: ";
+				break;
+			case Working:
+				s += "    The person working on it is: ";
+				break;
+			case Deleted:
+				s += "    The task was deleted by: ";
+				break;
+			case PutOnHold:
+				s += "    The task was put on hold by: ";
+				break;
+			case Cancelled:
+				s += "    The task was cancelled by: ";
+				break;
+			case OnRevision:
+				s += "    The task is being revised by: ";
+				break;
+			case PendingRevision:
+				s += "    The task needs revision according to: ";
+				break;
+			case Done:
+				s += "    The task was completed by: ";
+				break;
 		}
 		
 		switch (getState()) {
@@ -139,9 +145,16 @@ public class TaskState {
 			case PendingRevision:
 			case Done:
 				s += getAuthor() + nL;
+				s += "    State of task set to: " + getState() + nL;
 		}
 		
-		s += "    Reason: " + getReason() + nL;
+		switch (getState()) {
+			case Deleted:
+			case PutOnHold:
+			case Cancelled:
+			case PendingRevision:
+				s += "    Reason: " + getReason() + nL;
+		}
 		s += nL;
 		return s;
 	}
