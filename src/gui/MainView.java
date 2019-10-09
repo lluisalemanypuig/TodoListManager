@@ -1269,7 +1269,7 @@ public class MainView extends javax.swing.JFrame {
 		t.setDescription(editTask.getTaskDescription());
 		// set the change to the task
 		t.taskWasEdited(
-			editTask.getTaskCreator(), "Edited name and/or description.",
+			editTask.getTaskCreator(), null,
 			prevName, prevDescr, TaskStateEnum.Edited
 		);
 		
@@ -1279,7 +1279,12 @@ public class MainView extends javax.swing.JFrame {
 		setChangesUnsaved();
     }//GEN-LAST:event_buttonEditTaskMouseClicked
 
-	private void changeTaskState(TaskStateEnum s, String custom_reason, boolean use_reason)
+	/**
+	 * Change a task's state.
+	 * @param s The change of state of the task.
+	 * @param use_reason Should I prompt the user for a reason?
+	 */
+	private void changeTaskState(TaskStateEnum s, boolean promptUser)
 	{
 		if (!treeHasSelection("A task must be selected in order to change its state")) {
 			return;
@@ -1294,9 +1299,8 @@ public class MainView extends javax.swing.JFrame {
 			issueErrorMsg("Can't change state of task (id: " + t.getId() + ") due to: " + r);
 			return;
 		}
-		String reason;
-		if (use_reason) { reason = custom_reason; }
-		else {
+		String reason = null;
+		if (promptUser) {
 			reason = JOptionPane.showInputDialog(
 				null, "Why do you want to change the task's state?", "Change a task's state",
 				JOptionPane.PLAIN_MESSAGE // no icon
@@ -1309,31 +1313,31 @@ public class MainView extends javax.swing.JFrame {
 	}
 	
     private void buttonTaskDoneMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonTaskDoneMouseClicked
-        changeTaskState(TaskStateEnum.Done, "The task has been completed.", true);
+        changeTaskState(TaskStateEnum.Done, false);
     }//GEN-LAST:event_buttonTaskDoneMouseClicked
 
     private void buttonTaskWorkingMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonTaskWorkingMouseClicked
-        changeTaskState(TaskStateEnum.Working, "Working on it.", true);
+        changeTaskState(TaskStateEnum.Working, false);
     }//GEN-LAST:event_buttonTaskWorkingMouseClicked
 
     private void buttonTaskHoldMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonTaskHoldMouseClicked
-        changeTaskState(TaskStateEnum.PutOnHold, "", false);
+        changeTaskState(TaskStateEnum.PutOnHold, true);
     }//GEN-LAST:event_buttonTaskHoldMouseClicked
 
     private void buttonTaskOnRevisionMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonTaskOnRevisionMouseClicked
-        changeTaskState(TaskStateEnum.OnRevision, "The task is being revised.", true);
+        changeTaskState(TaskStateEnum.OnRevision, false);
     }//GEN-LAST:event_buttonTaskOnRevisionMouseClicked
 
     private void buttonTaskPendingRevisionMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonTaskPendingRevisionMouseClicked
-        changeTaskState(TaskStateEnum.PendingRevision, "", false);
+        changeTaskState(TaskStateEnum.PendingRevision, true);
     }//GEN-LAST:event_buttonTaskPendingRevisionMouseClicked
 
     private void buttonTaskCancelMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonTaskCancelMouseClicked
-        changeTaskState(TaskStateEnum.Cancelled, "", false);
+        changeTaskState(TaskStateEnum.Cancelled, true);
     }//GEN-LAST:event_buttonTaskCancelMouseClicked
 
     private void buttonTaskDeleteMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonTaskDeleteMouseClicked
-        changeTaskState(TaskStateEnum.Deleted, "", false);
+        changeTaskState(TaskStateEnum.Deleted, true);
     }//GEN-LAST:event_buttonTaskDeleteMouseClicked
 
     private void menuItem2_AboutMousePressed(MouseEvent evt) {//GEN-FIRST:event_menuItem2_AboutMousePressed
