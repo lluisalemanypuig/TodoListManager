@@ -10,7 +10,15 @@ The tasks are saved in a JSON-formatted file. The library used to read and write
 
 ## Execute
 
-Copy the _.jar_ file and _lib_ directory wherever you like. You will also need to copy the [TodoListManagerData/](https://github.com/lluisalemanypuig/TodoListManager/blob/master/TodoListManagerData/) directory into your user directory. Finally double-click on the _.jar_ file in order to execute this software.
+Copy the _.jar_ file and _lib_ directory wherever you like. You will also need to copy the [TodoListManagerData/](https://github.com/lluisalemanypuig/TodoListManager/blob/master/TodoListManagerData/) directory so as to be able to see the icons of the tasks. Finally double-click on the _.jar_ file in order to execute this software.
+
+### In case the icons do not appear
+
+The _TodoListManager_ outputs messages into a log file. In Windows, this log file is _C:\todomanager.log_, and in Linux is _/tmp/todomanager.log_. In this file, you will find a line with the following format
+
+	[date]    INFO Program executed from path: PATH
+
+where _PATH_ is a path to the user directory. It is important that the directory _TodoListManagerData_ can be reachable from said _PATH_.
 
 ## Sample
 
