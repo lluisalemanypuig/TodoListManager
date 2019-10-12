@@ -37,9 +37,11 @@ import java.util.Date;
  */
 public class Logger {
 	
+	/** Instance of the logger. */
 	private static Logger instance = null;
+	/** Name of the file where to store the log messages. */
 	private String loggerFile;
-	private File file;
+	/** Object used to write into file. */
 	private FileWriter fileWriter;
 	
 	public void open() {
@@ -57,7 +59,7 @@ public class Logger {
 			loggerFile = "something.log";
 		}
 		
-		file = new File(loggerFile);
+		File file = new File(loggerFile);
 		try {
 			file.createNewFile();
 			fileWriter = new FileWriter(file, true);
