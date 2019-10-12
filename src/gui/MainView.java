@@ -33,8 +33,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.logging.Level;
 import javax.swing.Box;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -65,6 +69,7 @@ import javax.swing.tree.TreeSelectionModel;
 
 import todomanager.task.*;
 import todomanager.util.Logger;
+import todomanager.util.Tools;
 
 /**
  * @brief Main class: the only file that defines the Graphical User Interface.
@@ -72,17 +77,17 @@ import todomanager.util.Logger;
  */
 public class MainView extends javax.swing.JFrame {
 
-	private DefaultTreeModel treeModel;
-	private DefaultMutableTreeNode highPriorNode;
-	private DefaultMutableTreeNode medPriorNode;
-	private DefaultMutableTreeNode lowPriorNode;
-	private Logger log;
-	private boolean changesSaved = true;
+	private final DefaultTreeModel treeModel;
+	private final DefaultMutableTreeNode highPriorNode;
+	private final DefaultMutableTreeNode medPriorNode;
+	private final DefaultMutableTreeNode lowPriorNode;
+	private final Logger log;
+	private boolean changesSaved;
 	private String authorName;
 	
-	/**
-	 * Creates new form MainView
-	 */
+	private String lockFileName = null;
+	private File lockFile = null;
+	
 	public MainView() {
 		log = Logger.getInstance();
 		log.begin();
@@ -673,6 +678,34 @@ public class MainView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+	private void openLockFile(String basefile) {
+		lockFileName = Tools.getLockFileName(basefile);
+		
+		log.info("Create a new lock file '" + lockFileName + "'");
+		
+		// open the lock file
+		lockFile = new File(lockFileName);
+		FileWriter fw;
+		try {
+			lockFile.createNewFile();
+			fw = new FileWriter(lockFile, false);
+			fw.write("Lock file for tasks file '" + basefile + "'.");
+			fw.write("Created on " + Tools.getPrettyDate() + ".");
+			fw.flush();
+		}
+		catch (IOException ex) {
+			ex.printStackTrace();
+			java.util.logging.Logger.getLogger(Logger.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+	
+	private void deleteLockFile() {
+		if (lockFile != null) {
+			log.info("Delete lock file '" + lockFileName + "'");
+			lockFile.delete();
+		}
+	}
+	
 	private void setNodeExpandedState(DefaultMutableTreeNode node, boolean expanded) {
 		ArrayList<DefaultMutableTreeNode> list = Collections.list(node.children());
 		for (DefaultMutableTreeNode treeNode : list) {
@@ -763,9 +796,10 @@ public class MainView extends javax.swing.JFrame {
 	private void overwriteChanges() {
 		log.info("Saving tasks to disk");
 		TaskManager tm = TaskManager.getInstance();
-		tm.writeTasks(true);
+		tm.writeTasks(true); // do a backup
 		log.info("Tasks created/edited so far have been saved to disk");
 		setChangesSaved();
+		// there is no need to manipulate the log files
 	}
 	
 	private void openFile() {
@@ -773,8 +807,8 @@ public class MainView extends javax.swing.JFrame {
 			promptSaveChanges();
 		}
 		
+		// choose file
 		log.info("Choosing file for opening...");
-		
 		JFileChooser fc = new JFileChooser();
 		File file;
 		int returnVal = fc.showOpenDialog(jPanel3);
@@ -783,14 +817,34 @@ public class MainView extends javax.swing.JFrame {
 			return;
         }
 		file = fc.getSelectedFile();
-		String filename = file.getAbsolutePath();
+		String newFileName = file.getAbsolutePath();
 		
-		log.info("Opening file '" + filename + "'.");
+		// make sure the file chosen is not locked
+		log.info("Checking whether file '" + newFileName + "' is locked...");
+		if (Tools.fileExists(Tools.getLockFileName(newFileName))) {
+			issueErrorMsg("The file '" + newFileName + "' is locked!");
+			return;
+		}
+		log.info("    File is not locked.");
 		
 		TaskManager tm = TaskManager.getInstance();
-		tm.setTaskFile(filename);
+		
+		// do more work only if the file being opened
+		// is different from the one we opened before
+		if (tm.getTaskFile().equals(newFileName)) {
+			log.warning("Trying to open the file you had already opened. Duh!");
+			return;
+		}
+		
+		// close the current lock file and open a new one
+		deleteLockFile();
+		openLockFile(newFileName);
+		
+		// read the chosen file
+		log.info("Opening file '" + newFileName + "'.");
+		tm.setTaskFile(newFileName);
 		if (!tm.readTasks()) {
-			issueErrorMsg("Could not open selected file '" + filename + "'.");
+			issueErrorMsg("Could not open selected file '" + newFileName + "'.");
 			return;
 		}
 		
@@ -814,8 +868,8 @@ public class MainView extends javax.swing.JFrame {
 	}
 	
 	private void saveChangesAs() {
+		// choose file
 		log.info("Choosing file for saving...");
-		
 		JFileChooser fc = new JFileChooser();
 		File file;
 		int returnVal = fc.showSaveDialog(jPanel3);
@@ -824,16 +878,23 @@ public class MainView extends javax.swing.JFrame {
 			return;
         }
 		file = fc.getSelectedFile();
-		String filename = file.getAbsolutePath();
+		String newFileName = file.getAbsolutePath();
 		buttonOverwriteTasks.setEnabled(true);
 		
-		log.info("Saving to file '" + filename + "'");
-		
 		TaskManager tm = TaskManager.getInstance();
-		boolean do_backup = true;
-		if (!tm.getTaskFile().equals(filename)) {
+		
+		// save task
+		log.info("Saving to file '" + newFileName + "'");
+		boolean do_backup = true; // backup the currently opened file if necessary
+		if (!tm.getTaskFile().equals(newFileName)) {
+			// if the file is different, open and close lock file
+			deleteLockFile();
+			openLockFile(newFileName);
+			
+			// if the new file is different there
+			// is no need to do a backup...
 			do_backup = false;
-			tm.setTaskFile(filename);
+			tm.setTaskFile(newFileName);
 		}
 		tm.writeTasks(do_backup);
 		setChangesSaved();
@@ -1362,6 +1423,9 @@ public class MainView extends javax.swing.JFrame {
         if (!areChangesSaved()) {
 			promptSaveChanges();
 		}
+		deleteLockFile();
+		log.info("Closing TodoListManager...");
+		log.end();
     }//GEN-LAST:event_formWindowClosing
 
     private void menuItem1_ExitMousePressed(MouseEvent evt) {//GEN-FIRST:event_menuItem1_ExitMousePressed
