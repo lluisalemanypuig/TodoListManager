@@ -70,7 +70,7 @@ public class Tools {
 		String old_contents = readFile(filename);
 		if (old_contents.equals("?")) { return IOResult.ErrorRead; }
 		
-		File file = new File(filename);
+		File file = new File(filename + ".backup");
 		FileWriter writer = null;
 		
 		try {
@@ -93,5 +93,10 @@ public class Tools {
 			return IOResult.ErrorWrite;
 		}
 		return IOResult.Success;
+	}
+	
+	public static boolean fileExists(String fileName) {
+		File f = new File(fileName);
+		return f.exists();
 	}
 }
