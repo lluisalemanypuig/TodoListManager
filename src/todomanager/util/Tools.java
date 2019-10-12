@@ -99,4 +99,10 @@ public class Tools {
 		File f = new File(fileName);
 		return f.exists();
 	}
+	
+	public static String getLockFileName(String basefile) {
+		String folderTaskFile = Paths.get(basefile).getParent().toString();
+		String baseFileName = Paths.get(basefile).getFileName().toString();
+		return folderTaskFile + "/" + baseFileName + ".lock";
+	}
 }
