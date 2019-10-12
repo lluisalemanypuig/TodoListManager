@@ -18,7 +18,7 @@ The _TodoListManager_ outputs messages into a log file. In Windows, this log fil
 
 	[date]    INFO Program executed from path: PATH
 
-where _PATH_ is a path to the user directory. It is important that the directory _TodoListManagerData_ can be reachable from said _PATH_.
+where _PATH_ is a path to (most likely) the user directory. It is important that the directory _TodoListManagerData_ is stored in that said _PATH_.
 
 ## Sample
 
