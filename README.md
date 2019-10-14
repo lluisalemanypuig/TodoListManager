@@ -16,9 +16,19 @@ Copy the _.jar_ file and _lib_ directory wherever you like. You will also need t
 
 The _TodoListManager_ outputs messages into a log file. In Windows, this log file is _C:\todomanager.log_, and in Linux is _/tmp/todomanager.log_. In this file, you will find a line with the following format
 
-	[date]    INFO Program executed from path: PATH
+		[date]    INFO Program executed from path: PATH
 
-where _PATH_ is a path to (most likely) the user directory. It is important that the directory _TodoListManagerData_ is stored in that said _PATH_.
+where _PATH_ is a path to (most likely) the user directory. The directory _TodoListManagerData_ should be stored in that said _PATH_ for the program to work properly.
+
+## FAQs
+
+1. Do you accept feature requests?
+
+	Yes, go to [this](https://github.com/lluisalemanypuig/TodoListManager/issues/new/choose) page to see how to fill in this request.
+
+2. The program is buggy... When will you fix it?
+
+	If you found a bug it most likely means that I am not aware of it. Please, report the bug [here](https://github.com/lluisalemanypuig/TodoListManager/issues/new/choose).
 
 ## Sample
 
