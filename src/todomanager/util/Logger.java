@@ -49,8 +49,8 @@ public class Logger {
 		if (sysinfo.isUnix() || sysinfo.isMac()) {
 			loggerFile = "/tmp/todomanager.log";
 		}
-		else if (SystemInfo.getInstance().isWindows()) {
-			loggerFile = "C:\\todomanager.log";
+		else if (sysinfo.isWindows()) {
+			loggerFile = sysinfo.userDir + "/todomanager.log";
 		}
 		else {
 			System.out.println("Logger error:");
@@ -59,8 +59,9 @@ public class Logger {
 			loggerFile = "something.log";
 		}
 		
-		File file = new File(loggerFile);
+		File file = null;
 		try {
+			file = new File(loggerFile);
 			file.createNewFile();
 			fileWriter = new FileWriter(file, true);
 		}
