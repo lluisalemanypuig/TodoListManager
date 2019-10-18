@@ -69,6 +69,7 @@ import javax.swing.tree.TreeSelectionModel;
 
 import todomanager.task.*;
 import todomanager.util.Logger;
+import todomanager.util.SystemInfo;
 import todomanager.util.Tools;
 
 /**
@@ -90,8 +91,14 @@ public class MainView extends javax.swing.JFrame {
 	
 	public MainView() {
 		log = Logger.getInstance();
+		SystemInfo sysinfo = SystemInfo.getInstance();
+		
 		log.begin();
-		log.info("Program executed from path: " + System.getProperty("user.dir"));
+		log.info("Program executed from path: " + sysinfo.userDir);
+		log.info("System information:");
+		log.info("    Language: " + sysinfo.langRaw);
+		log.info("    User Directory: " + sysinfo.userDir);
+		log.info("    Operative System: " + sysinfo.OS);
 		
 		initComponents();
 		

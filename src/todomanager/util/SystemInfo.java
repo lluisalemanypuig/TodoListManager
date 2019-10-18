@@ -41,13 +41,17 @@ public class SystemInfo {
 	public String OS;
 	/** New line character (OS-dependent). */
 	public String newLine;
+	/** User directory */
+	public String userDir;
 	
 	protected final void extractSystemInfo() {
 		Locale locale = Locale.getDefault();
-		langRaw = locale.getLanguage();
 		
-		// get OS type
+		// system information
+		langRaw = locale.getLanguage();
+		userDir = System.getProperty("user.dir");
 		OS = System.getProperty("os.name").toLowerCase();
+		
 		if (isWindows()) {
 			newLine = "\r\n";
 		}
@@ -61,6 +65,11 @@ public class SystemInfo {
 			System.out.println("    Please, report this error to developers.");
 			assert(false);
 		}
+		
+		System.out.println("System information detected:");
+		System.out.println("    Language: " + langRaw);
+		System.out.println("    User Directory: " + userDir);
+		System.out.println("    Operative System: " + OS);
 	}
 	
 	private SystemInfo() {
