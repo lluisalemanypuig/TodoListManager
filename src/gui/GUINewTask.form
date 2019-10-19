@@ -49,8 +49,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jScrollPane2" max="32767" attributes="0"/>
-                      <Component id="textFieldTaskName" pref="279" max="32767" attributes="0"/>
-                      <Component id="textFieldTaskAuthor" alignment="1" pref="279" max="32767" attributes="0"/>
+                      <Component id="textFieldTaskName" pref="426" max="32767" attributes="0"/>
+                      <Component id="textFieldTaskAuthor" alignment="1" pref="426" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
