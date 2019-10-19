@@ -65,6 +65,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.tree.TreeSelectionModel;
 
 import todomanager.task.*;
@@ -820,14 +821,20 @@ public class MainView extends javax.swing.JFrame {
 		
 		// choose file
 		log.info("Choosing file for opening...");
+		
 		JFileChooser fc = new JFileChooser();
-		File file;
+		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		fc.addChoosableFileFilter(new FileNameExtensionFilter("TodoListManager Documents", "tlm"));
+		fc.setAcceptAllFileFilterUsed(true);
+		
 		int returnVal = fc.showOpenDialog(jPanel3);
         if (returnVal != JFileChooser.APPROVE_OPTION) {
             log.info("Open command cancelled by user.");
 			return;
         }
-		file = fc.getSelectedFile();
+		File file = fc.getSelectedFile();
+		// this file already contains the '.tlm' at the end!
+		// If not... blame the user!
 		String newFileName = file.getAbsolutePath();
 		
 		// make sure the file chosen is not locked
@@ -881,15 +888,19 @@ public class MainView extends javax.swing.JFrame {
 	private void saveChangesAs() {
 		// choose file
 		log.info("Choosing file for saving...");
+		
 		JFileChooser fc = new JFileChooser();
-		File file;
+		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		fc.addChoosableFileFilter(new FileNameExtensionFilter("TodoListManager Documents", "tlm"));
+		fc.setAcceptAllFileFilterUsed(true);
+		
 		int returnVal = fc.showSaveDialog(jPanel3);
         if (returnVal != JFileChooser.APPROVE_OPTION) {
             log.info("Save command cancelled by user");
 			return;
         }
-		file = fc.getSelectedFile();
-		String newFileName = file.getAbsolutePath();
+		File file = fc.getSelectedFile();
+		String newFileName = file.getAbsolutePath() + ".tlm";
 		buttonOverwriteTasks.setEnabled(true);
 		
 		TaskManager tm = TaskManager.getInstance();
