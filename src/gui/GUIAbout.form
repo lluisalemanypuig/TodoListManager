@@ -56,7 +56,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="By: Llu&#xed;s Alemany Puig"/>
+        <Property name="text" type="java.lang.String" value="Software designed and programmed by: Llu&#xed;s Alemany Puig"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">

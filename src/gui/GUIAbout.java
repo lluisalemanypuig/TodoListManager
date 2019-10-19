@@ -53,7 +53,7 @@ public class GUIAbout extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
-        jLabel2.setText("By: Lluís Alemany Puig");
+        jLabel2.setText("Software designed and programmed by: Lluís Alemany Puig");
 
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Monospaced", 0, 15)); // NOI18N
