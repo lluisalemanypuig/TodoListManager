@@ -783,11 +783,14 @@ public class MainView extends javax.swing.JFrame {
 		labelAuthor.setText(authorName);
 		log.info("Author name changed to: '" + authorName + "'.");
 	}
-	private String getAuthorName() { return authorName == null ? "??" : authorName; }
+	private static String nullAuthorName() { return "??"; }
+	private String getAuthorName() { return authorName == null ? nullAuthorName() : authorName; }
 	private String requestAuthorName() {
 		return JOptionPane.showInputDialog(this, "Enter the author's name:");
 	}
 	private void updateAuthorNameIfNone() {
+		if (!getAuthorName().equals(nullAuthorName())) { return; }
+		
 		String n = requestAuthorName();
 		if (n == null) {
 			issueWarningMsg("Author name has not been set.");
@@ -1030,9 +1033,11 @@ public class MainView extends javax.swing.JFrame {
 
     private void buttonNewTaskMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonNewTaskMouseClicked
         if (treeTasks.getSelectionCount() == 0) {
-			issueWarningMsg("A task can't be added if no category/task is selected.");
+			issueWarningMsg("A task can't be added if no priority/task is selected.");
 			return;
 		}
+		
+		updateAuthorNameIfNone();
 		
 		// prompt the user with an interface
 		GUINewTask makeTask = new GUINewTask();
@@ -1302,6 +1307,7 @@ public class MainView extends javax.swing.JFrame {
         if (!treeHasSelection("A task must be selected in order to edit its name and description.")) {
 			return;
 		}
+		updateAuthorNameIfNone();
 		
 		DefaultMutableTreeNode sel
 			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
