@@ -87,8 +87,14 @@ public class Logger {
 	}
 	
 	public Logger begin() {
+		SystemInfo sysinfo = SystemInfo.getInstance();
 		try {
 			fileWriter.write("<---- Start log ---->" + SystemInfo.getInstance().newLine);
+			info("Program executed from path: " + sysinfo.userDir);
+			info("System information:");
+			info("    Language: " + sysinfo.langRaw);
+			info("    User Directory: " + sysinfo.userDir);
+			info("    Operative System: " + sysinfo.OS);
 			fileWriter.flush();
 		}
 		catch (IOException ex) {

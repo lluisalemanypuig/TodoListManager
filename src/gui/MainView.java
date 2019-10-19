@@ -90,15 +90,16 @@ public class MainView extends javax.swing.JFrame {
 	private File lockFile = null;
 	
 	public MainView() {
-		log = Logger.getInstance();
+		// instantiate the System Info singleton before anything else...
 		SystemInfo sysinfo = SystemInfo.getInstance();
+		System.out.println("System information detected:");
+		System.out.println("    Language: " + sysinfo.langRaw);
+		System.out.println("    User Directory: " + sysinfo.userDir);
+		System.out.println("    Operative System: " + sysinfo.OS);
 		
+		// Instance logger (this uses the SystemInfo)
+		log = Logger.getInstance();
 		log.begin();
-		log.info("Program executed from path: " + sysinfo.userDir);
-		log.info("System information:");
-		log.info("    Language: " + sysinfo.langRaw);
-		log.info("    User Directory: " + sysinfo.userDir);
-		log.info("    Operative System: " + sysinfo.OS);
 		
 		initComponents();
 		
