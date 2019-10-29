@@ -10,9 +10,9 @@ The tasks are saved in a JSON-formatted file. The library used to read and write
 
 ## Languages
 
-It is our intention to translate this software into as many as we can. So far, TodoListManager has been translated into:
+It is our intention to translate this software into as many languages as we can. TodoListManager has been translated into:
 
-- Catalan (29th October 2019) *only interface*
+- Catalan (29th October 2019 -- only interface)
 
 ## Execute
 
