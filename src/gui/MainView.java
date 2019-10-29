@@ -72,6 +72,7 @@ import todomanager.task.*;
 import todomanager.util.Logger;
 import todomanager.util.SystemInfo;
 import todomanager.util.Tools;
+import todomanager.util.Translate;
 
 /**
  * @brief Main class: the only file that defines the Graphical User Interface.
@@ -117,8 +118,7 @@ public class MainView extends javax.swing.JFrame {
 		
 		setChangesSaved();
 		
-		
-		
+		setTextToComponents();
 	}
 
 	/**
@@ -140,8 +140,8 @@ public class MainView extends javax.swing.JFrame {
         buttonTaskUp = new JButton();
         buttonIncrPriority = new JButton();
         buttonDecrPriority = new JButton();
-        buttonExpandAll = new JButton();
-        buttonContractAll = new JButton();
+        buttonShowAll = new JButton();
+        buttonHideAll = new JButton();
         textBoxError = new JTextField();
         jPanel7 = new JPanel();
         jPanel5 = new JPanel();
@@ -152,44 +152,44 @@ public class MainView extends javax.swing.JFrame {
         buttonTaskOnRevision = new JButton();
         buttonTaskHold = new JButton();
         buttonTaskPendingRevision = new JButton();
-        buttonEditTask = new JButton();
-        buttonClear = new JButton();
+        buttonTaskEdit = new JButton();
+        buttonTaskClear = new JButton();
         jPanel1 = new JPanel();
         labelTaskState = new JLabel();
         textBoxTaskDate = new JTextField();
         labelTaskID = new JLabel();
         textBoxTaskName = new JTextField();
-        jLabel1 = new JLabel();
-        jLabel2 = new JLabel();
+        labelTaskName = new JLabel();
+        labelTaskDate = new JLabel();
         jScrollPane1 = new JScrollPane();
         textAreaTaskChanges = new JTextArea();
-        jLabel3 = new JLabel();
+        labelTaskDescription = new JLabel();
         jLabel6 = new JLabel();
         jScrollPane7 = new JScrollPane();
         textAreaTaskDescription = new JTextArea();
-        jLabel4 = new JLabel();
+        labelTaskHistory = new JLabel();
         textBoxTaskAuthor = new JTextField();
-        jLabel5 = new JLabel();
-        jLabel7 = new JLabel();
+        labelTaskAuthor = new JLabel();
+        labelTaskStateText = new JLabel();
         jToolBar1 = new JToolBar();
         buttonOpenTasks = new JButton();
-        buttonOverwriteTasks = new JButton();
+        buttonSaveTasks = new JButton();
         buttonSaveTasksAs = new JButton();
         jSeparator2 = new JToolBar.Separator();
         buttonSetAuthor = new JButton();
         filler1 = new Box.Filler(new Dimension(10, 0), new Dimension(10, 0), new Dimension(10, 32767));
-        labelAuthor = new JLabel();
+        labelAuthorName = new JLabel();
         jSeparator3 = new JToolBar.Separator();
         labelUnsavedChanges = new JLabel();
         jMenuBar1 = new JMenuBar();
-        jMenu1 = new JMenu();
-        menuItem1_OpenFile = new JMenuItem();
-        menuItem1_OverWriteTasks = new JMenuItem();
-        menuItem1_SaveTasksAs = new JMenuItem();
+        menuItemFile = new JMenu();
+        menuItemOpenFile = new JMenuItem();
+        menuItemSaveTasks = new JMenuItem();
+        menuItemSaveTasksAs = new JMenuItem();
         jSeparator1 = new JPopupMenu.Separator();
-        menuItem1_Exit = new JMenuItem();
-        jMenu2 = new JMenu();
-        menuItem2_About = new JMenuItem();
+        menuItemExit = new JMenuItem();
+        menuItemHelp = new JMenu();
+        menuItemAbout = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Todo List Manager");
@@ -257,17 +257,17 @@ public class MainView extends javax.swing.JFrame {
             }
         });
 
-        buttonExpandAll.setText("Show all");
-        buttonExpandAll.addMouseListener(new MouseAdapter() {
+        buttonShowAll.setText("Show all");
+        buttonShowAll.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                buttonExpandAllMouseClicked(evt);
+                buttonShowAllMouseClicked(evt);
             }
         });
 
-        buttonContractAll.setText("Hide all");
-        buttonContractAll.addMouseListener(new MouseAdapter() {
+        buttonHideAll.setText("Hide all");
+        buttonHideAll.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                buttonContractAllMouseClicked(evt);
+                buttonHideAllMouseClicked(evt);
             }
         });
 
@@ -288,11 +288,11 @@ public class MainView extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(buttonDecrPriority, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonContractAll, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(buttonHideAll, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(buttonIncrPriority, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonExpandAll, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(buttonShowAll, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -302,13 +302,13 @@ public class MainView extends javax.swing.JFrame {
                     .addComponent(buttonNewTask)
                     .addComponent(buttonIncrPriority)
                     .addComponent(buttonTaskUp)
-                    .addComponent(buttonExpandAll))
+                    .addComponent(buttonShowAll))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonTaskDown)
                     .addComponent(buttonDecrPriority)
                     .addComponent(buttonRemoveTask)
-                    .addComponent(buttonContractAll))
+                    .addComponent(buttonHideAll))
                 .addContainerGap())
         );
 
@@ -380,18 +380,18 @@ public class MainView extends javax.swing.JFrame {
             }
         });
 
-        buttonEditTask.setText("Edit Task");
-        buttonEditTask.setEnabled(false);
-        buttonEditTask.addMouseListener(new MouseAdapter() {
+        buttonTaskEdit.setText("Edit Task");
+        buttonTaskEdit.setEnabled(false);
+        buttonTaskEdit.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                buttonEditTaskMouseClicked(evt);
+                buttonTaskEditMouseClicked(evt);
             }
         });
 
-        buttonClear.setText("Clear");
-        buttonClear.addMouseListener(new MouseAdapter() {
+        buttonTaskClear.setText("Clear");
+        buttonTaskClear.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                buttonClearMouseClicked(evt);
+                buttonTaskClearMouseClicked(evt);
             }
         });
 
@@ -408,12 +408,12 @@ public class MainView extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(buttonTaskPendingRevision, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonTaskOnRevision, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonEditTask, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonTaskEdit, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(buttonTaskCancel, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonTaskDelete, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonClear, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonTaskClear, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -431,8 +431,8 @@ public class MainView extends javax.swing.JFrame {
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonTaskHold)
-                    .addComponent(buttonEditTask)
-                    .addComponent(buttonClear))
+                    .addComponent(buttonTaskEdit)
+                    .addComponent(buttonTaskClear))
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -446,9 +446,9 @@ public class MainView extends javax.swing.JFrame {
 
         textBoxTaskName.setEditable(false);
 
-        jLabel1.setText("Name");
+        labelTaskName.setText("Name");
 
-        jLabel2.setText("Date");
+        labelTaskDate.setText("Date");
 
         textAreaTaskChanges.setEditable(false);
         textAreaTaskChanges.setColumns(20);
@@ -456,7 +456,7 @@ public class MainView extends javax.swing.JFrame {
         textAreaTaskChanges.setRows(5);
         jScrollPane1.setViewportView(textAreaTaskChanges);
 
-        jLabel3.setText("Description");
+        labelTaskDescription.setText("Description");
 
         jLabel6.setText("id:");
 
@@ -467,13 +467,13 @@ public class MainView extends javax.swing.JFrame {
         textAreaTaskDescription.setTabSize(4);
         jScrollPane7.setViewportView(textAreaTaskDescription);
 
-        jLabel4.setText("History");
+        labelTaskHistory.setText("History");
 
         textBoxTaskAuthor.setEditable(false);
 
-        jLabel5.setText("Author");
+        labelTaskAuthor.setText("Author");
 
-        jLabel7.setText("State:");
+        labelTaskStateText.setText("State:");
 
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -481,14 +481,14 @@ public class MainView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel5))
+                    .addComponent(labelTaskDescription)
+                    .addComponent(labelTaskHistory)
+                    .addComponent(labelTaskDate)
+                    .addComponent(labelTaskName)
+                    .addComponent(labelTaskAuthor))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
                     .addComponent(jScrollPane7, GroupLayout.Alignment.TRAILING)
                     .addComponent(textBoxTaskName)
                     .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -498,7 +498,7 @@ public class MainView extends javax.swing.JFrame {
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7, GroupLayout.Alignment.TRAILING))
+                            .addComponent(labelTaskStateText, GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                             .addComponent(labelTaskID, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -510,44 +510,47 @@ public class MainView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(textBoxTaskName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(labelTaskName))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(textBoxTaskAuthor, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
+                    .addComponent(labelTaskAuthor)
                     .addComponent(labelTaskID)
                     .addComponent(jLabel6))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(textBoxTaskDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel7)
+                    .addComponent(labelTaskDate)
+                    .addComponent(labelTaskStateText)
                     .addComponent(labelTaskState, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane7, GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(labelTaskDescription)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
+                    .addComponent(labelTaskHistory)
                     .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 302, GroupLayout.PREFERRED_SIZE)))
         );
 
         GroupLayout jPanel7Layout = new GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(jPanel7Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jPanel5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(28, 28, 28))
         );
         jPanel7Layout.setVerticalGroup(jPanel7Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(30, 30, 30)
                 .addComponent(jPanel5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -565,17 +568,17 @@ public class MainView extends javax.swing.JFrame {
         });
         jToolBar1.add(buttonOpenTasks);
 
-        buttonOverwriteTasks.setText("Save");
-        buttonOverwriteTasks.setEnabled(false);
-        buttonOverwriteTasks.setFocusable(false);
-        buttonOverwriteTasks.setHorizontalTextPosition(SwingConstants.CENTER);
-        buttonOverwriteTasks.setVerticalTextPosition(SwingConstants.BOTTOM);
-        buttonOverwriteTasks.addMouseListener(new MouseAdapter() {
+        buttonSaveTasks.setText("Save");
+        buttonSaveTasks.setEnabled(false);
+        buttonSaveTasks.setFocusable(false);
+        buttonSaveTasks.setHorizontalTextPosition(SwingConstants.CENTER);
+        buttonSaveTasks.setVerticalTextPosition(SwingConstants.BOTTOM);
+        buttonSaveTasks.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                buttonOverwriteTasksMouseClicked(evt);
+                buttonSaveTasksMouseClicked(evt);
             }
         });
-        jToolBar1.add(buttonOverwriteTasks);
+        jToolBar1.add(buttonSaveTasks);
 
         buttonSaveTasksAs.setText("Save As");
         buttonSaveTasksAs.setFocusable(false);
@@ -601,63 +604,63 @@ public class MainView extends javax.swing.JFrame {
         jToolBar1.add(buttonSetAuthor);
         jToolBar1.add(filler1);
 
-        labelAuthor.setText("Unkown author");
-        jToolBar1.add(labelAuthor);
+        labelAuthorName.setText("Unkown author");
+        jToolBar1.add(labelAuthorName);
         jToolBar1.add(jSeparator3);
 
         labelUnsavedChanges.setText("There are unsaved changes");
         labelUnsavedChanges.setEnabled(false);
         jToolBar1.add(labelUnsavedChanges);
 
-        jMenu1.setText("File");
+        menuItemFile.setText("File");
 
-        menuItem1_OpenFile.setText("Open");
-        menuItem1_OpenFile.addMouseListener(new MouseAdapter() {
+        menuItemOpenFile.setText("Open");
+        menuItemOpenFile.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
-                menuItem1_OpenFileMousePressed(evt);
+                menuItemOpenFileMousePressed(evt);
             }
         });
-        jMenu1.add(menuItem1_OpenFile);
+        menuItemFile.add(menuItemOpenFile);
 
-        menuItem1_OverWriteTasks.setText("Save");
-        menuItem1_OverWriteTasks.setEnabled(false);
-        menuItem1_OverWriteTasks.addMouseListener(new MouseAdapter() {
+        menuItemSaveTasks.setText("Save");
+        menuItemSaveTasks.setEnabled(false);
+        menuItemSaveTasks.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                menuItem1_OverWriteTasksMouseClicked(evt);
+                menuItemSaveTasksMouseClicked(evt);
             }
         });
-        jMenu1.add(menuItem1_OverWriteTasks);
+        menuItemFile.add(menuItemSaveTasks);
 
-        menuItem1_SaveTasksAs.setText("Save As");
-        menuItem1_SaveTasksAs.addMouseListener(new MouseAdapter() {
+        menuItemSaveTasksAs.setText("Save As");
+        menuItemSaveTasksAs.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                menuItem1_SaveTasksAsMouseClicked(evt);
+                menuItemSaveTasksAsMouseClicked(evt);
             }
         });
-        jMenu1.add(menuItem1_SaveTasksAs);
-        jMenu1.add(jSeparator1);
+        menuItemFile.add(menuItemSaveTasksAs);
+        menuItemFile.add(jSeparator1);
 
-        menuItem1_Exit.setText("Exit");
-        menuItem1_Exit.addMouseListener(new MouseAdapter() {
+        menuItemExit.setText("Exit");
+        menuItemExit.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
-                menuItem1_ExitMousePressed(evt);
+                menuItemExitMousePressed(evt);
             }
         });
-        jMenu1.add(menuItem1_Exit);
+        menuItemFile.add(menuItemExit);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menuItemFile);
 
-        jMenu2.setText("Help");
+        menuItemHelp.setText("Help");
 
-        menuItem2_About.setText("About");
-        menuItem2_About.addMouseListener(new MouseAdapter() {
+        menuItemAbout.setText("About");
+        menuItemAbout.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
-                menuItem2_AboutMousePressed(evt);
+                menuItemAboutMousePressed(evt);
             }
         });
-        jMenu2.add(menuItem2_About);
+        menuItemHelp.add(menuItemAbout);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(menuItemHelp);
 
         setJMenuBar(jMenuBar1);
 
@@ -690,6 +693,56 @@ public class MainView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+	private void setTextToComponents() {
+		Translate tr = Translate.getInstance();
+		
+		menuItemFile.setText(tr.menuItemFile);
+		menuItemOpenFile.setText(tr.menuItemOpenFile);
+		menuItemSaveTasks.setText(tr.menuItemSaveTasks);
+		menuItemSaveTasksAs.setText(tr.menuItemSaveTasksAs);
+		menuItemExit.setText(tr.menuItemExit);
+		
+		menuItemHelp.setText(tr.menuItemHelp);
+		menuItemAbout.setText(tr.menuItemAbout);
+		
+		buttonNewTask.setText(tr.buttonNewTask);
+		buttonRemoveTask.setText(tr.buttonRemove);
+		buttonTaskUp.setText(tr.buttonUp);
+		buttonTaskDown.setText(tr.buttonDown);
+		buttonIncrPriority.setText("+ " + tr.buttonPriority);
+		buttonDecrPriority.setText("- " + tr.buttonPriority);
+		buttonShowAll.setText(tr.buttonShowAll);
+		buttonHideAll.setText(tr.buttonHideAll);
+		
+		buttonTaskDone.setText(tr.buttonTaskDone);
+		buttonTaskWorking.setText(tr.buttonTaskWorking);
+		buttonTaskHold.setText(tr.buttonTaskHold);
+		buttonTaskOnRevision.setText(tr.buttonTaskOnRevision);
+		buttonTaskPendingRevision.setText(tr.buttonTaskPendingRevision);
+		buttonTaskEdit.setText(tr.buttonTaskEdit);
+		buttonTaskCancel.setText(tr.buttonTaskCancel);
+		buttonTaskDelete.setText(tr.buttonTaskDelete);
+		buttonTaskClear.setText(tr.buttonTaskClear);
+		
+		buttonOpenTasks.setText(tr.buttonOpenTasks);
+		buttonSaveTasks.setText(tr.buttonSaveTasks);
+		buttonSaveTasksAs.setText(tr.buttonSaveTasksAs);
+		buttonSetAuthor.setText(tr.buttonSetAuthor);
+		labelAuthorName.setText(tr.labelAuthorName);
+		labelUnsavedChanges.setText(tr.labelUnsavedChanges);
+		
+		labelTaskName.setText(tr.labelTaskName);
+		labelTaskAuthor.setText(tr.labelTaskAuthor);
+		labelTaskDate.setText(tr.labelTaskDate);
+		labelTaskDescription.setText(tr.labelTaskDescription);
+		labelTaskHistory.setText(tr.labelTaskHistory);
+		labelTaskStateText.setText(tr.labelTaskStateText);
+		
+		highPriorNode.setUserObject(tr.highPriorNode);
+		medPriorNode.setUserObject(tr.medPriorNode);
+		lowPriorNode.setUserObject(tr.lowPriorNode);
+	}
+	
 	private void openLockFile(String basefile) {
 		lockFileName = Tools.getLockFileName(basefile);
 		
@@ -765,39 +818,40 @@ public class MainView extends javax.swing.JFrame {
 	
 	private void setChangesUnsaved() {
 		changesSaved = false;
-		labelUnsavedChanges.setText("There are unsaved changes");
+		Translate tr = Translate.getInstance();
+		labelUnsavedChanges.setText(tr.labelUnsavedChanges);
 		
 		TaskManager tm = TaskManager.getInstance();
 		if (!tm.getTaskFile().equals("")) {
-			buttonOverwriteTasks.setEnabled(true);
-			menuItem1_OverWriteTasks.setEnabled(true);
+			buttonSaveTasks.setEnabled(true);
+			menuItemSaveTasks.setEnabled(true);
 		}
 	}
 	
 	private void setChangesSaved() {
 		changesSaved = true;
 		labelUnsavedChanges.setText("");
-		buttonOverwriteTasks.setEnabled(false);
-		menuItem1_OverWriteTasks.setEnabled(false);
+		buttonSaveTasks.setEnabled(false);
+		menuItemSaveTasks.setEnabled(false);
 	}
 	private boolean areChangesSaved() { return changesSaved; }
 	
 	private void updateAuthor(String n) {
 		authorName = n;
-		labelAuthor.setText(authorName);
+		labelAuthorName.setText(authorName);
 		log.info("Author name changed to: '" + authorName + "'.");
 	}
 	private static String nullAuthorName() { return "??"; }
 	private String getAuthorName() { return authorName == null ? nullAuthorName() : authorName; }
 	private String requestAuthorName() {
-		return JOptionPane.showInputDialog(this, "Enter the author's name:");
+		return JOptionPane.showInputDialog(this, Translate.getInstance().inputdialog_EnterAuthorName);
 	}
 	private void updateAuthorNameIfNone() {
 		if (!getAuthorName().equals(nullAuthorName())) { return; }
 		
 		String n = requestAuthorName();
 		if (n == null) {
-			issueWarningMsg("Author name has not been set.");
+			issueWarningMsg(Translate.getInstance().warning_AuthorNameNotSet);
 		}
 		else {
 			updateAuthor(n);
@@ -843,7 +897,10 @@ public class MainView extends javax.swing.JFrame {
 		// make sure the file chosen is not locked
 		log.info("Checking whether file '" + newFileName + "' is locked...");
 		if (Tools.fileExists(Tools.getLockFileName(newFileName))) {
-			issueErrorMsg("The file '" + newFileName + "' is locked!");
+			Translate tr = Translate.getInstance();
+			String msg1 = tr.error_FileIsLocked1;
+			String msg2 = tr.error_FileIsLocked1;
+			issueErrorMsg(msg1 + " '" + newFileName + "' " + msg2 + ".");
 			return;
 		}
 		log.info("    File is not locked.");
@@ -865,7 +922,7 @@ public class MainView extends javax.swing.JFrame {
 		log.info("Opening file '" + newFileName + "'.");
 		tm.setTaskFile(newFileName);
 		if (!tm.readTasks()) {
-			issueErrorMsg("Could not open selected file '" + newFileName + "'.");
+			issueErrorMsg(Translate.getInstance().error_CouldNotOpen + " '" + newFileName + "'.");
 			return;
 		}
 		
@@ -904,7 +961,7 @@ public class MainView extends javax.swing.JFrame {
         }
 		File file = fc.getSelectedFile();
 		String newFileName = file.getAbsolutePath() + ".tlm";
-		buttonOverwriteTasks.setEnabled(true);
+		buttonSaveTasks.setEnabled(true);
 		
 		TaskManager tm = TaskManager.getInstance();
 		
@@ -934,8 +991,11 @@ public class MainView extends javax.swing.JFrame {
 			save_as = true;
 		}
 		
+		Translate tr = Translate.getInstance();
 		int response = JOptionPane.showConfirmDialog(
-			null, "Do you want to save the changes?", "There are unsaved changes",
+			null,
+			tr.question_DoYouWantToSaveChanges,
+			tr.dialogtitle_UnsavedChanges,
 			JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE
 		);
 		
@@ -963,7 +1023,7 @@ public class MainView extends javax.swing.JFrame {
 		if (highPriorNode.isNodeDescendant(n)) { return "high"; }
 		else if (medPriorNode.isNodeDescendant(n)) { return "med"; }
 		else if (lowPriorNode.isNodeDescendant(n)) { return "low"; }
-		issueErrorMsg("Could not determine priority of node");
+		issueErrorMsg(Translate.getInstance().error_CouldNotDetermineNodePrior);
 		return "?";
 	}
 	
@@ -998,9 +1058,9 @@ public class MainView extends javax.swing.JFrame {
 		return treeTasks.getSelectionCount() > 0;
 	}
 	
-    private void buttonClearMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonClearMouseClicked
+    private void buttonTaskClearMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonTaskClearMouseClicked
         clearBoxesTask();
-    }//GEN-LAST:event_buttonClearMouseClicked
+    }//GEN-LAST:event_buttonTaskClearMouseClicked
 	
     private void treeTasksValueChanged(TreeSelectionEvent evt) {//GEN-FIRST:event_treeTasksValueChanged
         if (!treeHasSelection()) { return; }
@@ -1010,23 +1070,23 @@ public class MainView extends javax.swing.JFrame {
 			// clear text boxes (nothing selected so nothing to show)
 			clearBoxesTask();
 			// disable edit button
-			buttonEditTask.setEnabled(false);
+			buttonTaskEdit.setEnabled(false);
 			return;
 		}
 		Task node_task = (Task) sel.getUserObject();
 		// fill in the text boxes
 		refreshBoxesTask(node_task);
 		// enable edit button
-		buttonEditTask.setEnabled(true);
+		buttonTaskEdit.setEnabled(true);
     }//GEN-LAST:event_treeTasksValueChanged
 
     private void buttonRemoveTaskMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonRemoveTaskMouseClicked
-		if (!treeHasSelection("A task must be selected in order to delete it")) { return; }
+		if (!treeHasSelection(Translate.getInstance().error_NeedTaskSelectedDelete)) { return; }
 		
 		DefaultMutableTreeNode sel
 			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		if (sel.getLevel() <= 1) {
-			issueWarningMsg("You can't delete the root node or the high/med/low nodes");
+			issueWarningMsg(Translate.getInstance().warning_CantDeleteRootHighMedLow);
 			return;
 		}
 		
@@ -1047,19 +1107,20 @@ public class MainView extends javax.swing.JFrame {
 
     private void buttonNewTaskMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonNewTaskMouseClicked
         if (treeTasks.getSelectionCount() == 0) {
-			issueWarningMsg("A task can't be added if no priority/task is selected.");
+			issueWarningMsg(Translate.getInstance().warning_CantAddTask);
 			return;
 		}
 		
 		updateAuthorNameIfNone();
+		Translate tr = Translate.getInstance();
 		
 		// prompt the user with an interface
 		GUINewTask makeTask = new GUINewTask();
 		makeTask.setTaskCreator(getAuthorName());
-		Object[] button_options = {"Create task", "Cancel"};
+		Object[] button_options = {tr.GUINewTask_buttonCreateTask, tr.GUINewTask_buttonCancel};
 		int res = JOptionPane.showOptionDialog(
 			null, makeTask,
-			"Create a new task",
+			Translate.getInstance().dialogtitle_CreateNewTask,
 			JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
 			null, button_options, null
 		);
@@ -1129,11 +1190,11 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonNewTaskMouseClicked
 
 	private void moveTaskUpDown(String dir, int incr) {
-		if (!treeHasSelection("A task must be selected in order to move it")) { return; }
+		if (!treeHasSelection(Translate.getInstance().error_NeedTaskSelectedMove)) { return; }
 		DefaultMutableTreeNode sel
 			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		if (sel.getLevel() <= 1) {
-			issueWarningMsg("Can't move root node or nodes high/med/low.");
+			issueWarningMsg(Translate.getInstance().warning_CantMoveRootHighMedLow);
 			return;
 		}
 		
@@ -1146,11 +1207,11 @@ public class MainView extends javax.swing.JFrame {
 		DefaultMutableTreeNode par_sel = (DefaultMutableTreeNode) sel.getParent();
 		int idx = par_sel.getIndex(sel);
 		if (dir.equals("up") && idx == 0) {
-			issueWarningMsg("Can't increase priority of the highest-priority subtask.");
+			issueWarningMsg(Translate.getInstance().warning_CantIncreasePriority);
 			return;
 		}
 		if (dir.equals("down") && idx == par_sel.getChildCount() - 1) {
-			issueWarningMsg("Can't decrease priority of the lowest-priority subtask.");
+			issueWarningMsg(Translate.getInstance().warning_CantDecreasePriority);
 			return;
 		}
 		
@@ -1206,7 +1267,7 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonTaskDownMouseClicked
 
 	private void changeTaskPriority(String dir, int incr) {
-		if (!treeHasSelection("A task must be selected in order to move it")) {
+		if (!treeHasSelection(Translate.getInstance().error_NeedTaskSelectedMove)) {
 			return;
 		}
 		updateAuthorNameIfNone();
@@ -1215,21 +1276,21 @@ public class MainView extends javax.swing.JFrame {
 			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		if (sel.getLevel() < 0) { return; }
 		if (sel.getLevel() <= 1) {
-			issueWarningMsg("Can't move root node or nodes high/med/low.");
+			issueWarningMsg(Translate.getInstance().warning_CantMoveRootHighMedLow);
 			return;
 		}
 		if (sel.getLevel() > 2) {
-			issueWarningMsg("Can't change a task's priority if it is a subtask of another task.");
+			issueWarningMsg(Translate.getInstance().warning_CantChangeTaskPriority);
 			return;
 		}
 		
 		String cur_prior = getPriority(sel);
 		if (dir.equals("incr") && cur_prior.equals("high")) {
-			issueWarningMsg("Can't increase priority of a highest-priority task.");
+			issueWarningMsg(Translate.getInstance().warning_CantIncreasePriority);
 			return;
 		}
 		if (dir.equals("decr") && cur_prior.equals("low")) {
-			issueWarningMsg("Can't decrease priority of a lowest-priority task.");
+			issueWarningMsg(Translate.getInstance().warning_CantDecreasePriority);
 			return;
 		}
 		
@@ -1313,12 +1374,13 @@ public class MainView extends javax.swing.JFrame {
 		t.getSubtasks().forEach((st) -> { taskToNode(new_node, st); });
 	}
 	
-    private void menuItem1_OpenFileMousePressed(MouseEvent evt) {//GEN-FIRST:event_menuItem1_OpenFileMousePressed
+    private void menuItemOpenFileMousePressed(MouseEvent evt) {//GEN-FIRST:event_menuItemOpenFileMousePressed
 		openFile();
-    }//GEN-LAST:event_menuItem1_OpenFileMousePressed
+    }//GEN-LAST:event_menuItemOpenFileMousePressed
 
-    private void buttonEditTaskMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonEditTaskMouseClicked
-        if (!treeHasSelection("A task must be selected in order to edit its name and description.")) {
+    private void buttonTaskEditMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonTaskEditMouseClicked
+        Translate tr = Translate.getInstance();
+		if (!treeHasSelection(tr.error_NeedTaskSelectedEdit)) {
 			return;
 		}
 		updateAuthorNameIfNone();
@@ -1327,7 +1389,7 @@ public class MainView extends javax.swing.JFrame {
 			= (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
 		
 		if (sel.getLevel() == 1) {
-			issueErrorMsg("The selection must be a task (not a priority list)!");
+			issueErrorMsg(Translate.getInstance().error_SelectionMustBeTask);
 			return;
 		}
 		
@@ -1341,10 +1403,10 @@ public class MainView extends javax.swing.JFrame {
 		editTask.setTaskName(prevName);
 		editTask.setTaskCreator(getAuthorName());
 		editTask.setTaskDescription(prevDescr);
-		Object[] button_options = {"Save edits", "Cancel"};
+		Object[] button_options = {tr.GUIEditTask_buttonSaveEdits, tr.GUIEditTask_buttonCancelEdits};
 		int res = JOptionPane.showOptionDialog(
 			null, editTask,
-			"Edit an already exiting task",
+			tr.dialogtitle_EditTask,
 			JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
 			null, button_options, null
 		);
@@ -1366,7 +1428,7 @@ public class MainView extends javax.swing.JFrame {
 		
 		// this edit jhas been written to the task, but not to the file
 		setChangesUnsaved();
-    }//GEN-LAST:event_buttonEditTaskMouseClicked
+    }//GEN-LAST:event_buttonTaskEditMouseClicked
 
 	/**
 	 * Change a task's state.
@@ -1375,7 +1437,7 @@ public class MainView extends javax.swing.JFrame {
 	 */
 	private void changeTaskState(TaskStateEnum s, boolean promptUser)
 	{
-		if (!treeHasSelection("A task must be selected in order to change its state")) {
+		if (!treeHasSelection(Translate.getInstance().error_NeedTaskSelectedChangeState)) {
 			return;
 		}
 		updateAuthorNameIfNone();
@@ -1385,13 +1447,19 @@ public class MainView extends javax.swing.JFrame {
 		Task t = (Task) sel.getUserObject();
 		String r = t.askChangeState(s);
 		if (!r.equals("")) {
-			issueErrorMsg("Can't change state of task (id: " + t.getId() + ") due to: " + r);
+			Translate tr = Translate.getInstance();
+			String msg1 = tr.getInstance().error_CantChangeTaskState1;
+			String msg2 = tr.getInstance().error_CantChangeTaskState2;
+			issueErrorMsg(msg1 + " (id: " + t.getId() + ") " + msg2 + ": " + r);
 			return;
 		}
 		String reason = null;
 		if (promptUser) {
+			Translate tr = Translate.getInstance();
 			reason = JOptionPane.showInputDialog(
-				null, "Why do you want to change the task's state?", "Change a task's state",
+				null,
+				tr.question_WhyChangeTaskState,
+				tr.dialogtitle_ChangeTaskState,
 				JOptionPane.PLAIN_MESSAGE // no icon
 			);
 		}
@@ -1429,23 +1497,23 @@ public class MainView extends javax.swing.JFrame {
         changeTaskState(TaskStateEnum.Deleted, true);
     }//GEN-LAST:event_buttonTaskDeleteMouseClicked
 
-    private void menuItem2_AboutMousePressed(MouseEvent evt) {//GEN-FIRST:event_menuItem2_AboutMousePressed
+    private void menuItemAboutMousePressed(MouseEvent evt) {//GEN-FIRST:event_menuItemAboutMousePressed
         GUIAbout paneAbout = new GUIAbout();
-		JDialog dialogAbout = new JDialog(this, "About");
+		JDialog dialogAbout = new JDialog(this, Translate.getInstance().dialogtitle_About);
 		dialogAbout.add(paneAbout);
 		dialogAbout.setSize(750, 570);
 		dialogAbout.setResizable(false);
 		dialogAbout.setVisible(true);
 		
-    }//GEN-LAST:event_menuItem2_AboutMousePressed
+    }//GEN-LAST:event_menuItemAboutMousePressed
 
-    private void buttonExpandAllMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonExpandAllMouseClicked
+    private void buttonShowAllMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonShowAllMouseClicked
         setTreeExpandedState(true);
-    }//GEN-LAST:event_buttonExpandAllMouseClicked
+    }//GEN-LAST:event_buttonShowAllMouseClicked
 
-    private void buttonContractAllMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonContractAllMouseClicked
+    private void buttonHideAllMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonHideAllMouseClicked
         setTreeExpandedState(false);
-    }//GEN-LAST:event_buttonContractAllMouseClicked
+    }//GEN-LAST:event_buttonHideAllMouseClicked
 
     private void formWindowClosing(WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         if (!areChangesSaved()) {
@@ -1456,35 +1524,35 @@ public class MainView extends javax.swing.JFrame {
 		log.end();
     }//GEN-LAST:event_formWindowClosing
 
-    private void menuItem1_ExitMousePressed(MouseEvent evt) {//GEN-FIRST:event_menuItem1_ExitMousePressed
+    private void menuItemExitMousePressed(MouseEvent evt) {//GEN-FIRST:event_menuItemExitMousePressed
 		dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-    }//GEN-LAST:event_menuItem1_ExitMousePressed
+    }//GEN-LAST:event_menuItemExitMousePressed
 
     private void buttonSaveTasksAsMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonSaveTasksAsMouseClicked
         saveChangesAs();
     }//GEN-LAST:event_buttonSaveTasksAsMouseClicked
 
-    private void buttonOverwriteTasksMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonOverwriteTasksMouseClicked
-        if (buttonOverwriteTasks.isEnabled()) {
+    private void buttonSaveTasksMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonSaveTasksMouseClicked
+        if (buttonSaveTasks.isEnabled()) {
 			overwriteChanges();
 		}
-    }//GEN-LAST:event_buttonOverwriteTasksMouseClicked
+    }//GEN-LAST:event_buttonSaveTasksMouseClicked
 
     private void buttonOpenTasksMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonOpenTasksMouseClicked
         openFile();
     }//GEN-LAST:event_buttonOpenTasksMouseClicked
 
-    private void menuItem1_SaveTasksAsMouseClicked(MouseEvent evt) {//GEN-FIRST:event_menuItem1_SaveTasksAsMouseClicked
-        if (menuItem1_SaveTasksAs.isEnabled()) {
+    private void menuItemSaveTasksAsMouseClicked(MouseEvent evt) {//GEN-FIRST:event_menuItemSaveTasksAsMouseClicked
+        if (menuItemSaveTasksAs.isEnabled()) {
 			saveChangesAs();
 		}
-    }//GEN-LAST:event_menuItem1_SaveTasksAsMouseClicked
+    }//GEN-LAST:event_menuItemSaveTasksAsMouseClicked
 
-    private void menuItem1_OverWriteTasksMouseClicked(MouseEvent evt) {//GEN-FIRST:event_menuItem1_OverWriteTasksMouseClicked
-		if (menuItem1_OverWriteTasks.isEnabled()) {
+    private void menuItemSaveTasksMouseClicked(MouseEvent evt) {//GEN-FIRST:event_menuItemSaveTasksMouseClicked
+		if (menuItemSaveTasks.isEnabled()) {
 			overwriteChanges();
 		}
-    }//GEN-LAST:event_menuItem1_OverWriteTasksMouseClicked
+    }//GEN-LAST:event_menuItemSaveTasksMouseClicked
 
     private void buttonSetAuthorMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonSetAuthorMouseClicked
 		setNewAuthor();
@@ -1526,37 +1594,29 @@ public class MainView extends javax.swing.JFrame {
 	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton buttonClear;
-    private JButton buttonContractAll;
     private JButton buttonDecrPriority;
-    private JButton buttonEditTask;
-    private JButton buttonExpandAll;
+    private JButton buttonHideAll;
     private JButton buttonIncrPriority;
     private JButton buttonNewTask;
     private JButton buttonOpenTasks;
-    private JButton buttonOverwriteTasks;
     private JButton buttonRemoveTask;
+    private JButton buttonSaveTasks;
     private JButton buttonSaveTasksAs;
     private JButton buttonSetAuthor;
+    private JButton buttonShowAll;
     private JButton buttonTaskCancel;
+    private JButton buttonTaskClear;
     private JButton buttonTaskDelete;
     private JButton buttonTaskDone;
     private JButton buttonTaskDown;
+    private JButton buttonTaskEdit;
     private JButton buttonTaskHold;
     private JButton buttonTaskOnRevision;
     private JButton buttonTaskPendingRevision;
     private JButton buttonTaskUp;
     private JButton buttonTaskWorking;
     private Box.Filler filler1;
-    private JLabel jLabel1;
-    private JLabel jLabel2;
-    private JLabel jLabel3;
-    private JLabel jLabel4;
-    private JLabel jLabel5;
     private JLabel jLabel6;
-    private JLabel jLabel7;
-    private JMenu jMenu1;
-    private JMenu jMenu2;
     private JMenuBar jMenuBar1;
     private JPanel jPanel1;
     private JPanel jPanel2;
@@ -1570,15 +1630,23 @@ public class MainView extends javax.swing.JFrame {
     private JToolBar.Separator jSeparator2;
     private JToolBar.Separator jSeparator3;
     private JToolBar jToolBar1;
-    private JLabel labelAuthor;
+    private JLabel labelAuthorName;
+    private JLabel labelTaskAuthor;
+    private JLabel labelTaskDate;
+    private JLabel labelTaskDescription;
+    private JLabel labelTaskHistory;
     private JLabel labelTaskID;
+    private JLabel labelTaskName;
     private JLabel labelTaskState;
+    private JLabel labelTaskStateText;
     private JLabel labelUnsavedChanges;
-    private JMenuItem menuItem1_Exit;
-    private JMenuItem menuItem1_OpenFile;
-    private JMenuItem menuItem1_OverWriteTasks;
-    private JMenuItem menuItem1_SaveTasksAs;
-    private JMenuItem menuItem2_About;
+    private JMenuItem menuItemAbout;
+    private JMenuItem menuItemExit;
+    private JMenu menuItemFile;
+    private JMenu menuItemHelp;
+    private JMenuItem menuItemOpenFile;
+    private JMenuItem menuItemSaveTasks;
+    private JMenuItem menuItemSaveTasksAs;
     private JTextArea textAreaTaskChanges;
     private JTextArea textAreaTaskDescription;
     private JTextField textBoxError;

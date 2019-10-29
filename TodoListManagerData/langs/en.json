@@ -1,0 +1,91 @@
+{
+	"menuItemFile"				: "File",
+	"menuItemOpenFile"			: "Open",
+	"menuItemSaveTasks"			: "Save",
+	"menuItemSaveTasksAs"		: "Save as",
+	"menuItemExit"				: "Exit",
+	
+	"menuItemHelp"				: "Help",
+	"menuItemAbout"				: "About",
+	
+	"buttonOpenTasks"			: "Open",
+	"buttonSaveTasks"			: "Save",
+	"buttonSaveTasksAs"			: "Save as",
+	"buttonSetAuthor"			: "Set author",
+	"labelAuthorName"			: "Unknown author",
+	"labelUnsavedChanges"		: "There are unsaved changes",
+	
+	"highPriorNode"				: "High",
+	"medPriorNode"				: "Medium",
+	"lowPriorNode"				: "Low",
+	
+	"labelTaskName"				: "Name",
+	"labelTaskAuthor"			: "Author",
+	"labelTaskDate"				: "Date",
+	"labelTaskDescription"		: "Description",
+	"labelTaskHistory"			: "History",
+	"labelTaskStateText"		: "State",
+	
+	"buttonNewTask"				: "New task",
+	"buttonRemove"				: "Remove",
+	"buttonUp"					: "Up",
+	"buttonDown"				: "Down",
+	"buttonPriority"			: "Priorty",
+	"buttonShowAll"				: "Show all",
+	"buttonHideAll"				: "Hide all",
+	
+	"buttonTaskDone"			: "Done",
+	"buttonTaskWorking"			: "Working",
+	"buttonTaskHold"			: "Put on hold",
+	"buttonTaskOnRevision"		: "On revision",
+	"buttonTaskPendingRevision"	: "Pending revision",
+	"buttonTaskEdit"			: "Edit task",
+	"buttonTaskCancel"			: "Cancel",
+	"buttonTaskDelete"			: "Delete",
+	"buttonTaskClear"			: "Cancel",
+	
+	"error_FileIsLocked1"				: "The file",
+	"error_FileIsLocked2"				: "is locked.",
+	"error_CouldNotOpen"				: "Could not open selected file",
+	"error_CouldNotDetermineNodePrior"	: "Could not determine priority of node",
+	"error_NeedTaskSelectedDelete"		: "A task must be selected in order to delete it",
+	"error_NeedTaskSelectedMove"		: "A task must be selected in order to move it",
+	"error_NeedTaskSelectedEdit"		: "A task must be selected in order to edit its name and description.",
+	"error_NeedTaskSelectedChangeState"	: "A task must be selected in order to change its state",
+	"error_CantChangeTaskState1"		: "Can't change state of task",
+	"error_CantChangeTaskState2"		: "due to",
+	"error_SelectionMustBeTask"			: "The selection must be a task (not a priority list)!",
+	
+	"warning_AuthorNameNotSet"			: "Author name has not been set.",
+	"warning_CantDeleteRootHighMedLow"	: "You can't delete the root node or the high/med/low nodes",
+	"warning_CantAddTask"				: "You can't add a task if no priority/task is selected.",
+	"warning_CantMoveRootHighMedLow"	: "You can't move the root high/med/low nodes.",
+	"warning_CantIncreasePriority"		: "You can't increase the priority of a task with highest priority.",
+	"warning_CantDecreasePriority"		: "You can't decrease the priority of a task with lowest priority.",
+	"waring_CantChangeTaskPriority"		: "You can't change a subtask's priority.",
+	
+	"question_WhyChangeTaskState"		: "Why do you want to change the task's state?",
+	"dialogtitle_ChangeTaskState"		: "Change a task's state",
+	
+	"question_DoYouWantToSaveChanges"	: "Do you want to save the changes?",
+	"dialogtitle_UnsavedChanges"		: "There are unsaved changes",
+	
+	"dialogtitle_CreateNewTask"			: "Create a new task",
+	"dialogtitle_EditTask"				: "Edit an already exiting task",
+	"dialogtitle_About"					: "About",
+	
+	"inputdialog_EnterAuthorName"		: "Write your name",
+	
+	"GUIAbout_labelSoftwareDesigned"	: "Software designed and programmed by: Lluís Alemany Puig",
+	"GUIAbout_labelContact"				: "Contact: lluis.alemany.puig@gmail.com",
+	"GUIAbout_labelLicense"				: "License:",
+	
+	"GUINewTask_labelNameTask"			: "Name",
+	"GUINewTask_labelAuthorTask"		: "Author",
+	"GUINewTask_labelDescription"		: "Description",
+	"GUINewTask_buttonCreateTask"		: "Create",
+	"GUINewTask_buttonCancel"			: "Cancel",
+	
+	"GUIEditTask_buttonSaveEdits"		: "Save edits",
+	"GUIEditTask_buttonCancelEdits"		: "Cancel"
+}

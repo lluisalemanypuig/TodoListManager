@@ -1,0 +1,91 @@
+{
+	"menuItemFile"				: "Arxiu",
+	"menuItemOpenFile"			: "Obre",
+	"menuItemSaveTasks"			: "Desa",
+	"menuItemSaveTasksAs"		: "Desa com",
+	"menuItemExit"				: "Surt",
+	
+	"menuItemHelp"				: "Ajuda",
+	"menuItemAbout"				: "Quant a",
+	
+	"buttonOpenTasks"			: "Obre",
+	"buttonSaveTasks"			: "Desa",
+	"buttonSaveTasksAs"			: "Desa com",
+	"buttonSetAuthor"			: "Entra autor",
+	"labelAuthorName"			: "Autor desconegut",
+	"labelUnsavedChanges"		: "Hi ha canvis no desats",
+	
+	"highPriorNode"				: "Alta",
+	"medPriorNode"				: "Mitjana",
+	"lowPriorNode"				: "Baixa",
+	
+	"labelTaskName"				: "Nom",
+	"labelTaskAuthor"			: "Autor",
+	"labelTaskDate"				: "Data",
+	"labelTaskDescription"		: "Descripció",
+	"labelTaskHistory"			: "Història",
+	"labelTaskStateText"		: "Estat",
+	
+	"buttonNewTask"				: "Tasca nova",
+	"buttonRemove"				: "Elimina",
+	"buttonUp"					: "Amunt",
+	"buttonDown"				: "Avall",
+	"buttonPriority"			: "Prioritat",
+	"buttonShowAll"				: "Mostra tot",
+	"buttonHideAll"				: "Oculta tot",
+	
+	"buttonTaskDone"			: "Fet",
+	"buttonTaskWorking"			: "Treballant-hi",
+	"buttonTaskHold"			: "Pausada",
+	"buttonTaskOnRevision"		: "Revisant",
+	"buttonTaskPendingRevision"	: "Revisió pendent",
+	"buttonTaskEdit"			: "Edita tasca",
+	"buttonTaskCancel"			: "Cancel·la",
+	"buttonTaskDelete"			: "Elimina",
+	"buttonTaskClear"			: "Cancel·la",
+	
+	"error_FileIsLocked1"				: "El fitxer",
+	"error_FileIsLocked2"				: "està bloquejat.",
+	"error_CouldNotOpen"				: "Could not open selected file",
+	"error_CouldNotDetermineNodePrior"	: "Could not determine priority of node",
+	"error_NeedTaskSelectedDelete"		: "A task must be selected in order to delete it",
+	"error_NeedTaskSelectedMove"		: "A task must be selected in order to move it",
+	"error_NeedTaskSelectedEdit"		: "A task must be selected in order to edit its name and description.",
+	"error_NeedTaskSelectedChangeState"	: "A task must be selected in order to change its state",
+	"error_CantChangeTaskState1"		: "Can't change state of task",
+	"error_CantChangeTaskState2"		: "due to",
+	"error_SelectionMustBeTask"			: "The selection must be a task (not a priority list)!",
+	
+	"warning_AuthorNameNotSet"			: "No s'ha donat el nom de l'autor.",
+	"warning_CantDeleteRootHighMedLow"	: "No pots eliminar el node arrel o els nodes prioritat alta/mitjana/baixa",
+	"warning_CantAddTask"				: "No pots afegir una tasca si no has seleccionat una prioritat o una altra tasca.",
+	"warning_CantMoveRootHighMedLow"	: "No es poden moure els nodes arrel o els nodes alta/mitjana/baixa.",
+	"warning_CantIncreasePriority"		: "No es pot incrementar la prioritat d'una tasca amb la prioritat més alta.",
+	"warning_CantDecreasePriority"		: "No es pot decrementar la prioritat d'una tasca amb la prioritat més baixa.",
+	"waring_CantChangeTaskPriority"		: "No es pot canviar la prioritat d'una subtasca.",
+	
+	"question_WhyChangeTaskState"		: "Per què vols canviar l'estat de la tasca?",
+	"dialogtitle_ChangeTaskState"		: "Canvia l'estat d'una tasca",
+	
+	"question_DoYouWantToSaveChanges"	: "Vols desar els canvis?",
+	"dialogtitle_UnsavedChanges"		: "Hi ha canvis no desats",
+	
+	"dialogtitle_CreateNewTask"			: "Crea una nova tasca",
+	"dialogtitle_EditTask"				: "Edita una tasca ja existent",
+	"dialogtitle_About"					: "Quant a",
+	
+	"inputdialog_EnterAuthorName"		: "Escriu el teu nom",
+	
+	"GUIAbout_labelSoftwareDesigned"	: "Software dissenyat i programat per: Lluís Alemany Puig",
+	"GUIAbout_labelContact"				: "Contacte: lluis.alemany.puig@gmail.com",
+	"GUIAbout_labelLicense"				: "Llicència:",
+	
+	"GUINewTask_labelNameTask"			: "Nom",
+	"GUINewTask_labelAuthorTask"		: "Autor",
+	"GUINewTask_labelDescription"		: "Descripció",
+	"GUINewTask_buttonCreateTask"		: "Crea",
+	"GUINewTask_buttonCancel"			: "Cancel·la",
+	
+	"GUIEditTask_buttonSaveEdits"		: "Desa canvis",
+	"GUIEditTask_buttonCancelEdits"		: "Cancel·la"
+}

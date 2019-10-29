@@ -26,6 +26,7 @@
 package gui;
 
 import javax.swing.JPanel;
+import todomanager.util.Translate;
 
 /**
  *
@@ -38,6 +39,16 @@ public class GUINewTask extends JPanel {
 	 */
 	public GUINewTask() {
 		initComponents();
+		
+		setTextToComponents();
+	}
+	
+	private void setTextToComponents() {
+		Translate tr = Translate.getInstance();
+		
+		labelNameTask.setText(tr.GUINewTask_labelNameTask);
+		labelAuthorTask.setText(tr.GUINewTask_labelAuthorTask);
+		labelDescriptionTask.setText(tr.GUINewTask_labelDescription);
 	}
 
 	public String getTaskName() { return textFieldTaskName.getText(); }
@@ -61,20 +72,20 @@ public class GUINewTask extends JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         textAreaTaskDescription = new javax.swing.JTextArea();
         textFieldTaskName = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        labelDescriptionTask = new javax.swing.JLabel();
+        labelNameTask = new javax.swing.JLabel();
         textFieldTaskAuthor = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        labelAuthorTask = new javax.swing.JLabel();
 
         textAreaTaskDescription.setColumns(20);
         textAreaTaskDescription.setRows(5);
         jScrollPane2.setViewportView(textAreaTaskDescription);
 
-        jLabel4.setText("Description");
+        labelDescriptionTask.setText("Description");
 
-        jLabel3.setText("Name");
+        labelNameTask.setText("Name");
 
-        jLabel1.setText("Author");
+        labelAuthorTask.setText("Author");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -83,9 +94,9 @@ public class GUINewTask extends JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel1))
+                    .addComponent(labelNameTask)
+                    .addComponent(labelDescriptionTask)
+                    .addComponent(labelAuthorTask))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
@@ -99,15 +110,15 @@ public class GUINewTask extends JPanel {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textFieldTaskName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(labelNameTask))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textFieldTaskAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(labelAuthorTask))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(labelDescriptionTask))
                 .addContainerGap())
         );
 
@@ -130,11 +141,11 @@ public class GUINewTask extends JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel labelAuthorTask;
+    private javax.swing.JLabel labelDescriptionTask;
+    private javax.swing.JLabel labelNameTask;
     private javax.swing.JTextArea textAreaTaskDescription;
     private javax.swing.JTextField textFieldTaskAuthor;
     private javax.swing.JTextField textFieldTaskName;

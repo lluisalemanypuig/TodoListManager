@@ -8,6 +8,12 @@ Since a task might be edited several times, this software can handle an unlimite
 
 The tasks are saved in a JSON-formatted file. The library used to read and write these files can be found [here](https://github.com/stleary/JSON-java), which has been included in this repository for convenience (its LICENSE has been included also in this repository in the [LICENSES](https://github.com/lluisalemanypuig/TodoListManager/blob/master/LICENSES/) directory).
 
+## Languages
+
+It is our intention to translate this software into as many as we can. So far, TodoListManager has been translated into:
+
+- Catalan (29th October 2019) *only interface*
+
 ## Execute
 
 Copy the _.jar_ file and _lib_ directory wherever you like. You will also need to copy the [TodoListManagerData/](https://github.com/lluisalemanypuig/TodoListManager/blob/master/TodoListManagerData/) directory so as to be able to see the icons of the tasks. Finally double-click on the _.jar_ file in order to execute this software.

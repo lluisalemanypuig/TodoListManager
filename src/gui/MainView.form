@@ -4,59 +4,59 @@
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="jMenu1">
+        <Menu class="javax.swing.JMenu" name="menuItemFile">
           <Properties>
             <Property name="text" type="java.lang.String" value="File"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItem1_OpenFile">
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemOpenFile">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Open"/>
               </Properties>
               <Events>
-                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuItem1_OpenFileMousePressed"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuItemOpenFileMousePressed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItem1_OverWriteTasks">
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemSaveTasks">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Save"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuItem1_OverWriteTasksMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuItemSaveTasksMouseClicked"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItem1_SaveTasksAs">
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemSaveTasksAs">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Save As"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuItem1_SaveTasksAsMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuItemSaveTasksAsMouseClicked"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItem1_Exit">
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemExit">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Exit"/>
               </Properties>
               <Events>
-                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuItem1_ExitMousePressed"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuItemExitMousePressed"/>
               </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu2">
+        <Menu class="javax.swing.JMenu" name="menuItemHelp">
           <Properties>
             <Property name="text" type="java.lang.String" value="Help"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItem2_About">
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemAbout">
               <Properties>
                 <Property name="text" type="java.lang.String" value="About"/>
               </Properties>
               <Events>
-                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuItem2_AboutMousePressed"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuItemAboutMousePressed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -192,12 +192,12 @@
                           <Group type="102" attributes="0">
                               <Component id="buttonDecrPriority" min="-2" pref="90" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="buttonContractAll" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Component id="buttonHideAll" min="-2" pref="90" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="buttonIncrPriority" min="-2" pref="90" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="buttonExpandAll" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Component id="buttonShowAll" min="-2" pref="90" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -212,14 +212,14 @@
                           <Component id="buttonNewTask" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonIncrPriority" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonTaskUp" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="buttonExpandAll" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonShowAll" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="buttonTaskDown" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonDecrPriority" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonRemoveTask" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="buttonContractAll" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonHideAll" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -275,20 +275,20 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonDecrPriorityMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="buttonExpandAll">
+            <Component class="javax.swing.JButton" name="buttonShowAll">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Show all"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonExpandAllMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonShowAllMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="buttonContractAll">
+            <Component class="javax.swing.JButton" name="buttonHideAll">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Hide all"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonContractAllMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonHideAllMouseClicked"/>
               </Events>
             </Component>
           </SubComponents>
@@ -302,10 +302,14 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jPanel1" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jPanel5" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jPanel1" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -314,7 +318,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -338,13 +342,13 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="buttonTaskPendingRevision" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
                           <Component id="buttonTaskOnRevision" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
-                          <Component id="buttonEditTask" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="buttonTaskEdit" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="buttonTaskCancel" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
                           <Component id="buttonTaskDelete" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
-                          <Component id="buttonClear" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Component id="buttonTaskClear" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -368,8 +372,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="buttonTaskHold" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="buttonEditTask" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="buttonClear" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonTaskEdit" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonTaskClear" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -433,21 +437,21 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonTaskPendingRevisionMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="buttonEditTask">
+            <Component class="javax.swing.JButton" name="buttonTaskEdit">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Edit Task"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonEditTaskMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonTaskEditMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="buttonClear">
+            <Component class="javax.swing.JButton" name="buttonTaskClear">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Clear"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonClearMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonTaskClearMouseClicked"/>
               </Events>
             </Component>
           </SubComponents>
@@ -460,15 +464,15 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelTaskDescription" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelTaskHistory" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelTaskDate" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelTaskName" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelTaskAuthor" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" alignment="0" pref="440" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="0" pref="400" max="32767" attributes="0"/>
                           <Component id="jScrollPane7" alignment="1" max="32767" attributes="0"/>
                           <Component id="textBoxTaskName" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
@@ -479,7 +483,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel6" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelTaskStateText" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -498,33 +502,33 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="textBoxTaskName" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelTaskName" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="textBoxTaskAuthor" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelTaskAuthor" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="labelTaskID" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="textBoxTaskDate" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelTaskDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelTaskStateText" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="labelTaskState" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane7" pref="186" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelTaskDescription" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelTaskHistory" min="-2" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" pref="302" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -554,12 +558,12 @@
                 <Property name="editable" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel1">
+            <Component class="javax.swing.JLabel" name="labelTaskName">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Name"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel2">
+            <Component class="javax.swing.JLabel" name="labelTaskDate">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Date"/>
               </Properties>
@@ -581,7 +585,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JLabel" name="jLabel3">
+            <Component class="javax.swing.JLabel" name="labelTaskDescription">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Description"/>
               </Properties>
@@ -609,7 +613,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JLabel" name="jLabel4">
+            <Component class="javax.swing.JLabel" name="labelTaskHistory">
               <Properties>
                 <Property name="text" type="java.lang.String" value="History"/>
               </Properties>
@@ -619,12 +623,12 @@
                 <Property name="editable" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel5">
+            <Component class="javax.swing.JLabel" name="labelTaskAuthor">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Author"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel7">
+            <Component class="javax.swing.JLabel" name="labelTaskStateText">
               <Properties>
                 <Property name="text" type="java.lang.String" value="State:"/>
               </Properties>
@@ -651,7 +655,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonOpenTasksMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="buttonOverwriteTasks">
+        <Component class="javax.swing.JButton" name="buttonSaveTasks">
           <Properties>
             <Property name="text" type="java.lang.String" value="Save"/>
             <Property name="enabled" type="boolean" value="false"/>
@@ -660,7 +664,7 @@
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonOverwriteTasksMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonSaveTasksMouseClicked"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonSaveTasksAs">
@@ -703,7 +707,7 @@
             <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.HorizontalStrut"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JLabel" name="labelAuthor">
+        <Component class="javax.swing.JLabel" name="labelAuthorName">
           <Properties>
             <Property name="text" type="java.lang.String" value="Unkown author"/>
           </Properties>
