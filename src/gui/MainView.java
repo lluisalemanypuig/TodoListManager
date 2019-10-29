@@ -17,7 +17,7 @@
  *  GNU Affero General Public License for more details.
  *
  *  You should have received a copy of the GNU Affero General Public License
- *  along with Treeler.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with TodoListManager.  If not, see <http://www.gnu.org/licenses/>.
  *
  *  Contact: Lluís Alemany Puig (lluis.alemany.puig@gmail.com)
  *
@@ -116,6 +116,9 @@ public class MainView extends javax.swing.JFrame {
 		treeTasks.setCellRenderer(renderer);
 		
 		setChangesSaved();
+		
+		
+		
 	}
 
 	/**
