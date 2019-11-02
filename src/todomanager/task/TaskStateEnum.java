@@ -63,7 +63,11 @@ public enum TaskStateEnum {
 		}
 	}
 	
-	/** The states a task needs to be in for it to be changed to state 's'. */
+	/**
+	 * @brief The states a task needs to be in for it to be changed to state 's'.
+	 * @param s A task state
+	 * @return Returns the preconditional states to state @e s.
+	 */
 	public static ArrayList<TaskStateEnum> precondCurtask(TaskStateEnum s) {
 		ArrayList<TaskStateEnum> arr = new ArrayList<>();
 		switch (s) {
@@ -98,7 +102,11 @@ public enum TaskStateEnum {
 		return arr;
 	}
 	
-	/** The states a task's subtasks need to be in for it to be changed to state 's'. */
+	/**
+	 * @brief The states a task's subtasks need to be in for it to be changed to state 's'.
+	 * @param s A task state
+	 * @return Returns the preconditional states to state @e s.
+	 */
 	public static ArrayList<TaskStateEnum> precondSubtasks(TaskStateEnum s) {
 		ArrayList<TaskStateEnum> arr = new ArrayList<>();
 		switch (s) {

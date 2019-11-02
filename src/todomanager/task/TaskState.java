@@ -53,7 +53,8 @@ public class TaskState {
 	private final String authorName;
 	
 	/**
-	 * Sets the date, reason and state of the task's state change.
+	 * @brief Sets the date, reason and state of the task's state change.
+	 * @param a Name of the task's author
 	 * @param cdate Date of state in format YYYY.MM.DD.HH.MM.SS.
 	 * @param pdate Date of state in a prettier format.
 	 * @param why Why did this happen (optional for 'Opened', 'Done', 'Working'
