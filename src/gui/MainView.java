@@ -94,14 +94,13 @@ public class MainView extends javax.swing.JFrame {
 	public MainView() {
 		// instantiate the System Info singleton before anything else...
 		SystemInfo sysinfo = SystemInfo.getInstance();
-		System.out.println("System information detected:");
-		System.out.println("    Language: " + sysinfo.langRaw);
-		System.out.println("    User Directory: " + sysinfo.userDir);
-		System.out.println("    Operative System: " + sysinfo.OS);
-		
 		// Instance logger (this uses the SystemInfo)
 		log = Logger.getInstance();
 		log.begin();
+		// extract the rest of the information needed from the system
+		sysinfo.extractSystemInfo();
+		// print useful information for the user to see in case of bugs.
+		log.printSystemInformation();
 		
 		initComponents();
 		
@@ -922,7 +921,7 @@ public class MainView extends javax.swing.JFrame {
 		log.info("Opening file '" + newFileName + "'.");
 		tm.setTaskFile(newFileName);
 		if (!tm.readTasks()) {
-			issueErrorMsg(Translate.getInstance().error_CouldNotOpen + " '" + newFileName + "'.");
+			issueErrorMsg(Translate.getInstance().error_CouldNotOpenFile + " '" + newFileName + "'.");
 			return;
 		}
 		

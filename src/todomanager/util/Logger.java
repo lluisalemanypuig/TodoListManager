@@ -86,15 +86,19 @@ public class Logger {
 		return instance;
 	}
 	
-	public Logger begin() {
+	public Logger printSystemInformation() {
 		SystemInfo sysinfo = SystemInfo.getInstance();
+		info("System information:");
+		info("    Program executed from path: " + sysinfo.userDir);
+		info("    Operative System: " + sysinfo.OS);
+		info("    Language: " + sysinfo.langRaw);
+		info("    Subject-Verb-Object: " + sysinfo.order_VSO);
+		return this;
+	}
+	
+	public Logger begin() {
 		try {
 			fileWriter.write("<---- Start log ---->" + SystemInfo.getInstance().newLine);
-			info("Program executed from path: " + sysinfo.userDir);
-			info("System information:");
-			info("    Language: " + sysinfo.langRaw);
-			info("    User Directory: " + sysinfo.userDir);
-			info("    Operative System: " + sysinfo.OS);
 			fileWriter.flush();
 		}
 		catch (IOException ex) {

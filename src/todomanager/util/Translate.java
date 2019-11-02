@@ -80,7 +80,7 @@ public class Translate {
 	
 	public String error_FileIsLocked1;
 	public String error_FileIsLocked2;
-	public String error_CouldNotOpen;
+	public String error_CouldNotOpenFile;
 	public String error_CouldNotDetermineNodePrior;
 	public String error_NeedTaskSelectedDelete;
 	public String error_NeedTaskSelectedMove;
@@ -125,6 +125,7 @@ public class Translate {
 
 	private void readLanguageFile(String f) {
 		String contents = Tools.readFile(f);
+		
 		// main JSON object
 		JSONObject main = new JSONObject(contents);
 		
@@ -175,7 +176,7 @@ public class Translate {
 		
 		error_FileIsLocked1 = main.getString("error_FileIsLocked1");
 		error_FileIsLocked2 = main.getString("error_FileIsLocked2");
-		error_CouldNotOpen = main.getString("error_CouldNotOpen");
+		error_CouldNotOpenFile = main.getString("error_CouldNotOpenFile");
 		error_CouldNotDetermineNodePrior = main.getString("error_CouldNotDetermineNodePrior");
 		error_NeedTaskSelectedDelete = main.getString("error_NeedTaskSelectedDelete");
 		error_NeedTaskSelectedMove = main.getString("error_NeedTaskSelectedMove");
@@ -222,21 +223,7 @@ public class Translate {
 	private static Translate instance = null;
 	private Translate() {
 		SystemInfo sysinfo = SystemInfo.getInstance();
-		Logger log = Logger.getInstance();
-		
-		String langFile = System.getProperty("user.dir") + "/TodoListManagerData/langs/";
-		String sysLang = sysinfo.langRaw;
-		
-		switch (sysLang) {
-			case "en":	langFile += "en.json"; break;
-			case "ca":	langFile += "ca.json"; break;
-			case "es":	langFile += "es.json"; break;
-			default:
-				log.warning("Language '" + sysLang + "' not supported. Using English.");
-				langFile += "en.json"; break;
-		}
-		
-		readLanguageFile(langFile);
+		readLanguageFile(sysinfo.langFile_path);
 	}
 	
 	public static Translate getInstance() {
