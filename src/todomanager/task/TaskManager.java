@@ -80,13 +80,6 @@ public class TaskManager {
 				ts.remove(i);
 			}
 		}
-		if (t != null) {
-			// if the task was removed, its subtasks are
-			// also found in the same vector -> remove them
-			for (Task st : t.getSubtasks()) {
-				TaskManager.this.deleteTask(ts, st.getId());
-			}
-		}
 		return j;
 	}
 	
@@ -111,6 +104,14 @@ public class TaskManager {
 	private String __ifHasKeyReturnString(JSONObject obj, String k) {
 		if (obj.has(k)) { return obj.getString(k); }
 		return null;
+	}
+	
+	private static void constructParentRelationships(Task parent) {
+		ArrayList<Task> list = parent.getSubtasks();
+		list.stream().forEach((t) -> {
+			t.setParent(parent);
+			constructParentRelationships(t);
+		});
 	}
 	
 	private Task fromJSONtoTask(JSONObject obj) {
@@ -186,6 +187,12 @@ public class TaskManager {
 		parseTasks(low, lowPriorTasks);
 		parseTasks(med, medPriorTasks);
 		parseTasks(high, highPriorTasks);
+		
+		// set the parent of each task appropriately
+		lowPriorTasks.forEach((t) -> { constructParentRelationships(t); });
+		medPriorTasks.forEach((t) -> { constructParentRelationships(t); });
+		highPriorTasks.forEach((t) -> { constructParentRelationships(t); });
+		
 		log.info("File '" + tasksFile + "' read successfully.");
 		return true;
 	}
@@ -289,9 +296,9 @@ public class TaskManager {
 	}
 	
 	public boolean deleteTask(String id) {
-		int i = TaskManager.this.deleteTask(highPriorTasks, id);
-		if (i == -1) { i = TaskManager.this.deleteTask(medPriorTasks, id); }
-		if (i == -1) { i = TaskManager.this.deleteTask(lowPriorTasks, id); }
+		int i = deleteTask(highPriorTasks, id);
+		if (i == -1) { i = deleteTask(medPriorTasks, id); }
+		if (i == -1) { i = deleteTask(lowPriorTasks, id); }
 		return i != -1;
 	}
 	

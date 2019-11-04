@@ -99,11 +99,12 @@ public class Task {
 	public String getPrettyDate() { return prettyDate; }
 	public ArrayList<TaskState> getChanges() { return changes; }
 	public ArrayList<Task> getSubtasks() { return subtasks; }
+	public void setParent(Task t) { parentTask = t; }
 	public Task getParentTask() { return parentTask; }
+	
 	@Override
 	public String toString() { return name + " -- (id: " + getId() + ")"; }
 	
-	public void setParent(Task t) { parentTask = t; }
 	public void hardSetChanges(ArrayList<TaskState> c) { changes = c; }
 	public void hardSetSubtasks(ArrayList<Task> s) { subtasks = s; }
 	
@@ -115,6 +116,17 @@ public class Task {
 		int i = changes.size() - 1;
 		while (i >= 0 && null_states.contains(changes.get(i).getState())) { --i; }
 		return changes.get(i);
+	}
+	
+	public boolean deleteSubtask(String id) {
+		int j = -1;
+		for (int i = 0; i < subtasks.size() && j == -1; ++i) {
+			if (subtasks.get(i).getId().equals(id)) {
+				j = i;
+			}
+		}
+		if (j != -1) { subtasks.remove(j); }
+		return j != -1;
 	}
 	
 	/**

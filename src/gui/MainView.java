@@ -1516,14 +1516,15 @@ public class MainView extends javax.swing.JFrame {
             else if (prior.equals("low")) { tm.insertLowTask(0, new_t); }
             else { return; }
         }
-
-        // is this new task a subtask? the selection is a task,
-        // so the new task is actually a subtask!
-        if (sel.getLevel() > 1) {
+		else {
+			// this new task is a subtask
+			
             // the task associated to the selected node
             Task node_task = (Task) sel.getUserObject();
             // add the new task as a subtask
             node_task.addSubtask(new_t);
+			// set the new task's parent
+			new_t.setParent(node_task);
             // change state
             String m = "A subtask was added (id: " + new_t.getId() + ")";
             node_task.changeState(taskCreator, m, TaskStateEnum.AddedSubtask);
@@ -1552,12 +1553,20 @@ public class MainView extends javax.swing.JFrame {
 
         TaskManager tm = TaskManager.getInstance();
         Task node_task = (Task) sel.getUserObject();
-        boolean d = tm.deleteTask(node_task.getId());
-        if (!d) {
-            log.info("Attempted at removing a subtask from the task manager");
-            log.info("    Subtasks are never added at the manager");
-        }
-
+        
+		if (sel.getLevel() == 2) {
+			tm.deleteTask(node_task.getId());
+		}
+		else {
+			// get parent task
+			Task parent_task = node_task.getParentTask();
+			boolean d = parent_task.deleteSubtask(node_task.getId());
+			if (!d) {
+				log.warning("Could not remove subtask with id '" + node_task.getId() + "'");
+				log.warning("from parent task with id '" + parent_task.getId() + "'.");
+			}
+		}
+        
         DefaultMutableTreeNode par_sel
         = (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
         treeModel.removeNodeFromParent(sel);

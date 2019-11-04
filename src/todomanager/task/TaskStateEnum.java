@@ -116,6 +116,7 @@ public enum TaskStateEnum {
 				arr.add(TaskStateEnum.Deleted);
 				break;
 			case Working:
+				arr.add(TaskStateEnum.Done);
 				arr.add(TaskStateEnum.Opened);
 				arr.add(TaskStateEnum.Working);
 				arr.add(TaskStateEnum.OnRevision);
