@@ -106,14 +106,6 @@ public class TaskManager {
 		return null;
 	}
 	
-	private static void constructParentRelationships(Task parent) {
-		ArrayList<Task> list = parent.getSubtasks();
-		list.stream().forEach((t) -> {
-			t.setParent(parent);
-			constructParentRelationships(t);
-		});
-	}
-	
 	private Task fromJSONtoTask(JSONObject obj) {
 		String id = obj.getString("id");
 		String name = obj.getString("name");
@@ -189,9 +181,9 @@ public class TaskManager {
 		parseTasks(high, highPriorTasks);
 		
 		// set the parent of each task appropriately
-		lowPriorTasks.forEach((t) -> { constructParentRelationships(t); });
-		medPriorTasks.forEach((t) -> { constructParentRelationships(t); });
-		highPriorTasks.forEach((t) -> { constructParentRelationships(t); });
+		lowPriorTasks.forEach((t) -> { t.constructParentRelationships(); });
+		medPriorTasks.forEach((t) -> { t.constructParentRelationships(); });
+		highPriorTasks.forEach((t) -> { t.constructParentRelationships(); });
 		
 		log.info("File '" + tasksFile + "' read successfully.");
 		return true;

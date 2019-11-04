@@ -129,6 +129,14 @@ public class Task {
 		return j != -1;
 	}
 	
+	public void constructParentRelationships() {
+		ArrayList<Task> list = getSubtasks();
+		list.stream().forEach((t) -> {
+			t.setParent(this);
+			t.constructParentRelationships();
+		});
+	}
+	
 	/**
 	 * Are all the substasks in a certain state?
 	 * @param ls List of task states
