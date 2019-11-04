@@ -78,6 +78,7 @@ public class GUINewTask extends JPanel {
         labelAuthorTask = new javax.swing.JLabel();
 
         textAreaTaskDescription.setColumns(20);
+        textAreaTaskDescription.setLineWrap(true);
         textAreaTaskDescription.setRows(5);
         jScrollPane2.setViewportView(textAreaTaskDescription);
 
