@@ -1335,7 +1335,7 @@ public class MainView extends javax.swing.JFrame {
 			issueErrorMsg(msg1 + " (id: " + t.getId() + ") " + msg2 + ": " + r);
 			return;
 		}
-		String reason = null;
+		String reason = "null";
 		if (promptUser) {
 			Translate tr = Translate.getInstance();
 			reason = JOptionPane.showInputDialog(
