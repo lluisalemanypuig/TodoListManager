@@ -1044,12 +1044,13 @@ public class MainView extends javax.swing.JFrame {
 	}
 	
 	private void clearBoxesTask() {
-		textAreaTaskDescription.setText("");
+		textBoxTaskName.setText("");
+		textBoxTaskAuthor.setText("");
 		labelTaskID.setText("000000");
 		labelTaskState.setText("-");
-		textAreaTaskChanges.setText("");
-		textBoxTaskName.setText("");
 		textBoxTaskDate.setText("");
+		textAreaTaskDescription.setText("");
+		textAreaTaskChanges.setText("");
 	}
 	
 	private boolean treeHasSelection(String msg) {
