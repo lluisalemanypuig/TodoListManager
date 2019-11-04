@@ -1301,7 +1301,7 @@ public class MainView extends javax.swing.JFrame {
 		t.setDescription(editTask.getTaskDescription());
 		// set the change to the task
 		t.taskWasEdited(
-			editTask.getTaskCreator(), null,
+			editTask.getTaskCreator(), "null",
 			prevName, prevDescr, TaskStateEnum.Edited
 		);
 		
