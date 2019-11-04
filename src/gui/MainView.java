@@ -1526,8 +1526,7 @@ public class MainView extends javax.swing.JFrame {
 			// set the new task's parent
 			new_t.setParent(node_task);
             // change state
-            String m = "A subtask was added (id: " + new_t.getId() + ")";
-            node_task.changeState(taskCreator, m, TaskStateEnum.AddedSubtask);
+            node_task.changeState(taskCreator, new_t.getId(), TaskStateEnum.AddedSubtask);
             // fill in the text boxes
             refreshBoxesTask(node_task);
         }

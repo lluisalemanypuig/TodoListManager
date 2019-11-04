@@ -108,7 +108,7 @@ public class TaskState {
 				s += "    " + getAuthor() + " changed the task's priority." + nL;
 				break;
 			case AddedSubtask:
-				s += "    " + getAuthor() + " added a subtask." + nL;
+				s += "    " + getAuthor() + " added subtask: " + getReason() + "." + nL;
 				break;
 			case Opened:
 				s += "    The task was opened by: ";
