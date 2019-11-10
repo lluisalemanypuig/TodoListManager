@@ -35,7 +35,6 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.logging.Level;
@@ -1281,7 +1280,7 @@ public class MainView extends javax.swing.JFrame {
 		String prevDescr = t.getDescription();
 		
 		// prompt the user with an interface
-		GUINewTask editTask = new GUINewTask();
+		GUIEditTask editTask = new GUIEditTask();
 		editTask.setTaskName(prevName);
 		editTask.setTaskCreator(getAuthorName());
 		editTask.setTaskDescription(prevDescr);
@@ -1289,7 +1288,8 @@ public class MainView extends javax.swing.JFrame {
 		int res = JOptionPane.showOptionDialog(
 			null, editTask,
 			tr.dialogtitle_EditTask,
-			JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
+			JOptionPane.OK_CANCEL_OPTION,
+			JOptionPane.PLAIN_MESSAGE,
 			null, button_options, null
 		);
 		if (res != JOptionPane.OK_OPTION) {
@@ -1466,11 +1466,11 @@ public class MainView extends javax.swing.JFrame {
         Translate tr = Translate.getInstance();
 
         // prompt the user with an interface
-        GUINewTask makeTask = new GUINewTask();
-        makeTask.setTaskCreator(getAuthorName());
+        GUIEditTask newTask = new GUIEditTask();
+        newTask.setTaskCreator(getAuthorName());
         Object[] button_options = {tr.GUINewTask_buttonCreateTask, tr.GUINewTask_buttonCancel};
         int res = JOptionPane.showOptionDialog(
-            null, makeTask,
+            null, newTask,
             Translate.getInstance().dialogtitle_CreateNewTask,
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
             null, button_options, null
@@ -1481,9 +1481,9 @@ public class MainView extends javax.swing.JFrame {
         }
 
         // get data used to identify the task
-        String taskName = makeTask.getTaskName();
-        String taskCreator = makeTask.getTaskCreator();
-        String taskDescr = makeTask.getTaskDescription();
+        String taskName = newTask.getTaskName();
+        String taskCreator = newTask.getTaskCreator();
+        String taskDescr = newTask.getTaskDescription();
 
         log.info("New task:");
         log.info("    Name: " + taskName + ".");
