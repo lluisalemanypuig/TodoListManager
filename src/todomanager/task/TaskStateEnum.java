@@ -79,6 +79,7 @@ public enum TaskStateEnum {
 				arr.add(TaskStateEnum.Opened);
 				arr.add(TaskStateEnum.OnRevision);
 				arr.add(TaskStateEnum.PutOnHold);
+				arr.add(TaskStateEnum.Done);
 				break;
 			case PutOnHold:
 				arr.add(TaskStateEnum.Working);
@@ -103,11 +104,12 @@ public enum TaskStateEnum {
 	}
 	
 	/**
-	 * @brief The states a task's subtasks need to be in for it to be changed to state 's'.
+	 * @brief The states a task's subtasks need to be in for the task to
+	 * be changed to state 's'.
 	 * @param s A task state
 	 * @return Returns the preconditional states to state @e s.
 	 */
-	public static ArrayList<TaskStateEnum> precondSubtasks(TaskStateEnum s) {
+	public static ArrayList<TaskStateEnum> precondAskStateChangeSubtasks(TaskStateEnum s) {
 		ArrayList<TaskStateEnum> arr = new ArrayList<>();
 		switch (s) {
 			case Done:
@@ -117,6 +119,54 @@ public enum TaskStateEnum {
 				break;
 			case Working:
 				arr.add(TaskStateEnum.Done);
+				arr.add(TaskStateEnum.Opened);
+				arr.add(TaskStateEnum.Working);
+				arr.add(TaskStateEnum.OnRevision);
+				arr.add(TaskStateEnum.PutOnHold);
+				break;
+			case PutOnHold:
+				arr.add(TaskStateEnum.Working);
+				arr.add(TaskStateEnum.PutOnHold);
+				break;
+			case Deleted:
+				arr.add(TaskStateEnum.Done);
+				arr.add(TaskStateEnum.Deleted);
+				break;
+			case Cancelled:
+				arr.add(TaskStateEnum.Opened);
+				arr.add(TaskStateEnum.Cancelled);
+				arr.add(TaskStateEnum.Working);
+				arr.add(TaskStateEnum.OnRevision);
+				break;
+			case OnRevision:
+				arr.add(TaskStateEnum.OnRevision);
+				arr.add(TaskStateEnum.PendingRevision);
+				arr.add(TaskStateEnum.Working);
+				break;
+			case PendingRevision:
+				arr.add(TaskStateEnum.Working);
+				arr.add(TaskStateEnum.PendingRevision);
+				break;
+		}
+		return arr;
+	}
+	
+	/**
+	 * @brief The states a subtask needs to be in for the subtask to be
+	 * changed to state 's'.
+	 * @param s A task state
+	 * @return Returns the preconditional states to state @e s.
+	 */
+	public static ArrayList<TaskStateEnum> precondStateChangeSubtasks(TaskStateEnum s) {
+		ArrayList<TaskStateEnum> arr = new ArrayList<>();
+		switch (s) {
+			case Done:
+				arr.add(TaskStateEnum.Done);
+				arr.add(TaskStateEnum.Cancelled);
+				arr.add(TaskStateEnum.Deleted);
+				break;
+			case Working:
+				//arr.add(TaskStateEnum.Done);
 				arr.add(TaskStateEnum.Opened);
 				arr.add(TaskStateEnum.Working);
 				arr.add(TaskStateEnum.OnRevision);

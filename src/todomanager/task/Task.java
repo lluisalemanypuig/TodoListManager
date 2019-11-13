@@ -173,7 +173,7 @@ public class Task {
 		Logger log = Logger.getInstance();
 		
 		ArrayList<TaskStateEnum> cur_level = TaskStateEnum.precondCurtask(s);
-		ArrayList<TaskStateEnum> sub_level = TaskStateEnum.precondSubtasks(s);
+		ArrayList<TaskStateEnum> sub_level = TaskStateEnum.precondAskStateChangeSubtasks(s);
 		
 		if (!isOneOfState(cur_level)) {
 			String r = "The state of task " + getId() + " is none of: " + cur_level;
@@ -236,7 +236,7 @@ public class Task {
 				return;
 		}
 		
-		ArrayList<TaskStateEnum> cur_level = TaskStateEnum.precondCurtask(s);
+		ArrayList<TaskStateEnum> cur_level = TaskStateEnum.precondStateChangeSubtasks(s);
 		for (Task t : subtasks) {
 			if (t.isOneOfState(cur_level)) {
 				t.changeState(author, cdate, pdate, null,null, why, s);
