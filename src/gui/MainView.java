@@ -102,6 +102,8 @@ public class MainView extends javax.swing.JFrame {
 		log.printSystemInformation();
 		
 		initComponents();
+		int h = this.getHeight();
+		System.out.println(h);
 		
 		treeModel = (DefaultTreeModel) (treeTasks.getModel());
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) treeModel.getRoot();
@@ -191,7 +193,8 @@ public class MainView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Todo List Manager");
-        setMinimumSize(new Dimension(1133, 0));
+        setMaximumSize(new Dimension(2147483647, 880));
+        setMinimumSize(new Dimension(1133, 878));
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent evt) {
                 formWindowClosing(evt);
@@ -326,8 +329,8 @@ public class MainView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane6, GroupLayout.PREFERRED_SIZE, 643, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         buttonTaskWorking.setText("Working");
@@ -688,11 +691,12 @@ public class MainView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jToolBar1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textBoxError, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addComponent(textBoxError, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
