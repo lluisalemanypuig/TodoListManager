@@ -43,6 +43,7 @@
 	"buttonTaskCancel"			: "Cancel",
 	"buttonTaskDelete"			: "Delete",
 	"buttonTaskClear"			: "Cancel",
+	"buttonTaskReopen"			: "Re-open",
 	
 	"error_FileIsLocked1"				: "The file",
 	"error_FileIsLocked2"				: "is locked.",

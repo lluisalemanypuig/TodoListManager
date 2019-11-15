@@ -43,6 +43,7 @@
 	"buttonTaskCancel"			: "Cancel·la",
 	"buttonTaskDelete"			: "Elimina",
 	"buttonTaskClear"			: "Cancel·la",
+	"buttonTaskReopen"			: "Reobre",
 	
 	"error_FileIsLocked1"				: "El fitxer",
 	"error_FileIsLocked2"				: "està bloquejat.",
