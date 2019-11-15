@@ -216,6 +216,9 @@ public class Task {
 		TaskStateEnum s
 	)
 	{
+		if (why == null) {
+			why = "null";
+		}
 		switch (s) {
 			case Edited:
 				addChangeState(
@@ -250,6 +253,9 @@ public class Task {
 	 * @param s New state of the task
 	 */
 	public void changeState(String author, String why, TaskStateEnum s) {
+		if (why == null) {
+			why = "null";
+		}
 		String cdate = Tools.getComparableDate();
 		String pdate = Tools.getPrettyDate();
 		changeState(author, cdate, pdate, why, null,null, s);
@@ -266,6 +272,9 @@ public class Task {
 	 * @param s New state of the task
 	 */
 	public void taskWasEdited(String author, String why, String prevName, String prevDescr, TaskStateEnum s) {
+		if (why == null) {
+			why = "null";
+		}
 		String cdate = Tools.getComparableDate();
 		String pdate = Tools.getPrettyDate();
 		changeState(author, cdate, pdate, why, prevName, prevDescr, s);

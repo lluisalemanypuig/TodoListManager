@@ -117,10 +117,10 @@ public class TaskManager {
 		ArrayList<TaskState> changes = new ArrayList<>();
 		for (int i = 0; i < arrchanges.length(); ++i) {
 			JSONObject stobj = (JSONObject) arrchanges.get(i);
-			String cdate = stobj.getString("comparable_date");
-			String pdate = stobj.getString("pretty_date");
-			String reason = stobj.getString("reason");
-			String state = stobj.getString("state");
+			String cdate = __ifHasKeyReturnString(stobj, "comparable_date");
+			String pdate = __ifHasKeyReturnString(stobj, "pretty_date");
+			String reason = __ifHasKeyReturnString(stobj, "reason");
+			String state = __ifHasKeyReturnString(stobj, "state");
 			String author = __ifHasKeyReturnString(stobj, "author");
 			String pTN = __ifHasKeyReturnString(stobj, "pTN");
 			String nTN = __ifHasKeyReturnString(stobj, "nTN");
