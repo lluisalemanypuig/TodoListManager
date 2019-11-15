@@ -102,8 +102,6 @@ public class MainView extends javax.swing.JFrame {
 		log.printSystemInformation();
 		
 		initComponents();
-		int h = this.getHeight();
-		System.out.println(h);
 		
 		treeModel = (DefaultTreeModel) (treeTasks.getModel());
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) treeModel.getRoot();
