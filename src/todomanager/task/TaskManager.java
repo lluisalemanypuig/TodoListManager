@@ -106,32 +106,39 @@ public class TaskManager {
 		return null;
 	}
 	
+	private JSONArray __ifHasKeyReturnArray(JSONObject obj, String k) {
+		if (obj.has(k)) { return obj.getJSONArray(k); }
+		return null;
+	}
+	
 	private Task fromJSONtoTask(JSONObject obj) {
-		String id = obj.getString("id");
-		String name = obj.getString("name");
-		String descr = obj.getString("description");
-		String comp_date = obj.getString("comparable_date");
-		String pretty_date = obj.getString("pretty_date");
+		String id = __ifHasKeyReturnString(obj, "id");
+		String name = __ifHasKeyReturnString(obj, "name");
+		String descr = __ifHasKeyReturnString(obj, "description");
+		String comp_date = __ifHasKeyReturnString(obj, "comparable_date");
+		String pretty_date = __ifHasKeyReturnString(obj, "pretty_date");
 		
-		JSONArray arrchanges = obj.getJSONArray("changes");
+		JSONArray arrchanges = __ifHasKeyReturnArray(obj, "changes");
 		ArrayList<TaskState> changes = new ArrayList<>();
-		for (int i = 0; i < arrchanges.length(); ++i) {
-			JSONObject stobj = (JSONObject) arrchanges.get(i);
-			String cdate = __ifHasKeyReturnString(stobj, "comparable_date");
-			String pdate = __ifHasKeyReturnString(stobj, "pretty_date");
-			String reason = __ifHasKeyReturnString(stobj, "reason");
-			String state = __ifHasKeyReturnString(stobj, "state");
-			String author = __ifHasKeyReturnString(stobj, "author");
-			String pTN = __ifHasKeyReturnString(stobj, "pTN");
-			String nTN = __ifHasKeyReturnString(stobj, "nTN");
-			String pTD = __ifHasKeyReturnString(stobj, "pTD");
-			String nTD = __ifHasKeyReturnString(stobj, "nTD");
-			TaskState ts = new TaskState(
-				author, cdate, pdate, reason,
-				pTN, nTN, pTD, nTD,
-				TaskStateEnum.fromString(state)
-			);
-			changes.add(ts);
+		if (arrchanges != null) {
+			for (int i = 0; i < arrchanges.length(); ++i) {
+				JSONObject stobj = (JSONObject) arrchanges.get(i);
+				String cdate = __ifHasKeyReturnString(stobj, "comparable_date");
+				String pdate = __ifHasKeyReturnString(stobj, "pretty_date");
+				String reason = __ifHasKeyReturnString(stobj, "reason");
+				String state = __ifHasKeyReturnString(stobj, "state");
+				String author = __ifHasKeyReturnString(stobj, "author");
+				String pTN = __ifHasKeyReturnString(stobj, "pTN");
+				String nTN = __ifHasKeyReturnString(stobj, "nTN");
+				String pTD = __ifHasKeyReturnString(stobj, "pTD");
+				String nTD = __ifHasKeyReturnString(stobj, "nTD");
+				TaskState ts = new TaskState(
+					author, cdate, pdate, reason,
+					pTN, nTN, pTD, nTD,
+					TaskStateEnum.fromString(state)
+				);
+				changes.add(ts);
+			}
 		}
 		
 		String creator = changes.get(0).getAuthor();
