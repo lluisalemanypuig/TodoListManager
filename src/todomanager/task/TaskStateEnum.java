@@ -71,6 +71,9 @@ public enum TaskStateEnum {
 	public static ArrayList<TaskStateEnum> precondCurtask(TaskStateEnum s) {
 		ArrayList<TaskStateEnum> arr = new ArrayList<>();
 		switch (s) {
+			case Opened:
+				arr.add(TaskStateEnum.Done);
+				break;
 			case Done:
 				arr.add(TaskStateEnum.Working);
 				arr.add(TaskStateEnum.OnRevision);
@@ -104,14 +107,28 @@ public enum TaskStateEnum {
 	}
 	
 	/**
-	 * @brief The states a task's subtasks need to be in for the task to
-	 * be changed to state 's'.
+	 * @brief The states that the subtasks of a task need to be in for
+	 * the task to be changed to state 's'.
 	 * @param s A task state
 	 * @return Returns the preconditional states to state @e s.
 	 */
 	public static ArrayList<TaskStateEnum> precondAskStateChangeSubtasks(TaskStateEnum s) {
 		ArrayList<TaskStateEnum> arr = new ArrayList<>();
 		switch (s) {
+			case Opened:
+				// no preconditions, so add all stats
+				arr.add(TaskStateEnum.Opened);
+				arr.add(TaskStateEnum.Done);
+				arr.add(TaskStateEnum.Working);
+				arr.add(TaskStateEnum.PutOnHold);
+				arr.add(TaskStateEnum.Deleted);
+				arr.add(TaskStateEnum.Cancelled);
+				arr.add(TaskStateEnum.OnRevision);
+				arr.add(TaskStateEnum.PendingRevision);
+				arr.add(TaskStateEnum.Edited);
+				arr.add(TaskStateEnum.PriorityChanged);
+				arr.add(TaskStateEnum.AddedSubtask);
+				break;
 			case Done:
 				arr.add(TaskStateEnum.Done);
 				arr.add(TaskStateEnum.Cancelled);
@@ -160,6 +177,9 @@ public enum TaskStateEnum {
 	public static ArrayList<TaskStateEnum> precondStateChangeSubtasks(TaskStateEnum s) {
 		ArrayList<TaskStateEnum> arr = new ArrayList<>();
 		switch (s) {
+			case Opened:
+				// do not change
+				break;
 			case Done:
 				arr.add(TaskStateEnum.Done);
 				arr.add(TaskStateEnum.Cancelled);

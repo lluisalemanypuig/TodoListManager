@@ -77,6 +77,7 @@ public class Translate {
 	public String buttonTaskCancel;
 	public String buttonTaskDelete;
 	public String buttonTaskClear;
+	public String buttonTaskReopen;
 	
 	public String error_FileIsLocked1;
 	public String error_FileIsLocked2;
@@ -173,6 +174,7 @@ public class Translate {
 		buttonTaskCancel = main.getString("buttonTaskCancel");
 		buttonTaskDelete = main.getString("buttonTaskDelete");
 		buttonTaskClear = main.getString("buttonTaskClear");
+		buttonTaskReopen = main.getString("buttonTaskReopen");
 		
 		error_FileIsLocked1 = main.getString("error_FileIsLocked1");
 		error_FileIsLocked2 = main.getString("error_FileIsLocked2");

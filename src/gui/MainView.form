@@ -354,6 +354,8 @@
                               <Component id="buttonTaskOnRevision" min="-2" pref="130" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonTaskCancel" min="-2" pref="130" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonTaskReopen" min="-2" pref="131" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="buttonTaskWorking" min="-2" pref="130" max="-2" attributes="0"/>
@@ -375,6 +377,7 @@
                           <Component id="buttonTaskDone" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonTaskOnRevision" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonTaskCancel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonTaskReopen" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -465,6 +468,17 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonTaskClearMouseClicked"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonTaskReopen">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Re-open"/>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[55, 32]"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonTaskReopenMouseClicked"/>
               </Events>
             </Component>
           </SubComponents>

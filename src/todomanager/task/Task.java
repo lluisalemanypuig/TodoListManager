@@ -198,7 +198,7 @@ public class Task {
 	// -------------------------------------------------------------------------
 	
 	/**
-	 * Change the state of a task
+	 * @brief Change the state of a task.
 	 * @param author Author's name
 	 * @param cdate Comparable date
 	 * @param pdate Pretty date
@@ -229,7 +229,7 @@ public class Task {
 				return;
 			default:
 				// no change of name or description
-				addChangeState(author, cdate, pdate, why,null, null, null, null, s);
+				addChangeState(author, cdate, pdate, why, null, null, null, null, s);
 		}
 		
 		// in these cases, no more work to do

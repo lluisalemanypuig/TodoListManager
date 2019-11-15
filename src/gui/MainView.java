@@ -152,6 +152,7 @@ public class MainView extends javax.swing.JFrame {
         buttonTaskPendingRevision = new JButton();
         buttonTaskEdit = new JButton();
         buttonTaskClear = new JButton();
+        buttonTaskReopen = new JButton();
         jPanel1 = new JPanel();
         labelTaskState = new JLabel();
         textBoxTaskDate = new JTextField();
@@ -395,6 +396,14 @@ public class MainView extends javax.swing.JFrame {
             }
         });
 
+        buttonTaskReopen.setText("Re-open");
+        buttonTaskReopen.setMaximumSize(new Dimension(55, 32));
+        buttonTaskReopen.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                buttonTaskReopenMouseClicked(evt);
+            }
+        });
+
         GroupLayout jPanel5Layout = new GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -412,7 +421,9 @@ public class MainView extends javax.swing.JFrame {
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonTaskOnRevision, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonTaskCancel, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(buttonTaskCancel, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonTaskReopen, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(buttonTaskWorking, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
@@ -427,7 +438,8 @@ public class MainView extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonTaskDone)
                     .addComponent(buttonTaskOnRevision)
-                    .addComponent(buttonTaskCancel))
+                    .addComponent(buttonTaskCancel)
+                    .addComponent(buttonTaskReopen, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonTaskPendingRevision)
@@ -730,6 +742,7 @@ public class MainView extends javax.swing.JFrame {
 		buttonTaskCancel.setText(tr.buttonTaskCancel);
 		buttonTaskDelete.setText(tr.buttonTaskDelete);
 		buttonTaskClear.setText(tr.buttonTaskClear);
+		buttonTaskReopen.setText(tr.buttonTaskReopen);
 		
 		buttonOpenTasks.setText(tr.buttonOpenTasks);
 		buttonSaveTasks.setText(tr.buttonSaveTasks);
@@ -1575,6 +1588,10 @@ public class MainView extends javax.swing.JFrame {
         setChangesUnsaved();
     }//GEN-LAST:event_buttonRemoveTaskMouseClicked
 
+    private void buttonTaskReopenMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonTaskReopenMouseClicked
+        changeTaskState(TaskStateEnum.Opened, false);
+    }//GEN-LAST:event_buttonTaskReopenMouseClicked
+
 	/**
 	 * @param args the command line arguments
 	 */
@@ -1630,6 +1647,7 @@ public class MainView extends javax.swing.JFrame {
     private JButton buttonTaskHold;
     private JButton buttonTaskOnRevision;
     private JButton buttonTaskPendingRevision;
+    private JButton buttonTaskReopen;
     private JButton buttonTaskUp;
     private JButton buttonTaskWorking;
     private Box.Filler filler1;
