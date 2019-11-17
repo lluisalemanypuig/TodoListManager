@@ -318,4 +318,12 @@ public class TaskManager {
 		++numTasks;
 		return t;
 	}
+	
+	/** Deletes all tasks from the manager. */
+	public void clearTasks() {
+		numTasks = 0;
+		for (Task t : getHighPriorTasks()) { t.deleteSubtasks(); }
+		for (Task t : getMedPriorTasks()) { t.deleteSubtasks(); }
+		for (Task t : getLowPriorTasks()) { t.deleteSubtasks(); }
+	}
 }

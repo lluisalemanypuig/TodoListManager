@@ -34,6 +34,7 @@ import org.json.JSONObject;
 public class Translate {
 	
 	public String menuItemFile;
+	public String menuItemNewTaskFile;
 	public String menuItemOpenFile;
 	public String menuItemSaveTasks;
 	public String menuItemSaveTasksAs;
@@ -42,6 +43,7 @@ public class Translate {
 	public String menuItemHelp;
 	public String menuItemAbout;
 	
+	public String buttonNewTaskFile;
 	public String buttonOpenTasks;
 	public String buttonSaveTasks;
 	public String buttonSaveTasksAs;
@@ -131,6 +133,7 @@ public class Translate {
 		JSONObject main = new JSONObject(contents);
 		
 		menuItemFile = main.getString("menuItemFile");
+		menuItemNewTaskFile = main.getString("menuItemNewTaskFile");
 		menuItemOpenFile = main.getString("menuItemOpenFile");
 		menuItemSaveTasks = main.getString("menuItemSaveTasks");
 		menuItemSaveTasksAs = main.getString("menuItemSaveTasksAs");
@@ -139,6 +142,7 @@ public class Translate {
 		menuItemHelp = main.getString("menuItemHelp");
 		menuItemAbout = main.getString("menuItemAbout");
 	
+		buttonNewTaskFile = main.getString("buttonNewTaskFile");
 		buttonOpenTasks = main.getString("buttonOpenTasks");
 		buttonSaveTasks = main.getString("buttonSaveTasks");
 		buttonSaveTasksAs = main.getString("buttonSaveTasksAs");

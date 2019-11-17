@@ -129,6 +129,14 @@ public class Task {
 		return j != -1;
 	}
 	
+	public void deleteSubtasks() {
+		for (Task st : getSubtasks()) {
+			st.deleteSubtasks();
+			st = null;
+		}
+		subtasks.clear();
+	}
+	
 	public void constructParentRelationships() {
 		ArrayList<Task> list = getSubtasks();
 		list.stream().forEach((t) -> {

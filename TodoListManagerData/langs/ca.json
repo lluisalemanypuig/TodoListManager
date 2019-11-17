@@ -1,5 +1,6 @@
 {
 	"menuItemFile"				: "Arxiu",
+	"menuItemNewTaskFile"		: "Nou",
 	"menuItemOpenFile"			: "Obre",
 	"menuItemSaveTasks"			: "Desa",
 	"menuItemSaveTasksAs"		: "Desa com",
@@ -8,6 +9,7 @@
 	"menuItemHelp"				: "Ajuda",
 	"menuItemAbout"				: "Quant a",
 	
+	"buttonNewTaskFile"			: "Nou",
 	"buttonOpenTasks"			: "Obre",
 	"buttonSaveTasks"			: "Desa",
 	"buttonSaveTasksAs"			: "Desa com",

@@ -1,5 +1,6 @@
 {
 	"menuItemFile"				: "File",
+	"menuItemNewTaskFile"		: "New",
 	"menuItemOpenFile"			: "Open",
 	"menuItemSaveTasks"			: "Save",
 	"menuItemSaveTasksAs"		: "Save as",
@@ -8,6 +9,7 @@
 	"menuItemHelp"				: "Help",
 	"menuItemAbout"				: "About",
 	
+	"buttonNewTaskFile"			: "New",
 	"buttonOpenTasks"			: "Open",
 	"buttonSaveTasks"			: "Save",
 	"buttonSaveTasksAs"			: "Save as",

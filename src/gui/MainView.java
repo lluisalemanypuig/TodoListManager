@@ -57,6 +57,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.JTree;
 import javax.swing.LayoutStyle;
@@ -114,9 +115,8 @@ public class MainView extends javax.swing.JFrame {
 		CustomTreeCellRenderer renderer = new CustomTreeCellRenderer(14);
 		treeTasks.setCellRenderer(renderer);
 		
-		setChangesSaved();
-		
 		setTextToComponents();
+		setChangesSaved();
 	}
 
 	/**
@@ -171,6 +171,7 @@ public class MainView extends javax.swing.JFrame {
         labelTaskAuthor = new JLabel();
         labelTaskStateText = new JLabel();
         jToolBar1 = new JToolBar();
+        buttonNewTaskFile = new JToggleButton();
         buttonOpenTasks = new JButton();
         buttonSaveTasks = new JButton();
         buttonSaveTasksAs = new JButton();
@@ -182,6 +183,7 @@ public class MainView extends javax.swing.JFrame {
         labelUnsavedChanges = new JLabel();
         jMenuBar1 = new JMenuBar();
         menuItemFile = new JMenu();
+        menuItemNewTaskFile = new JMenuItem();
         menuItemOpenFile = new JMenuItem();
         menuItemSaveTasks = new JMenuItem();
         menuItemSaveTasksAs = new JMenuItem();
@@ -575,6 +577,18 @@ public class MainView extends javax.swing.JFrame {
 
         jToolBar1.setFloatable(false);
 
+        buttonNewTaskFile.setText("New");
+        buttonNewTaskFile.setEnabled(false);
+        buttonNewTaskFile.setFocusable(false);
+        buttonNewTaskFile.setHorizontalTextPosition(SwingConstants.CENTER);
+        buttonNewTaskFile.setVerticalTextPosition(SwingConstants.BOTTOM);
+        buttonNewTaskFile.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                buttonNewTaskFileMouseClicked(evt);
+            }
+        });
+        jToolBar1.add(buttonNewTaskFile);
+
         buttonOpenTasks.setText("Open");
         buttonOpenTasks.setFocusable(false);
         buttonOpenTasks.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -631,6 +645,14 @@ public class MainView extends javax.swing.JFrame {
         jToolBar1.add(labelUnsavedChanges);
 
         menuItemFile.setText("File");
+
+        menuItemNewTaskFile.setText("New");
+        menuItemNewTaskFile.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                menuItemNewTaskFileMousePressed(evt);
+            }
+        });
+        menuItemFile.add(menuItemNewTaskFile);
 
         menuItemOpenFile.setText("Open");
         menuItemOpenFile.addMouseListener(new MouseAdapter() {
@@ -716,6 +738,7 @@ public class MainView extends javax.swing.JFrame {
 		Translate tr = Translate.getInstance();
 		
 		menuItemFile.setText(tr.menuItemFile);
+		menuItemNewTaskFile.setText(tr.menuItemNewTaskFile);
 		menuItemOpenFile.setText(tr.menuItemOpenFile);
 		menuItemSaveTasks.setText(tr.menuItemSaveTasks);
 		menuItemSaveTasksAs.setText(tr.menuItemSaveTasksAs);
@@ -744,6 +767,7 @@ public class MainView extends javax.swing.JFrame {
 		buttonTaskClear.setText(tr.buttonTaskClear);
 		buttonTaskReopen.setText(tr.buttonTaskReopen);
 		
+		buttonNewTaskFile.setText(tr.buttonNewTaskFile);
 		buttonOpenTasks.setText(tr.buttonOpenTasks);
 		buttonSaveTasks.setText(tr.buttonSaveTasks);
 		buttonSaveTasksAs.setText(tr.buttonSaveTasksAs);
@@ -788,6 +812,7 @@ public class MainView extends javax.swing.JFrame {
 		if (lockFile != null) {
 			log.info("Delete lock file '" + lockFileName + "'");
 			lockFile.delete();
+			lockFileName = "";
 		}
 	}
 	
@@ -840,6 +865,9 @@ public class MainView extends javax.swing.JFrame {
 		changesSaved = false;
 		Translate tr = Translate.getInstance();
 		labelUnsavedChanges.setText(tr.labelUnsavedChanges);
+		
+		menuItemNewTaskFile.setEnabled(true);
+		buttonNewTaskFile.setEnabled(true);
 		
 		TaskManager tm = TaskManager.getInstance();
 		if (!tm.getTaskFile().equals("")) {
@@ -1002,7 +1030,7 @@ public class MainView extends javax.swing.JFrame {
 		setChangesSaved();
 	}
 	
-	// assuming there are unsaved changes...
+	/** assuming there are unsaved changes... */
 	private void promptSaveChanges() {
 		String task_file = TaskManager.getInstance().getTaskFile();
 		boolean save_as = false;
@@ -1030,13 +1058,40 @@ public class MainView extends javax.swing.JFrame {
 			return;
 		}
 		
-		log.info("User wants to save changes");
+		log.info("User wants to save changes...");
 		if (save_as) {
-			log.info("Need a file");
+			log.info("   need a file");
 			saveChangesAs();
 			return;
 		}
 		overwriteChanges();
+	}
+	
+	private void clearContentsAndFile() {
+		log.info("About to clear the current created/loaded tasks");
+		
+		if (!areChangesSaved()) {
+			log.info("There are changes to be saved: should they be saved?");
+			promptSaveChanges();
+		}
+		deleteLockFile();
+		setChangesSaved();
+		menuItemNewTaskFile.setEnabled(false);
+		buttonNewTaskFile.setEnabled(false);
+		// clear contents of the task manager
+		TaskManager tm = TaskManager.getInstance();
+		tm.setTaskFile("");
+		tm.clearTasks();
+
+		// clear contents of the interface
+		clearBoxesTask();
+		DefaultMutableTreeNode root = (DefaultMutableTreeNode) treeModel.getRoot();
+		assert(root.getChildCount() == 3);
+		for (int i = 0; i < 3; ++i) {
+			DefaultMutableTreeNode prior_node = (DefaultMutableTreeNode) root.getChildAt(i);
+			prior_node.removeAllChildren();
+		}
+		treeModel.reload();
 	}
 	
 	private String getPriority(DefaultMutableTreeNode n) {
@@ -1583,6 +1638,7 @@ public class MainView extends javax.swing.JFrame {
         
         DefaultMutableTreeNode par_sel
         = (DefaultMutableTreeNode) treeTasks.getLastSelectedPathComponent();
+		
         treeModel.removeNodeFromParent(sel);
         treeModel.reload(par_sel);
         setChangesUnsaved();
@@ -1591,6 +1647,18 @@ public class MainView extends javax.swing.JFrame {
     private void buttonTaskReopenMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonTaskReopenMouseClicked
         changeTaskState(TaskStateEnum.Opened, false);
     }//GEN-LAST:event_buttonTaskReopenMouseClicked
+
+    private void buttonNewTaskFileMouseClicked(MouseEvent evt) {//GEN-FIRST:event_buttonNewTaskFileMouseClicked
+        if (buttonNewTaskFile.isEnabled()) {
+			clearContentsAndFile();
+		}
+    }//GEN-LAST:event_buttonNewTaskFileMouseClicked
+
+    private void menuItemNewTaskFileMousePressed(MouseEvent evt) {//GEN-FIRST:event_menuItemNewTaskFileMousePressed
+        if (menuItemNewTaskFile.isEnabled()) {
+			clearContentsAndFile();
+		}
+    }//GEN-LAST:event_menuItemNewTaskFileMousePressed
 
 	/**
 	 * @param args the command line arguments
@@ -1632,6 +1700,7 @@ public class MainView extends javax.swing.JFrame {
     private JButton buttonHideAll;
     private JButton buttonIncrPriority;
     private JButton buttonNewTask;
+    private JToggleButton buttonNewTaskFile;
     private JButton buttonOpenTasks;
     private JButton buttonRemoveTask;
     private JButton buttonSaveTasks;
@@ -1679,6 +1748,7 @@ public class MainView extends javax.swing.JFrame {
     private JMenuItem menuItemExit;
     private JMenu menuItemFile;
     private JMenu menuItemHelp;
+    private JMenuItem menuItemNewTaskFile;
     private JMenuItem menuItemOpenFile;
     private JMenuItem menuItemSaveTasks;
     private JMenuItem menuItemSaveTasksAs;
