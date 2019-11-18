@@ -113,6 +113,7 @@ public class TaskManager {
 	
 	private Task fromJSONtoTask(JSONObject obj) {
 		String id = __ifHasKeyReturnString(obj, "id");
+		
 		String name = __ifHasKeyReturnString(obj, "name");
 		String descr = __ifHasKeyReturnString(obj, "description");
 		String comp_date = __ifHasKeyReturnString(obj, "comparable_date");
@@ -145,13 +146,23 @@ public class TaskManager {
 		Task t = new Task(creator, id, name, descr, comp_date, pretty_date);
 		t.hardSetChanges(changes);
 		
+		int maxId = -1;
+		
 		JSONArray arrtasks = obj.getJSONArray("subtasks");
 		ArrayList<Task> subtasks = new ArrayList<>();
 		for (int i = 0; i < arrtasks.length(); ++i) {
-			subtasks.add(fromJSONtoTask( (JSONObject) arrtasks.get(i) ));
+			Task st = fromJSONtoTask( (JSONObject) arrtasks.get(i) );
+			st.setParent(t);
+			subtasks.add(st);
+			
+			Integer stId = Integer.valueOf(st.getId());
+			maxId = (maxId < stId ? stId : maxId);
 		}
 		t.hardSetSubtasks(subtasks);
-		numTasks += subtasks.size();
+		
+		int thisTaskId = Integer.valueOf(t.getId());
+		maxId = (maxId < thisTaskId ? thisTaskId : maxId);
+		numTasks = (numTasks < maxId ? maxId : numTasks);
 		return t;
 	}
 	private void parseTasks(JSONArray arr, ArrayList<Task> tasks) {
@@ -159,7 +170,7 @@ public class TaskManager {
 			Task t = fromJSONtoTask((JSONObject) arr.get(i));
 			tasks.add(t);
 		}
-		numTasks += tasks.size();
+		
 	}
 	public boolean readTasks() {
 		log.info("Reading tasks from file '" + tasksFile + "'");
@@ -174,7 +185,7 @@ public class TaskManager {
 		highPriorTasks.clear();
 		medPriorTasks.clear();
 		lowPriorTasks.clear();
-		numTasks = 0;
+		numTasks = -1;
 		
 		// main JSON object
 		JSONObject main = new JSONObject(lines_file);
@@ -187,10 +198,12 @@ public class TaskManager {
 		parseTasks(med, medPriorTasks);
 		parseTasks(high, highPriorTasks);
 		
+		log.info("    Maximum id found in file: " + numTasks);
+		
 		// set the parent of each task appropriately
-		lowPriorTasks.forEach((t) -> { t.constructParentRelationships(); });
-		medPriorTasks.forEach((t) -> { t.constructParentRelationships(); });
-		highPriorTasks.forEach((t) -> { t.constructParentRelationships(); });
+		//lowPriorTasks.forEach((t) -> { t.constructParentRelationships(); });
+		//medPriorTasks.forEach((t) -> { t.constructParentRelationships(); });
+		//highPriorTasks.forEach((t) -> { t.constructParentRelationships(); });
 		
 		log.info("File '" + tasksFile + "' read successfully.");
 		return true;
