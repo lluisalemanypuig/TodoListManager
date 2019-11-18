@@ -132,7 +132,6 @@ public class Task {
 	public void deleteSubtasks() {
 		for (Task st : getSubtasks()) {
 			st.deleteSubtasks();
-			st = null;
 		}
 		subtasks.clear();
 	}
