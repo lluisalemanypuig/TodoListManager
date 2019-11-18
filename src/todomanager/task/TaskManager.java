@@ -52,10 +52,10 @@ public class TaskManager {
 	private final ArrayList<Task> highPriorTasks;
 	private final ArrayList<Task> medPriorTasks;
 	private final ArrayList<Task> lowPriorTasks;
-	private Integer numTasks;
+	private Integer maximumID;
 	
 	private String makeId() {
-		String id = Integer.toString(numTasks);
+		String id = Integer.toString(maximumID);
 		int n_zeros = 6 - id.length();
 		return (new String(new char[n_zeros]).replace('\0', '0')) + id;
 	}
@@ -88,7 +88,7 @@ public class TaskManager {
 		highPriorTasks = new ArrayList<>();
 		medPriorTasks = new ArrayList<>();
 		lowPriorTasks = new ArrayList<>();
-		numTasks = 0;
+		maximumID = 0;
 	}
 	
 	public static TaskManager getInstance() {
@@ -162,7 +162,7 @@ public class TaskManager {
 		
 		int thisTaskId = Integer.valueOf(t.getId());
 		maxId = (maxId < thisTaskId ? thisTaskId : maxId);
-		numTasks = (numTasks < maxId ? maxId : numTasks);
+		maximumID = (maximumID < maxId ? maxId : maximumID);
 		return t;
 	}
 	private void parseTasks(JSONArray arr, ArrayList<Task> tasks) {
@@ -185,7 +185,7 @@ public class TaskManager {
 		highPriorTasks.clear();
 		medPriorTasks.clear();
 		lowPriorTasks.clear();
-		numTasks = -1;
+		maximumID = -1;
 		
 		// main JSON object
 		JSONObject main = new JSONObject(lines_file);
@@ -198,7 +198,8 @@ public class TaskManager {
 		parseTasks(med, medPriorTasks);
 		parseTasks(high, highPriorTasks);
 		
-		log.info("    Maximum id found in file: " + numTasks);
+		log.info("    Maximum id found in file: " + maximumID);
+		maximumID += 1;
 		
 		// set the parent of each task appropriately
 		//lowPriorTasks.forEach((t) -> { t.constructParentRelationships(); });
@@ -328,13 +329,13 @@ public class TaskManager {
 			taskName, taskDescr,
 			Tools.getComparableDate(), Tools.getPrettyDate()
 		);
-		++numTasks;
+		++maximumID;
 		return t;
 	}
 	
 	/** Deletes all tasks from the manager. */
 	public void clearTasks() {
-		numTasks = 0;
+		maximumID = 0;
 		for (Task t : getHighPriorTasks()) { t.deleteSubtasks(); }
 		for (Task t : getMedPriorTasks()) { t.deleteSubtasks(); }
 		for (Task t : getLowPriorTasks()) { t.deleteSubtasks(); }
