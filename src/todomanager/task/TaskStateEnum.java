@@ -26,6 +26,7 @@
 package todomanager.task;
 
 import java.util.ArrayList;
+import todomanager.util.Translate;
 
 /**
  * @brief The different states a task can be in.
@@ -44,6 +45,25 @@ public enum TaskStateEnum {
 	Edited,				// The name and or the description were edited
 	PriorityChanged,	// The task priority changed
 	AddedSubtask;		// A subtask was added// A subtask was added
+	
+	public static String translateState(TaskStateEnum e) {
+		Translate tr = Translate.getInstance();
+		switch (e) {
+			case Opened: return tr.state_Opened;
+			case Done: return tr.state_Done;
+			case Working: return tr.state_Working;
+			case PutOnHold: return tr.state_PutOnHold;
+			case Deleted: return tr.state_Deleted;
+			case Cancelled: return tr.state_Cancelled;
+			case OnRevision: return tr.state_OnRevision;
+			case PendingRevision: return tr.state_PendingRevision;
+			case Edited: return tr.state_Edited;
+			case PriorityChanged: return tr.state_PriorityChanged;
+			case AddedSubtask: return tr.state_AddedSubtask;
+		}
+		// should never happen
+		return "**ERROR**";
+	}
 	
 	public static TaskStateEnum fromString(String s) {
 		switch (s) {

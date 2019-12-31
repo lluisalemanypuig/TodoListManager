@@ -946,9 +946,9 @@ public class MainView extends javax.swing.JFrame {
 		log.info("Checking whether file '" + newFileName + "' is locked...");
 		if (Tools.fileExists(Tools.getLockFileName(newFileName))) {
 			Translate tr = Translate.getInstance();
-			String msg1 = tr.error_FileIsLocked1;
-			String msg2 = tr.error_FileIsLocked1;
-			issueErrorMsg(msg1 + " '" + newFileName + "' " + msg2 + ".");
+			String msg = tr.error_FileIsLocked;
+			msg = msg.replace("%s1", newFileName);
+			issueErrorMsg(msg);
 			return;
 		}
 		log.info("    File is not locked.");
@@ -970,7 +970,9 @@ public class MainView extends javax.swing.JFrame {
 		log.info("Opening file '" + newFileName + "'.");
 		tm.setTaskFile(newFileName);
 		if (!tm.readTasks()) {
-			issueErrorMsg(Translate.getInstance().error_CouldNotOpenFile + " '" + newFileName + "'.");
+			String msg = Translate.getInstance().error_CouldNotOpenFile;
+			msg = msg.replace("%s1", newFileName);
+			issueErrorMsg(msg);
 			return;
 		}
 		
@@ -1400,9 +1402,10 @@ public class MainView extends javax.swing.JFrame {
 		String r = t.askChangeState(s);
 		if (!r.equals("")) {
 			Translate tr = Translate.getInstance();
-			String msg1 = tr.getInstance().error_CantChangeTaskState1;
-			String msg2 = tr.getInstance().error_CantChangeTaskState2;
-			issueErrorMsg(msg1 + " (id: " + t.getId() + ") " + msg2 + ": " + r);
+			String msg = tr.getInstance().error_CantChangeTaskState;
+			msg = msg.replace("%s1", t.getId());
+			msg = msg.replace("%s2", r);
+			issueErrorMsg(msg);
 			return;
 		}
 		String reason = null;

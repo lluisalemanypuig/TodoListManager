@@ -26,6 +26,7 @@
 package todomanager.task;
 
 import todomanager.util.SystemInfo;
+import todomanager.util.Translate;
 
 /**
  * @brief Class to represent a task's state.
@@ -92,47 +93,47 @@ public class TaskState {
 	public String getPreviousTaskDescription() { return prevTaskDescr; }
 	public String getNextTaskDescription() { return nextTaskDescr; }
 	
-	
 	@Override
 	public String toString() {
 		String nL = SystemInfo.getInstance().newLine;
-		String s = "";
+		Translate tr = Translate.getInstance();
 		
-		s += "On " + getPrettyDate() + nL;
+		String msg = tr.stateChange_Date;
+		msg = msg.replace("%s1", getPrettyDate()) + nL;
 		
 		switch (getState()) {
 			case Edited:
-				s += "    " + getAuthor() + " edited the task." + nL;
+				msg += "    " + tr.stateChange_Edited.replace("%s1", getAuthor()) + nL;
 				break;
 			case PriorityChanged:
-				s += "    " + getAuthor() + " changed the task's priority." + nL;
+				msg += "    " + tr.stateChange_PriorChanged.replace("%s1", getAuthor()) + nL;
 				break;
 			case AddedSubtask:
-				s += "    " + getAuthor() + " added subtask: " + getReason() + "." + nL;
+				msg += "    " + tr.stateChange_AddedSubtask.replace("%s1", getAuthor()) + nL;
 				break;
 			case Opened:
-				s += "    The task was opened by: ";
+				msg += "    " + tr.stateChange_Opened.replace("%s1", getAuthor()) + nL;
 				break;
 			case Working:
-				s += "    The person working on it is: ";
+				msg += "    " + tr.stateChange_Working.replace("%s1", getAuthor()) + nL;
 				break;
 			case Deleted:
-				s += "    The task was deleted by: ";
+				msg += "    " + tr.stateChange_Deleted.replace("%s1", getAuthor()) + nL;
 				break;
 			case PutOnHold:
-				s += "    The task was put on hold by: ";
+				msg += "    " + tr.stateChange_PutOnHold.replace("%s1", getAuthor()) + nL;
 				break;
 			case Cancelled:
-				s += "    The task was cancelled by: ";
+				msg += "    " + tr.stateChange_Cancelled.replace("%s1", getAuthor()) + nL;
 				break;
 			case OnRevision:
-				s += "    The task is being revised by: ";
+				msg += "    " + tr.stateChange_OnRevision.replace("%s1", getAuthor()) + nL;
 				break;
 			case PendingRevision:
-				s += "    The task needs revision according to: ";
+				msg += "    " + tr.stateChange_PendingRevision.replace("%s1", getAuthor()) + nL;
 				break;
 			case Done:
-				s += "    The task was completed by: ";
+				msg += "    " + tr.stateChange_Done.replace("%s1", getAuthor()) + nL;
 				break;
 		}
 		
@@ -145,8 +146,9 @@ public class TaskState {
 			case OnRevision:
 			case PendingRevision:
 			case Done:
-				s += getAuthor() + nL;
-				s += "    State of task set to: " + getState() + nL;
+				String stateTranslated = TaskStateEnum.translateState(getState());
+				msg += "    " +
+					tr.stateChange_StateSetTo.replace("%s1", stateTranslated) + nL;
 		}
 		
 		switch (getState()) {
@@ -154,9 +156,9 @@ public class TaskState {
 			case PutOnHold:
 			case Cancelled:
 			case PendingRevision:
-				s += "    Reason: " + getReason() + nL;
+				msg += "    " + tr.stateChange_Reason.replace("%s1", getReason()) + nL;
 		}
-		s += nL;
-		return s;
+		msg += nL;
+		return msg;
 	}
 }

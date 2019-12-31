@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import todomanager.util.SystemInfo;
 import todomanager.util.Tools;
 import todomanager.util.Logger;
+import todomanager.util.Translate;
 
 /**
  * @brief Class implementing a task.
@@ -176,6 +177,7 @@ public class Task {
 				return "";
 		}
 		
+		Translate tr = Translate.getInstance();
 		SystemInfo sysinfo = SystemInfo.getInstance();
 		Logger log = Logger.getInstance();
 		
@@ -183,20 +185,38 @@ public class Task {
 		ArrayList<TaskStateEnum> sub_level = TaskStateEnum.precondAskStateChangeSubtasks(s);
 		
 		if (!isOneOfState(cur_level)) {
-			String r = "The state of task " + getId() + " is none of: " + cur_level;
-			r += ". Its state is: " + currentState().getState() + "." + sysinfo.newLine;
-			log.warning(r);
-			return r;
+			// translate current level states' names
+			ArrayList<String> cur_level_trans = new ArrayList<String>();
+			cur_level.forEach((e) -> {
+				cur_level_trans.add(TaskStateEnum.translateState(e));
+			});
+			String cur_state_trans = TaskStateEnum.translateState(currentState().getState());
+			
+			String msg = tr.error_TaskStateNoneOf;
+			msg = msg.replace("%s1", getId());
+			msg = msg.replace("%s2", cur_level_trans.toString());
+			msg = msg.replace("%s3", cur_state_trans);
+			msg += sysinfo.newLine;
+			log.warning(msg);
+			return msg;
 		}
 		
 		String reason = "";
 		for (Task t : subtasks) {
 			if (!t.isOneOfState(sub_level)) {
-				String r = 
-					"Task " + t.getId() + " (subtask of " + getId() + "), " +
-					"is not in any of the states: " + sub_level + sysinfo.newLine;
-				reason += r;
-				log.warning(r);
+				// translate sub level states' names
+				ArrayList<String> sub_level_trans = new ArrayList<String>();
+				sub_level.forEach((e) -> {
+					sub_level_trans.add(TaskStateEnum.translateState(e));
+				});
+				
+				String msg = tr.error_SubtaskStateNoneOf;
+				msg = msg.replace("%s1", t.getId());
+				msg = msg.replace("%s2", getId());
+				msg = msg.replace("%s3", sub_level_trans.toString());
+				msg += sysinfo.newLine;
+				reason += msg;
+				log.warning(msg);
 			}
 		}
 		return reason;
@@ -297,7 +317,7 @@ public class Task {
 				t.getCreator(),
 				t.getCompDate(),
 				t.getPrettyDate(),
-				"A subtask was added.",
+				Translate.getInstance().change_SubtaskAdded,
 				null, null, null, null,
 				TaskStateEnum.Opened
 			);

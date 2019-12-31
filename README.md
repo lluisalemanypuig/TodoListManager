@@ -10,9 +10,10 @@ The tasks are saved in a JSON-formatted file. The library used to read and write
 
 ## Languages
 
-It is our intention to translate this software into as many languages as we can. TodoListManager has been translated into:
+It is our intention to translate this software into as many languages as we can. TodoListManager has been fully translated into:
 
-- Catalan (29th October 2019 -- only interface)
+- Catalan
+- English
 
 ## Execute
 
@@ -34,7 +35,7 @@ where _PATH_ is a path to (most likely) the user directory. The directory _TodoL
 
 2. The program is buggy... When will you fix it?
 
-	Developing a software like this one is quite a time-consuming task. Every feature added has to be tested always taking into account that many other features' behaviour might have been affected. This means that bugs could happen. Yes, I will be very happy to fix them, but I need to know where are these bugs. Please, report the bug [here](https://github.com/lluisalemanypuig/TodoListManager/issues/new/choose).
+	Developing a software like this one is quite a time-consuming task. Every feature added has to be tested always taking into account that many other features' behaviour might have been affected. This means that bugs could happen. Yes, I will be very happy to fix them, but I need to know where these bugs are. Please, report the bug [here](https://github.com/lluisalemanypuig/TodoListManager/issues/new/choose).
 
 ## Sample
 
