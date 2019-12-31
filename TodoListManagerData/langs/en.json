@@ -8,6 +8,7 @@
 	
 	"menuItemHelp"				: "Help",
 	"menuItemAbout"				: "About",
+	"menuItemTranslations"		: "Translations",
 	
 	"buttonNewTaskFile"			: "New",
 	"buttonOpenTasks"			: "Open",
@@ -106,6 +107,8 @@
 	"dialogtitle_CreateNewTask"			: "Create a new task",
 	"dialogtitle_EditTask"				: "Edit an already exiting task",
 	"dialogtitle_About"					: "About",
+	
+	"dialogtitle_Translations"			: "Translations",
 	
 	"inputdialog_EnterAuthorName"		: "Write your name",
 	

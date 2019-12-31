@@ -42,6 +42,7 @@ public class Translate {
 	
 	public String menuItemHelp;
 	public String menuItemAbout;
+	public String menuItemTranslations;
 	
 	public String buttonNewTaskFile;
 	public String buttonOpenTasks;
@@ -140,6 +141,7 @@ public class Translate {
 	public String dialogtitle_CreateNewTask;
 	public String dialogtitle_EditTask;
 	public String dialogtitle_About;
+	public String dialogtitle_Translations;
 	
 	public String inputdialog_EnterAuthorName;
 	
@@ -171,6 +173,7 @@ public class Translate {
 		
 		menuItemHelp = main.getString("menuItemHelp");
 		menuItemAbout = main.getString("menuItemAbout");
+		menuItemTranslations = main.getString("menuItemTranslations");
 	
 		buttonNewTaskFile = main.getString("buttonNewTaskFile");
 		buttonOpenTasks = main.getString("buttonOpenTasks");
@@ -269,6 +272,7 @@ public class Translate {
 		dialogtitle_CreateNewTask = main.getString("dialogtitle_CreateNewTask");
 		dialogtitle_EditTask = main.getString("dialogtitle_EditTask");
 		dialogtitle_About = main.getString("dialogtitle_About");
+		dialogtitle_Translations = main.getString("dialogtitle_Translations");
 		
 		inputdialog_EnterAuthorName = main.getString("inputdialog_EnterAuthorName");
 		

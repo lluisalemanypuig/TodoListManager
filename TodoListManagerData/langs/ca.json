@@ -8,6 +8,7 @@
 	
 	"menuItemHelp"				: "Ajuda",
 	"menuItemAbout"				: "Quant a",
+	"menuItemTranslations"		: "Traduccions",
 	
 	"buttonNewTaskFile"			: "Nou",
 	"buttonOpenTasks"			: "Obre",
@@ -107,6 +108,8 @@
 	"dialogtitle_CreateNewTask"			: "Crea una nova tasca",
 	"dialogtitle_EditTask"				: "Edita una tasca ja existent",
 	"dialogtitle_About"					: "Quant a",
+	
+	"dialogtitle_Translations"			: "Traduccions",
 	
 	"inputdialog_EnterAuthorName"		: "Escriu el teu nom",
 	

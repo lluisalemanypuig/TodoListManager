@@ -190,6 +190,7 @@ public class MainView extends javax.swing.JFrame {
         jSeparator1 = new JPopupMenu.Separator();
         menuItemExit = new JMenuItem();
         menuItemHelp = new JMenu();
+        menuItemTranslations = new JMenuItem();
         menuItemAbout = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -692,6 +693,14 @@ public class MainView extends javax.swing.JFrame {
 
         menuItemHelp.setText("Help");
 
+        menuItemTranslations.setText("Translations");
+        menuItemTranslations.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
+                menuItemTranslationsMousePressed(evt);
+            }
+        });
+        menuItemHelp.add(menuItemTranslations);
+
         menuItemAbout.setText("About");
         menuItemAbout.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent evt) {
@@ -746,6 +755,7 @@ public class MainView extends javax.swing.JFrame {
 		
 		menuItemHelp.setText(tr.menuItemHelp);
 		menuItemAbout.setText(tr.menuItemAbout);
+		menuItemTranslations.setText(tr.menuItemTranslations);
 		
 		buttonNewTask.setText(tr.buttonNewTask);
 		buttonRemoveTask.setText(tr.buttonRemove);
@@ -1663,6 +1673,15 @@ public class MainView extends javax.swing.JFrame {
 		}
     }//GEN-LAST:event_menuItemNewTaskFileMousePressed
 
+    private void menuItemTranslationsMousePressed(MouseEvent evt) {//GEN-FIRST:event_menuItemTranslationsMousePressed
+        GUITranslations paneTr = new GUITranslations();
+		JDialog dialogTr = new JDialog(this, Translate.getInstance().dialogtitle_Translations);
+		dialogTr.add(paneTr);
+		dialogTr.setSize(650, 300);
+		dialogTr.setResizable(false);
+		dialogTr.setVisible(true);
+    }//GEN-LAST:event_menuItemTranslationsMousePressed
+
 	/**
 	 * @param args the command line arguments
 	 */
@@ -1755,6 +1774,7 @@ public class MainView extends javax.swing.JFrame {
     private JMenuItem menuItemOpenFile;
     private JMenuItem menuItemSaveTasks;
     private JMenuItem menuItemSaveTasksAs;
+    private JMenuItem menuItemTranslations;
     private JTextArea textAreaTaskChanges;
     private JTextArea textAreaTaskDescription;
     private JTextField textBoxError;
