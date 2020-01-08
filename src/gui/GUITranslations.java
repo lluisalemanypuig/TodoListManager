@@ -53,7 +53,7 @@ public class GUITranslations extends javax.swing.JPanel {
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText("Català\t\tLluís Alemany Puig\tlluis.alemany.puig@gmail.com\nEnglish\t\tLluís Alemany Puig\tlluis.alemany.puig@gmail.com");
+        jTextArea1.setText("Català\t\tLluís Alemany Puig\tlluis.alemany.puig@gmail.com\nEnglish\t\tLluís Alemany Puig\tlluis.alemany.puig@gmail.com\nCastellano\t\tLluís Alemany Puig\tlluis.alemany.puig@gmail.com");
         jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

@@ -293,7 +293,7 @@ public class Translate {
 	private static Translate instance = null;
 	private Translate() {
 		SystemInfo sysinfo = SystemInfo.getInstance();
-		readLanguageFile(sysinfo.langFile_path);
+		readLanguageFile(sysinfo.langFilePath);
 	}
 	
 	public static Translate getInstance() {

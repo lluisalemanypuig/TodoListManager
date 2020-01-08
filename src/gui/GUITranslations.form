@@ -46,7 +46,7 @@
             <Property name="editable" type="boolean" value="false"/>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="Catal&#xe0;&#x9;&#x9;Llu&#xed;s Alemany Puig&#x9;lluis.alemany.puig@gmail.com&#xa;English&#x9;&#x9;Llu&#xed;s Alemany Puig&#x9;lluis.alemany.puig@gmail.com"/>
+            <Property name="text" type="java.lang.String" value="Catal&#xe0;&#x9;&#x9;Llu&#xed;s Alemany Puig&#x9;lluis.alemany.puig@gmail.com&#xa;English&#x9;&#x9;Llu&#xed;s Alemany Puig&#x9;lluis.alemany.puig@gmail.com&#xa;Castellano&#x9;&#x9;Llu&#xed;s Alemany Puig&#x9;lluis.alemany.puig@gmail.com"/>
           </Properties>
         </Component>
       </SubComponents>

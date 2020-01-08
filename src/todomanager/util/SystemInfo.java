@@ -39,22 +39,12 @@ public class SystemInfo {
 	public String langRaw;
 	/** Name of the OS. */
 	public String OS;
-	/**
-	 * @brief Order of the Verb, Subject and Object
-	 * 
-	 * Valid values:
-	 * - VSO (Ate Sam oranges). Languages: ?
-	 * - SOV (Same oranges ate). Languages: Hindi, Japanese, ...
-	 * - SVO (Same ate oranges). Languages: Catalan, English, Mandarin, Spanish, ...
-	 * https://en.wikipedia.org/wiki/Verb%E2%80%93subject%E2%80%93object
-	 */
-	public String order_VSO;
 	/** New line character (OS-dependent). */
 	public String newLine;
 	/** User directory. */
 	public String userDir;
 	/** The file containing the translations. */
-	public String langFile_path;
+	public String langFilePath;
 	
 	private final void extractOSInfo() {
 		// What OS are we running on?
@@ -84,27 +74,22 @@ public class SystemInfo {
 		userDir = System.getProperty("user.dir");
 		
 		// file containing the translations
-		langFile_path = System.getProperty("user.dir") + "/TodoListManagerData/langs/";
+		langFilePath = System.getProperty("user.dir") + "/TodoListManagerData/langs/";
 		switch (langRaw) {
-			case "en":	langFile_path += "en.json"; break;
-			case "ca":	langFile_path += "ca.json"; break;
-			//case "es":	langFile += "es.json"; break;
+			// English
+			case "en":	langFilePath += "en.json"; break;
+			// Catalan
+			case "ca-ES":
+			case "ca":	langFilePath += "ca.json"; break;
+			// Spanish
+			case "es":	langFilePath += "es.json"; break;
 			default:
 				log.warning("Language '" + langRaw + "' not supported. Using English.");
-				langFile_path += "en.json";
+				langFilePath += "en.json";
 		}
 		
-		// determine VSO order
-		switch (langRaw) {
-			case "ca":
-			case "en":
-			//case "es":
-				order_VSO = "SVO";
-				break;
-			default:
-				log.warning("Do not know the Verb-Subject-Object order for language '" + langRaw + "'. Using English.");
-				order_VSO = "?";
-		}
+		langFilePath = System.getProperty("user.dir") + "/TodoListManagerData/langs/";
+		langFilePath += "es.json";
 	}
 	
 	private SystemInfo() {

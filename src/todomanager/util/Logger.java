@@ -92,7 +92,6 @@ public class Logger {
 		info("    Program executed from path: " + sysinfo.userDir);
 		info("    Operative System: " + sysinfo.OS);
 		info("    Language: " + sysinfo.langRaw);
-		info("    Subject-Verb-Object: " + sysinfo.order_VSO);
 		return this;
 	}
 	
