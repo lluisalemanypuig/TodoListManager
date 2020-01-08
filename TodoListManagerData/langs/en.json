@@ -45,7 +45,7 @@
 	"buttonTaskEdit"			: "Edit task",
 	"buttonTaskCancel"			: "Cancel",
 	"buttonTaskDelete"			: "Delete",
-	"buttonTaskClear"			: "Cancel",
+	"buttonTaskClear"			: "Clear",
 	"buttonTaskReopen"			: "Re-open",
 	
 	"error_FileIsLocked"				: "The file %s1 is locked.",
@@ -62,14 +62,14 @@
 	"error_SubtaskStateNoneOf"			: "Task %s1 (subtask of %s2) is not in any of the states: %s3.",
 	
 	"warning_AuthorNameNotSet"			: "Author name has not been set.",
-	"warning_CantDeleteRootHighMedLow"	: "You can't delete the root node or the high/med/low nodes",
+	"warning_CantDeleteRootHighMedLow"	: "You can't delete the root node or the priority nodes.",
 	"warning_CantAddTask"				: "You can't add a task if no priority/task is selected.",
 	"warning_CantMoveRootHighMedLow"	: "You can't move the root high/med/low nodes.",
 	"warning_CantIncreasePriority"		: "You can't increase the priority of a task with highest priority.",
 	"warning_CantDecreasePriority"		: "You can't decrease the priority of a task with lowest priority.",
 	"warning_CantChangeTaskPriority"	: "You can't change a subtask's priority.",
 	
-	"change_SubtaskAdded"				: "A subtask was added",
+	"change_SubtaskAdded"				: "A subtask was added.",
 	
 	"stateChange_Date"				: "On %s1",
 	"stateChange_Edited"			: "%s1 edited the task.",
