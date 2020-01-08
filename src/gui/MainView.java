@@ -291,10 +291,10 @@ public class MainView extends javax.swing.JFrame {
                     .addComponent(buttonIncrPriority, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                     .addComponent(buttonDecrPriority, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonShowAll, GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                    .addComponent(buttonShowAll, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                     .addComponent(buttonHideAll, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
