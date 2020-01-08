@@ -87,9 +87,6 @@ public class SystemInfo {
 				log.warning("Language '" + langRaw + "' not supported. Using English.");
 				langFilePath += "en.json";
 		}
-		
-		langFilePath = System.getProperty("user.dir") + "/TodoListManagerData/langs/";
-		langFilePath += "es.json";
 	}
 	
 	private SystemInfo() {
