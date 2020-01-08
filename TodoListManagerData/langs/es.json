@@ -14,7 +14,7 @@
 	"buttonOpenTasks"			: "Abrir",
 	"buttonSaveTasks"			: "Guardar",
 	"buttonSaveTasksAs"			: "Guardar como",
-	"buttonSetAuthor"			: "Autor",
+	"buttonSetAuthor"			: "Entrar Autor",
 	"labelAuthorName"			: "Autor desconocido",
 	"labelUnsavedChanges"		: "Hay cambios sin guardar",
 	
